@@ -1,10 +1,19 @@
+require('dotenv').config()
 const mongoose = require('mongoose');
 const express = require("express");
 const ejs = require("ejs");
 var cors = require('cors');
 
 const app = express();
-mongoose.connect('mongodb://0.0.0.0:27017/mainDB', { useNewUrlParser: true });
+
+const dbClusterLink = process.env.DB_CLUSTER_LINK;
+const dbName = process.env.DB_NAME;
+const dbUser = process.env.DB_USER;
+const dbPassword = process.env.DB_PASSWORD;
+
+const dbConnectionLink = "mongodb+srv://" + dbUser + ":" + dbPassword + "@" + dbClusterLink + dbName;
+
+mongoose.connect(dbConnectionLink, { useNewUrlParser: true });
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
