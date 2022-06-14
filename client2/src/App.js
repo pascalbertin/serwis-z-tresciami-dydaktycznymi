@@ -2,6 +2,7 @@ import './App.css';
 import Form from './Form';
 import Home from './Home';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import Categries from './Categories';
 
 
 function App() {
@@ -11,8 +12,14 @@ function App() {
         <Home />
         <div className="content">
           <Switch>
-            <Route path="/">
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/form">
               <Form />
+            </Route>
+            <Route path="/categories">
+              <Categries />
             </Route>
           </Switch>
         </div>
