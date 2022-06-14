@@ -9,7 +9,7 @@ const FormSignup = ({submitForm}) => {
 
   return (
     <div className="form-container">
-        <form className="form" onSubmit={submitHandler}>
+        <form className="form" method="post" onSubmit={submitHandler}>
             <h1>Zarejestruj się i nauczaj w NAZWA FIRMY</h1>
             <div className="form-container-inputs">
                 <label htmlFor="username" className="form-label"></label>

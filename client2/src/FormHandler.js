@@ -33,7 +33,7 @@ const FormHandler = callback => {
 
     useEffect(() => {
         if(Object.keys(errors).length === 0 && isPositive) {
-            callback()
+            callback(true, values)
         }
     })
 
