@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 
 import science from './images/science1.jpg';
 import useStyles from './styles';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const classes = useStyles();
@@ -38,19 +39,25 @@ const Home = () => {
                 label='Szukaj kursów'
               />
             </div>
+          <a href='http://localhost:3000/categories'>
             <Button            
-            className={classes.title}              
-            onClick={handleOpen}>   Kategorie
-          </Button>
-          <Button            
-            className={classes.title}              
-            onClick={handleOpen}>   Zostań nauczycielem 
-          </Button>
-          <Button      
-            variant="contained" 
-            className={classes.titleSecondButton}              
-            onClick={handleOpen}>   Zacznij naukę 
-          </Button>
+              className={classes.title}              
+              onClick={handleOpen}>   Kategorie
+            </Button>
+          </a>
+          <a href='http://localhost:3000/form'>
+            <Button            
+              className={classes.title}              
+              onClick={handleOpen}>   Zostań nauczycielem 
+            </Button>
+          </a>
+          <a href='http://localhost:3000'>
+            <Button      
+              variant="contained" 
+              className={classes.titleSecondButton}              
+              onClick={handleOpen}>   Zacznij naukę 
+            </Button>
+          </a>
         </Toolbar>
      </AppBar>    
       <Grow in>
