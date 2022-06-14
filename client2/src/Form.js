@@ -10,7 +10,7 @@ const Form = () => {
   }
   return (
     <div>
-        {!isSubmitted ? <FormSignup submitForm={submitForm} /> : <FormPositive />}
+          {!isSubmitted ? <FormSignup submitForm={submitForm} /> : <FormPositive />}  
     </div>
   )
 }
