@@ -4,11 +4,16 @@ import { Container, AppBar, Typography, Grow, Grid, Box } from '@material-ui/cor
 import { TextField} from '@material-ui/core';
 import { Toolbar } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-//import { Button } from 'react-native';
+import SimpleImageSlider from 'react-simple-image-slider';
 
 import science from './images/science1.jpg';
+import foto1 from './images/gameboard.jpg';
+import foto2 from './images/letters.jpg';
+import foto3 from './images/notepad.jpg';
+import foto4 from './images/study.jpg';
+import foto5 from './images/thinking_bulb.jpg';
+import foto6 from './images/words.jpg';
 import useStyles from './styles';
-import { Link } from 'react-router-dom';
 
 const Home = () => {
   const classes = useStyles();
@@ -21,6 +26,12 @@ const Home = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const images = [
+    {url: "./images/gameboard.jpg"},
+    {url: "./images/letters.jpg"},
+    {url: "./images/notepad.jpg"},
+  ];
 
   return (
     <Container maxWidth="lg"> 
@@ -59,7 +70,16 @@ const Home = () => {
             </Button>
           </a>
         </Toolbar>
-     </AppBar>    
+     </AppBar> 
+     {/* <div>
+        <SimpleImageSlider
+          width={1459}
+          height={2400}
+          images={images}
+          showBullets={true}
+          showNavs={true}
+        />
+      </div> */}
       <Grow in>
         <Container>
           <Grid container justify='space-between' alignItems='stretch' spacing={4}>
@@ -70,6 +90,7 @@ const Home = () => {
 
             </Grid>
           </Grid>
+          
         </Container>
       </Grow>
       </Box>
