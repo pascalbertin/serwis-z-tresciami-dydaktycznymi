@@ -7,13 +7,14 @@ import Button from '@material-ui/core/Button';
 import SimpleImageSlider from 'react-simple-image-slider';
 
 import science from './images/science1.jpg';
-import foto1 from './images/gameboard.jpg';
-import foto2 from './images/letters.jpg';
-import foto3 from './images/notepad.jpg';
-import foto4 from './images/study.jpg';
-import foto5 from './images/thinking_bulb.jpg';
-import foto6 from './images/words.jpg';
+// import foto1 from './images/gameboard.jpg';
+// import foto2 from './images/letters.jpg';
+// import foto3 from './images/notepad.jpg';
+// import foto4 from './images/study.jpg';
+// import foto5 from './images/thinking_bulb.jpg';
+// import foto6 from './images/words.jpg';
 import useStyles from './styles';
+import Footer from './Footer';
 
 const Home = () => {
   const classes = useStyles();
@@ -27,11 +28,11 @@ const Home = () => {
     setOpen(false);
   };
 
-  const images = [
-    {url: "./images/gameboard.jpg"},
-    {url: "./images/letters.jpg"},
-    {url: "./images/notepad.jpg"},
-  ];
+  // const images = [
+  //   {url: "./images/gameboard.jpg"},
+  //   {url: "./images/letters.jpg"},
+  //   {url: "./images/notepad.jpg"},
+  // ];
 
   return (
     <Container maxWidth="lg"> 
@@ -93,8 +94,26 @@ const Home = () => {
           
         </Container>
       </Grow>
+      
       </Box>
+      {/* <h1>AAAAAAAAAAAAAAAAA</h1>
+      <h1>AAAAAAAAAAAAAAAAA</h1>
+      <h1>AAAAAAAAAAAAAAAAA</h1>
+      <h1>AAAAAAAAAAAAAAAAA</h1>
+      <h1>AAAAAAAAAAAAAAAAA</h1>
+      <h1>AAAAAAAAAAAAAAAAA</h1>
+      <h1>AAAAAAAAAAAAAAAAA</h1>
+      <h1>AAAAAAAAAAAAAAAAA</h1>
+      <h1>AAAAAAAAAAAAAAAAA</h1>
+      <h1>AAAAAAAAAAAAAAAAA</h1>
+      <h1>AAAAAAAAAAAAAAAAA</h1>
+      <h1>AAAAAAAAAAAAAAAAA</h1>
+      <h1>AAAAAAAAAAAAAAAAA</h1>
+      <h1>AAAAAAAAAAAAAAAAA</h1>
+      <h1>AAAAAAAAAAAAAAAAA</h1>
+      <h1>AAAAAAAAAAAAAAAAA</h1> */}
     </Container>
+    
   );
 }
 
