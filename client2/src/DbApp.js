@@ -89,31 +89,38 @@ const teacherSchema = new mongoose.Schema({
     const teacher = req.body.username;
 
     let teacherData = null
-    TeacherModel.findOne({userName: teacher}, function(error, data){
+    TeacherModel.findOne({userName: teacher}, async function(error, data){
       if (error) {
         console.log(error);
       } else {
-          // console.log(data)
-          teacherData = data
+          console.log("data", data)
+          teacherData = JSON.parse(JSON.stringify(data));
+          // console.log("teacher data:");
+          // console.log(teacherData)
+
+          console.log(teacherData)
+          if (teacherData == null){
+            return res.status(404).send("Cannot find user")
+          }
+
+
+          try{
+            console.log(teacherData.password)
+            console.log(req.body.password)
+            if(await bcrypt.compare(req.body.password, teacherData.password)){
+              res.send("Success")
+            } else{
+              res.send("Not Allowed")
+            }
+        }catch{
+          res.status(500).send("nie udalo sie")
+        }
       }
     })
 
-    console.log(teacherData)
-    if (teacherData == null){
-      return res.status(404).send("Cannot find user")
-    }
 
-    try{
-        console.log(teacherData.password)
-        console.log(req.body.password)
-        if(await bcrypt.compare(req.body.password, teacherData.password)){
-          res.send("Success")
-        } else{
-          res.send("Not Allowed")
-        }
-    }catch{
-      res.status(500).send("nie udalo sie")
-    }
+
+
   })
 
 
