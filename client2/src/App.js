@@ -11,12 +11,12 @@ function App() {
     <div className="page-container">
       <div className="content-wrap">
         <Router>
-          <div className="App">
+          {/* <div className="App"> */}
             <Home />
             <div className="content">
               <Switch>
                 <Route exact path="/">
-                  <Home />
+                  {/* <Home /> */}
                 </Route>
                 <Route path="/form">
                   <Form />
@@ -27,11 +27,12 @@ function App() {
               </Switch>
             </div>
             
-          </div>
+          {/* </div> */}
           
         </Router>
+        <Footer/>
       </div>
-      <Footer/>
+      
     </div>
     
   );

@@ -35,12 +35,12 @@ const Home = () => {
   // ];
 
   return (
-    <Container maxWidth="lg"> 
-    <Box sx={{ flexGrow: 1}}>
-      <AppBar className={classes.appBar} position='absolute' style={{margin: 20, background: '#F4EFFA'}}>
+    // <Container maxWidth="lg"> 
+    // <Box sx={{ flexGrow: 1}}>
+      <AppBar style={{position: 'relative', background: '#F4EFFA', zIndex: 1}}>
         <Toolbar>      
           <img className={classes.image} src={science} width="280" height="160"></img>
-          <Typography className={classes.heading} style={{marginLeft: 8}} variant='h1' align='left' sx={{ flexGrow: 2}}>
+          <Typography className={classes.heading} style={{marginLeft: 8, width: '22%'}} variant='h1' align='left' sx={{ flexGrow: 2}}>
             NAZWA FIRMY
           </Typography>
             <div className='search' position='left'>
@@ -67,52 +67,27 @@ const Home = () => {
             <Button      
               variant="contained" 
               className={classes.titleSecondButton}              
-              onClick={handleOpen}>   Zacznij naukę 
+              onClick={handleOpen}>   Zacznij naukę!
             </Button>
           </a>
         </Toolbar>
      </AppBar> 
-     {/* <div>
-        <SimpleImageSlider
-          width={1459}
-          height={2400}
-          images={images}
-          showBullets={true}
-          showNavs={true}
-        />
-      </div> */}
-      <Grow in>
-        <Container>
-          <Grid container justify='space-between' alignItems='stretch' spacing={4}>
-            <Grid item xs= {12} sm={7}>
+      // <Grow in>
+      //   <Container>
+      //     <Grid container justify='space-between' alignItems='stretch' spacing={4}>
+      //       <Grid item xs= {12} sm={7}>
 
-            </Grid>
-            <Grid item xs= {12} sm={4}>
+      //       </Grid>
+      //       <Grid item xs= {12} sm={4}>
 
-            </Grid>
-          </Grid>
+      //       </Grid>
+      //     </Grid>
           
-        </Container>
-      </Grow>
+      //   </Container>
+      // </Grow>
       
-      </Box>
-      {/* <h1>AAAAAAAAAAAAAAAAA</h1>
-      <h1>AAAAAAAAAAAAAAAAA</h1>
-      <h1>AAAAAAAAAAAAAAAAA</h1>
-      <h1>AAAAAAAAAAAAAAAAA</h1>
-      <h1>AAAAAAAAAAAAAAAAA</h1>
-      <h1>AAAAAAAAAAAAAAAAA</h1>
-      <h1>AAAAAAAAAAAAAAAAA</h1>
-      <h1>AAAAAAAAAAAAAAAAA</h1>
-      <h1>AAAAAAAAAAAAAAAAA</h1>
-      <h1>AAAAAAAAAAAAAAAAA</h1>
-      <h1>AAAAAAAAAAAAAAAAA</h1>
-      <h1>AAAAAAAAAAAAAAAAA</h1>
-      <h1>AAAAAAAAAAAAAAAAA</h1>
-      <h1>AAAAAAAAAAAAAAAAA</h1>
-      <h1>AAAAAAAAAAAAAAAAA</h1>
-      <h1>AAAAAAAAAAAAAAAAA</h1> */}
-    </Container>
+    //   </Box>
+    // </Container>
     
   );
 }
