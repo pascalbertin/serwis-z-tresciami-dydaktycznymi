@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "axios": "^0.27.2",
+    "bcrypt": "^5.0.1",
     "moment": "^2.29.3",
     "react-file-base64": "^1.0.3",
     "react-simple-image-slider": "^2.4.1",

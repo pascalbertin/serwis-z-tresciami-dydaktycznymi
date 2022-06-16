@@ -1,6 +1,7 @@
 require('dotenv').config()
 const mongoose = require('mongoose');
 const express = require("express");
+const bcrypt = require("bcrypt");
 const ejs = require("ejs");
 var cors = require('cors');
 
@@ -71,20 +72,65 @@ const teacherSchema = new mongoose.Schema({
     console.log("register");
   });
 
-  app.post("/register", function (req, res) {
-    const new_user = TeacherModel({
-      userName: req.body.username,
-      email: req.body.email,
-      password: req.body.password
-    });
+  app.post("/register", async (req, res) => {
+    try {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10)
+      const new_user = TeacherModel({
+        userName: req.body.username,
+        email: req.body.email,
+        password: hashedPassword
+      });
 
-    new_user.save(function(error){
+      new_user.save(function(error){
       if (error) {
         console.log(error);
       } else {
           console.log("Succes");
       }
-      });
+      });   
+    }catch{
+      res.status(500).send()
+    }
   });
+  
+  app.post('/login', async (req, res) => {
+    console.log(req.body.username)
+    const teacher = req.body.username;
+
+    let teacherData = null
+    TeacherModel.findOne({userName: teacher}, async function(error, data){
+      if (error) {
+        console.log(error);
+      } else {
+          console.log("data", data)
+          teacherData = JSON.parse(JSON.stringify(data));
+          // console.log("teacher data:");
+          // console.log(teacherData)
+
+          console.log(teacherData)
+          if (teacherData == null){
+            return res.status(404).send("Cannot find user")
+          }
+
+
+          try{
+            console.log(teacherData.password)
+            console.log(req.body.password)
+            if(await bcrypt.compare(req.body.password, teacherData.password)){
+              res.send("Success")
+            } else{
+              res.send("Not Allowed")
+            }
+        }catch{
+          res.status(500).send("nie udalo sie")
+        }
+      }
+    })
+
+
+
+
+  })
+
 
 app.listen(3001);
