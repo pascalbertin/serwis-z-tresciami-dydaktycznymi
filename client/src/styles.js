@@ -24,6 +24,7 @@ export default makeStyles(() =>({
         textTransform: 'capitalize',
         fontSize: 24,
         color: "#2F184B",
+        textAlign: 'center',
       },
 
       titleSecondButton:{
