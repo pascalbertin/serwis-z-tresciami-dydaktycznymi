@@ -4,9 +4,8 @@ import { Container, AppBar, Typography, Grow, Grid, Box } from '@material-ui/cor
 import { TextField} from '@material-ui/core';
 import { Toolbar } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import SimpleImageSlider from 'react-simple-image-slider';
 
-import science from './images/science1.jpg';
+import science from './assets/images/science1.jpg';
 // import foto1 from './images/gameboard.jpg';
 // import foto2 from './images/letters.jpg';
 // import foto3 from './images/notepad.jpg';
