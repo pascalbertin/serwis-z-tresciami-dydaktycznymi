@@ -4,6 +4,7 @@ import Home from './pages/homePage/Home';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Categories from './components/categories/Categories';
 import Footer from './components/footer/Footer';
+import Slider from './components/slider/Slider';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
               <Switch>
                 <Route exact path="/">
                   {/* <Home /> */}
+                   <Slider/>
                 </Route>
                 <Route path="/form">
                   <Form />
