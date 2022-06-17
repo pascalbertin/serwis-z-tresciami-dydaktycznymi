@@ -138,6 +138,13 @@ const teacherSchema = new mongoose.Schema({
   }
 
 
+  app.get("*", (req, res) => {
+    let url = path.join(__dirname, '../client/build', 'index.html');
+    if (!url.startsWith('/app/')) // since we're on local windows
+      url = url.substring(1);
+    res.sendFile(url);
+  });
+
 
 app.listen(process.env.PORT || 3001, console.log(`Server is running at ${process.env.PORT}`));
 console.log(process.env.NODE_ENV, process.env.MONGODB_URI);
