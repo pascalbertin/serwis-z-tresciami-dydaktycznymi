@@ -137,7 +137,7 @@ const teacherSchema = new mongoose.Schema({
     console.log('App is set to DEVELOPMENT');
   }
 
-  //heroku react routing fix
+  //heroku deploy react routing fix
   app.get("*", (req, res) => {
     res.sendFile(`${__dirname}/client/build/index.html`);
   });
