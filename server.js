@@ -19,13 +19,6 @@ mongoose.connection.on('connected', () => {
   console.log('MongoDB connected successfully');
 });
 
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname + '/client/build/index.html'), function(err) {
-    if (err) {
-      res.status(500).send(err)
-    }
-  })
-})
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
