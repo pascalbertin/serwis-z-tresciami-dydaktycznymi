@@ -1,5 +1,5 @@
 import React from 'react'
-import Form from './Form'
+import Form from '../../pages/registerPage/Form'
 import FormHandler from './FormHandler'
 import FormSignup from './FormSignup'
 

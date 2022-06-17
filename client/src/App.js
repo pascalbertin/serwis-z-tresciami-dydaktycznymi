@@ -1,9 +1,10 @@
 import './App.css';
-import Form from './Form';
-import Home from './Home';
+import Form from './pages/registerPage/Form';
+import Home from './pages/homePage/Home';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import Categries from './Categories';
-import Footer from './Footer';
+import Categories from './components/categories/Categories';
+import Footer from './components/footer/Footer';
+import Slider from './components/slider/Slider';
 
 
 function App() {
@@ -17,12 +18,13 @@ function App() {
               <Switch>
                 <Route exact path="/">
                   {/* <Home /> */}
+                   <Slider/>
                 </Route>
                 <Route path="/form">
                   <Form />
                 </Route>
                 <Route path="/categories">
-                  <Categries />
+                  <Categories />
                 </Route>
               </Switch>
             </div>

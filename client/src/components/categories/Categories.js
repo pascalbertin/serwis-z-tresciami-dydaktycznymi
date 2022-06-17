@@ -1,6 +1,6 @@
 import { Typography } from "@material-ui/core";
 
-const Categries = () => {
+const Categories = () => {
     return (  
         <div className="create">
             <Typography>Kategorie</Typography>
@@ -8,4 +8,4 @@ const Categries = () => {
     );
 }
  
-export default Categries;
+export default Categories;
