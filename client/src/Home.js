@@ -50,19 +50,19 @@ const Home = () => {
                 label='Szukaj kursów'
               />
             </div>
-          <a href='https://serwis-z-tresciami.herokuapp.com/categories'>
+          <a href='/categories'>
             <Button            
               className={classes.title}              
               onClick={handleOpen}>   Kategorie
             </Button>
           </a>
-          <a href='https://serwis-z-tresciami.herokuapp.com/form'>
+          <a href='/form'>
             <Button            
               className={classes.title}              
               onClick={handleOpen}>   Zostań nauczycielem 
             </Button>
           </a>
-          <a href='https://serwis-z-tresciami.herokuapp.com/'>
+          <a href='/'>
             <Button      
               variant="contained" 
               className={classes.titleSecondButton}              
