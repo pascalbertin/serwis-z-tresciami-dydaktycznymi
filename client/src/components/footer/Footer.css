@@ -2,9 +2,7 @@
     color: white;
     background-color: #2F184B;
     padding-top: 2em;
-    position: relative;
     flex-direction: row;
-    bottom: 0;
     width: 100%;
   }
 
