@@ -13,7 +13,11 @@
   "description": "modules for server",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd client && npm run build",
+    "install-client": "cd client && npm install",
+    "heroku-postbuild": "npm run intall-client && npm run build",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC"

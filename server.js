@@ -14,7 +14,10 @@ const dbPassword = process.env.DB_PASSWORD;
 
 const dbConnectionLink = "mongodb+srv://" + dbUser + ":" + dbPassword + "@" + dbClusterLink + dbName;
 
-mongoose.connect(dbConnectionLink, { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || dbConnectionLink, { useNewUrlParser: true });
+mongoose.connection.on('connected', () => {
+  console.log('MongoDB connected successfully');
+});
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
@@ -104,33 +107,34 @@ const teacherSchema = new mongoose.Schema({
       } else {
           console.log("data", data)
           teacherData = JSON.parse(JSON.stringify(data));
-          // console.log("teacher data:");
-          // console.log(teacherData)
 
-          console.log(teacherData)
+          console.log(teacherData);
           if (teacherData == null){
-            return res.status(404).send("Cannot find user")
+            return res.status(404).send("Cannot find user");
           }
 
 
           try{
-            console.log(teacherData.password)
-            console.log(req.body.password)
+            console.log(teacherData.password);
+            console.log(req.body.password);
             if(await bcrypt.compare(req.body.password, teacherData.password)){
-              res.send("Success")
+              res.send("Success");
             } else{
-              res.send("Not Allowed")
+              res.send("Not Allowed");
             }
         }catch{
-          res.status(500).send("nie udalo sie")
+          res.status(500).send("nie udalo sie");
         }
       }
-    })
+    });
+  });
 
+  if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+    console.log("found");
+  } else {
+    console.log("not found");
+  }
 
-
-
-  })
-
-
-app.listen(3001);
+app.listen(process.env.PORT || 3001, console.log(`Server is running at ${process.env.PORT}`));
+console.log(process.env.NODE_ENV, process.env.MONGODB_URI);
