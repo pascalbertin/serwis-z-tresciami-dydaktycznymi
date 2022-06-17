@@ -1,10 +1,9 @@
 import './App.css';
-import Form from './Form';
-import Home from './Home';
+import Form from './pages/registerPage/Form';
+import Home from './pages/homePage/Home';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import Categries from './Categories';
-import Footer from './Footer';
-import Slider from './components/slider/Slider';
+import Categories from './components/categories/Categories';
+import Footer from './components/footer/Footer';
 
 
 function App() {
@@ -24,7 +23,7 @@ function App() {
                   <Form />
                 </Route>
                 <Route path="/categories">
-                  <Categries />
+                  <Categories />
                 </Route>
               </Switch>
             </div>

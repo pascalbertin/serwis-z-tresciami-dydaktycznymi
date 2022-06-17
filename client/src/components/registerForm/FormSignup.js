@@ -1,6 +1,6 @@
 import React from 'react'
 import FormHandler from './FormHandler'
-import FormValidator from './FormValidator'
+import FormValidator from '../../validators/FormValidator'
 import './Form.css'
 
 const FormSignup = ({submitForm}) => {

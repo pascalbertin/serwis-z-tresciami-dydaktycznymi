@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import FormValidator from './FormValidator'
+import FormValidator from '../../validators/FormValidator'
 
 const FormHandler = callback => {
     const [values, setValues] = useState({
