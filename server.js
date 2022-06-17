@@ -137,7 +137,7 @@ const teacherSchema = new mongoose.Schema({
   }
 
   app.get('/*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'client/build/index.html'), function(err) {
+    res.sendFile(path.join(__dirname + '/client/build/index.html'), function(err) {
       if (err) {
         res.status(500).send(err)
       }
@@ -146,4 +146,4 @@ const teacherSchema = new mongoose.Schema({
 
 app.listen(process.env.PORT || 3001, console.log(`Server is running at ${process.env.PORT}`));
 console.log(process.env.NODE_ENV, process.env.MONGODB_URI);
-console.log(__dirname, 'client/build/index.html'); 
+console.log(__dirname + '/client/build/index.html'); 
