@@ -146,3 +146,4 @@ const teacherSchema = new mongoose.Schema({
 
 app.listen(process.env.PORT || 3001, console.log(`Server is running at ${process.env.PORT}`));
 console.log(process.env.NODE_ENV, process.env.MONGODB_URI);
+console.log(__dirname, 'client/build/index.html'); 
