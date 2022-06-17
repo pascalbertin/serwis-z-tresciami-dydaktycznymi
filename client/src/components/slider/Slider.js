@@ -4,6 +4,7 @@ import Dots from "./Dots";
 import Arrows from "./Arrows";
 import SliderImage from "./SliderImage";
 import "./slider.css";
+import { Typography } from "@material-ui/core";
 
 const len = SliderImage.length - 1;
 
@@ -19,6 +20,7 @@ function Slider(props) {
 
     return (
         <div className="slider-container">
+            <h2 className="main-slide-text">Przykładowe kursy</h2>
             <SliderContent activeIndex={activeIndex} sliderImage={SliderImage} />
             <Arrows
                 prevSlide={() =>

@@ -3,13 +3,13 @@ import foto2 from '../../assets/images/words.jpg';
 
 export default [
     {
-        title: "First Slide",
-        description: "That is a first slide",
+        title: "Jak dobrze się uczyć?",
+        description: "Adam Nowak",
         urls: foto1,
     },
     {
-        title: "Sexond Slide",
-        description: "That is a second slide",
+        title: "Ortografia - nagminne błędy",
+        description: "Artur Kowalski",
         urls: foto2,
     },
 ];
