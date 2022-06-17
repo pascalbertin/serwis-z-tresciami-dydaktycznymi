@@ -132,12 +132,12 @@ const teacherSchema = new mongoose.Schema({
 
   if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
-    console.log("found");
+    console.log('App is set to PRODUCTION');
   } else {
-    console.log("not found");
+    console.log('App is set to DEVELOPMENT');
   }
 
-
+  //heroku react routing fix
   app.get("*", (req, res) => {
     res.sendFile(`${__dirname}/client/build/index.html`);
   });
