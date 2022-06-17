@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import FormSignup from './FormSignup'
-import FormPositive from './FormPositive'
+import FormSignup from '../../components/registerForm/FormSignup'
+import FormPositive from '../../components/registerForm/FormPositive'
 
 const Form = () => {
   const [isSubmitted, setIsSubmitted] = useState(false)

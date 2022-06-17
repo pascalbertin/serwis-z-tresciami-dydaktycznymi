@@ -1,19 +1,19 @@
-import './App.css';
+import '../../App.css';
 import React, { useState} from 'react';
 import { Container, AppBar, Typography, Grow, Grid, Box } from '@material-ui/core';
 import { TextField} from '@material-ui/core';
 import { Toolbar } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
-import science from './assets/images/science1.jpg';
+import science from '../../assets/images/science1.jpg';
 // import foto1 from './images/gameboard.jpg';
 // import foto2 from './images/letters.jpg';
 // import foto3 from './images/notepad.jpg';
 // import foto4 from './images/study.jpg';
 // import foto5 from './images/thinking_bulb.jpg';
 // import foto6 from './images/words.jpg';
-import useStyles from './styles';
-import Footer from './Footer';
+import useStyles from '../../styles';
+import Footer from '../../components/footer/Footer';
 
 const Home = () => {
   const classes = useStyles();
@@ -50,19 +50,19 @@ const Home = () => {
                 label='Szukaj kursów'
               />
             </div>
-          <a href='http://localhost:3000/categories'>
+          <a href='/categories'>
             <Button            
               className={classes.title}              
               onClick={handleOpen}>   Kategorie
             </Button>
           </a>
-          <a href='http://localhost:3000/form'>
+          <a href='/form'>
             <Button            
               className={classes.title}              
               onClick={handleOpen}>   Zostań nauczycielem 
             </Button>
           </a>
-          <a href='http://localhost:3000'>
+          <a href='/'>
             <Button      
               variant="contained" 
               className={classes.titleSecondButton}              
