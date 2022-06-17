@@ -10,7 +10,7 @@ const Form = () => {
     if (isValid){
       setIsSubmitted(true);
       setValues(values);
-      fetch("http://localhost:3001/register", {method: "POST",headers: {
+      fetch("/register", {method: "POST",headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }, body: JSON.stringify(values)})
