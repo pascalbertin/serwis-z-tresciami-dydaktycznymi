@@ -1,13 +1,9 @@
 import React, {useState} from 'react'
 import LoginForm from '../../components/login/LoginForm'
-//import FormPositive from '../../components/registerForm/FormPositive'
+import LoginPositive from '../../components/login/LoginPositive'
 
 const Login = () => {
-    return (
-        <div>
-            <LoginForm />
-        </div>
-  /*const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
   const [values, setValues] = useState({})
 
   function submitForm(isValid, values){
@@ -34,8 +30,8 @@ const Login = () => {
   }
   return (
     <div>
-        {!isSubmitted ? <FormSignup submitForm={submitForm} /> : <FormPositive values={values} />}
-    </div>*/
+        {!isSubmitted ? <LoginForm submitForm={submitForm} /> : <LoginPositive values={values} />}
+    </div>
   )
 }
 
