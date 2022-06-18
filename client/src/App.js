@@ -1,10 +1,12 @@
 import './App.css';
 import Form from './pages/registerPage/Form';
 import Home from './pages/homePage/Home';
+import Login from './pages/loginPage/Login';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Categories from './components/categories/Categories';
 import Footer from './components/footer/Footer';
 import Slider from './components/slider/Slider';
+
 
 
 function App() {
@@ -25,6 +27,9 @@ function App() {
                 </Route>
                 <Route path="/categories">
                   <Categories />
+                </Route>
+                <Route path="/login">
+                  <Login />
                 </Route>
               </Switch>
             </div>

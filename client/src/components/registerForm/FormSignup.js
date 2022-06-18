@@ -42,7 +42,7 @@ const FormSignup = ({submitForm}) => {
             </div>
 
             <button className="form-button" type="submit">Zarejestruj się</button>
-            <p className="form-already-login">Masz już konto? <a href='#'>Zaloguj się</a></p>
+            <p className="form-already-login">Masz już konto? <a href='/login'>Zaloguj się</a></p>
         </form>
     </div>
   );
