@@ -15,7 +15,7 @@ const teacherRegister = async (req, res) => {
       if (error) {
         console.log("[teacherController.js]:", error);
       } else {
-          console.log("[teacherController.js]: Successfully added to database");
+          console.log("[teacherController.js]: Successfully added to database!");
       }
     });
 
