@@ -10,7 +10,7 @@ const Form = () => {
     if (isValid){
       setIsSubmitted(true);
       setValues(values);
-      fetch("/api/register", {method: "POST",headers: {
+      fetch("/api/teacher/register", {method: "POST",headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }, body: JSON.stringify(values)})

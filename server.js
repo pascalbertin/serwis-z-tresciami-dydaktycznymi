@@ -25,8 +25,8 @@ if (process.env.NODE_ENV === 'production') {
   console.log('App is set to DEVELOPMENT');
 }
 
-//Routes
-app.use('/api', teacherRoute);
+//Routes for teacher
+app.use('/api/teacher', teacherRoute);
 
 //MUST BE AT THE END OF FILE heroku deploy react routing fix
 app.get("*", (req, res) => {

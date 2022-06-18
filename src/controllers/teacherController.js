@@ -16,7 +16,6 @@ const teacherRegister = async (req, res) => {
         console.log("[teacherController.js]:", error);
       } else {
           console.log("[teacherController.js]: Successfully added to database");
-          console.log(newUser);
       }
     });
 
@@ -29,26 +28,25 @@ const teacherLogin = async (req, res) => {
   const teacher = req.body.username;
 
   let teacherData = null
-  TeacherModel.findOne({userName: teacher}, async function(error, data){
+  TeacherModel.findOne({userName: teacher}, async (error, data) => {
     if (error) {
       console.log(error);
     } else {
         teacherData = JSON.parse(JSON.stringify(data));
 
-        if (teacherData == null){
+        if (teacherData == null) {
           return res.status(404).send("Cannot find user");
         }
 
-        try{
-
-          if(await bcrypt.compare(req.body.password, teacherData.password)){
+        try {
+          if (await bcrypt.compare(req.body.password, teacherData.password)) {
             res.send("Success");
-          } else{
+          } else {
             res.send("Not Allowed");
           }
-      }catch{
-        res.status(500).send("nie udalo sie");
-      }
+        } catch {
+          res.status(500).send("nie udalo sie");
+        }
     }
   });
 };
