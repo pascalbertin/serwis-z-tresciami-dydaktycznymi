@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const express = require("express");
 var cors = require('cors');
 const teacherRoute = require("./src/routes/teacherRouter");
+const courseRoute = require("./src/routes/courseRouter");
 const dbConnectionLink = require("./src/config/databaseConfig");
 
 const app = express();
@@ -27,6 +28,9 @@ if (process.env.NODE_ENV === 'production') {
 
 //Routes for teacher
 app.use('/api/teacher', teacherRoute);
+
+//Routes for course
+app.use('/api/course', courseRoute);
 
 //MUST BE AT THE END OF FILE heroku deploy react routing fix
 app.get("*", (req, res) => {

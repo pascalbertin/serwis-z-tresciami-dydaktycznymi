@@ -40,7 +40,7 @@ const teacherLogin = async (req, res) => {
 
         try {
           if (await bcrypt.compare(req.body.password, teacherData.password)) {
-            res.send("Success");
+            res.send(teacherData.userName);
           } else {
             res.send("Not Allowed");
           }
