@@ -2,6 +2,7 @@ import './App.css';
 import Form from './pages/registerPage/Form';
 import Home from './pages/homePage/Home';
 import Login from './pages/loginPage/Login';
+import AddCourse from './pages/addCoursePage/addCoursePage';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Categories from './components/categories/Categories';
 import Footer from './components/footer/Footer';
@@ -30,6 +31,9 @@ function App() {
                 </Route>
                 <Route path="/login">
                   <Login />
+                </Route>
+                <Route path="/addcourse">
+                  <AddCourse />
                 </Route>
               </Switch>
             </div>

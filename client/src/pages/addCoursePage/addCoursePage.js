@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
-import LoginForm from '../../components/login/LoginForm'
-import LoginPositive from '../../components/login/LoginPositive'
+import React, { useState } from 'react';
+import AddCourseForm from '../../components/addCourse/addCourseForm'
+import AddCoursePositive from '../../components/addCourse/addCoursePositive'
 
-const Login = () => {
+const AddCourse = () => {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [values, setValues] = useState({})
 
@@ -10,7 +10,7 @@ const Login = () => {
     if (isValid){
       setIsSubmitted(true);
       setValues(values);
-      fetch("http://localhost:3001/api/teacher/login", {method: "POST",headers: {
+      fetch("http://localhost:3001/api/course/addCourse", {method: "POST",headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }, body: JSON.stringify(values)})
@@ -30,9 +30,9 @@ const Login = () => {
   }
   return (
     <div>
-        {!isSubmitted ? <LoginForm submitForm={submitForm} /> : <LoginPositive values={values} />}
+        {!isSubmitted ? <AddCourseForm submitForm={submitForm} /> : <AddCoursePositive values={values} />}
     </div>
   )
 }
 
-export default Login;
+export default AddCourse;
