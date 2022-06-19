@@ -1,6 +1,8 @@
 import React from "react";
+import {BrowserRouter as Router, Link} from 'react-router-dom';
 
 function SliderContent({ activeIndex, sliderImage }) {
+
     return (
         <section>
             {sliderImage.map((slide, index) => (
@@ -9,7 +11,9 @@ function SliderContent({ activeIndex, sliderImage }) {
                 className={index === activeIndex ? "slides active" : "inactive"}
                 >
                     <div className="slider-image-container">
-                        <img className="slide-image" src={slide.urls} alt=""/>
+                        <Link to='/course'>
+                            <img className="slide-image" src={slide.urls} alt="" />
+                        </Link>
                     </div>
                     <h2 className="slide-title">{slide.title}</h2>
                     <h3 className="slide-text">{slide.description}</h3>
