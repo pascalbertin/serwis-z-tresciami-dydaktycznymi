@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import SliderContent from "./SliderContent";
-import Dots from "./Dots";
-import Arrows from "./Arrows";
-import SliderImage from "./SliderImage";
-import "./slider.css";
+import React, { useEffect, useState } from 'react';
+import SliderContent from './SliderContent';
+import Dots from './Dots';
+import Arrows from './Arrows';
+import SliderImage from './SliderImage';
+import './slider.css';
 
 const len = SliderImage.length - 1;
 
@@ -18,8 +18,8 @@ function Slider(props) {
     }, [activeIndex]);
 
     return (
-        <div className="slider-container">
-            <h2 className="main-slide-text">Przykładowe kursy</h2>
+        <div className='slider-container'>
+            <h2 className='main-slide-text'>Przykładowe kursy</h2>
             <SliderContent activeIndex={activeIndex} sliderImage={SliderImage}  />
             <Arrows
                 prevSlide={() =>
