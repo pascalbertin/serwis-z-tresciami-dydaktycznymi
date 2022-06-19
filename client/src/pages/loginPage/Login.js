@@ -10,7 +10,7 @@ const Login = () => {
     if (isValid){
       setIsSubmitted(true);
       setValues(values);
-      fetch("http://localhost:3001/api/teacher/login", {method: "POST",headers: {
+      fetch("/api/teacher/login", {method: "POST",headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }, body: JSON.stringify(values)})
