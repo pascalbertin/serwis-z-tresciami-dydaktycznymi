@@ -6,7 +6,7 @@
     width: 100%;
   }
 
-  .row {
-    display: flex;
-    justify-content:space-around;
-  }
+.main-footer .row {
+  display: flex;
+  justify-content:space-around;
+}

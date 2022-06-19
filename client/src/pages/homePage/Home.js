@@ -36,19 +36,20 @@ const Home = () => {
             label='Szukaj kursów'
           />
         </div>
-        <a href='/categories'>
+        <a href='/categories' style={{ textDecoration: 'none' }}>
           <Button
             className={classes.title}
-            onClick={handleOpen}>   Kategorie
+            onClick={handleOpen}
+            >   Kategorie
           </Button>
         </a>
-        <a href='/form'>
+        <a href='/form' style={{ textDecoration: 'none' }}>
           <Button
             className={classes.title}
             onClick={handleOpen}>   Zostań nauczycielem
           </Button>
         </a>
-        <a href='/'>
+        <a href='/' style={{ textDecoration: 'none' }}>
           <Button
             variant="contained"
             className={classes.titleSecondButton}
