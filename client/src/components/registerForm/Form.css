@@ -5,7 +5,7 @@
     justify-content: center;
     /* width: 1000px; */
     position: relative;
-    height: 500px;
+    min-height: 500px;
     /* display: grid; */
     /* grid-template-columns: 1fr 1fr; */
   }
@@ -111,5 +111,13 @@
     height:15px;
   }
 
+  .select-input{
+    color: grey;
+    font-size: 14px;
+    padding-left: 10px;
+  }
   
+  option selected{
+    color: black;
+  }
 
