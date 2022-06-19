@@ -6,20 +6,17 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Categories from './components/categories/Categories';
 import Footer from './components/footer/Footer';
 import Slider from './components/slider/Slider';
-
-
+import Course from './pages/coursePage/Course';
 
 function App() {
   return (
     <div className="page-container">
       <div className="content-wrap">
         <Router>
-          {/* <div className="App"> */}
             <Home />
             <div className="content">
               <Switch>
                 <Route exact path="/">
-                  {/* <Home /> */}
                    <Slider/>
                 </Route>
                 <Route path="/form">
@@ -31,11 +28,11 @@ function App() {
                 <Route path="/login">
                   <Login />
                 </Route>
+                <Route path="/course">
+                  <Course />
+                </Route>
               </Switch>
-            </div>
-            
-          {/* </div> */}
-          
+            </div>          
         </Router>
         <Footer/>
       </div>
