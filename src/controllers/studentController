@@ -1,0 +1,70 @@
+const {CourseSchema, courseModel} = require("../models/courseModel");
+const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer");
+const crypto = require("crypto")
+require('dotenv').config();
+
+const nodemailerPass = 'fsiqwyerhxydltsp';
+
+var transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+  auth: {
+    user: 'JakubStyszynski@gmail.com',
+    pass: nodemailerPass
+  }
+});
+
+
+
+
+const courseGenerateCode = async (req, res) => {
+
+    let course
+    try{
+      course = await courseModel.findOne({_id: req.body.id})
+      if (course == null) {
+        return res.status(404).json({message: 'Cannot find course'})
+      }
+    }catch(error) {
+      return res.status(500).json({message: error.message})
+    }
+    res.course = course
+
+
+    const generatedCode = crypto.randomBytes(16).toString('hex');
+    res.course.codes.push({code: generatedCode, uses: 3})
+  
+    console.log(res.course)
+
+    try {
+        const updatedCourse = await res.course.save()
+          var mailOptions = {
+            from: 'Serwis z tresciami',
+            to: req.body.email,
+            subject: 'Your code',
+            text: generatedCode
+          };
+        
+        
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
+        res.json(updatedCourse)
+
+      } catch(error){
+          res.status(400).json({message: error.message})
+      }
+    
+  
+  
+  };
+
+module.exports = {
+    courseGenerateCode
+};
