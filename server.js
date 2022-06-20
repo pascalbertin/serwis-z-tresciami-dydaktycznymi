@@ -52,6 +52,7 @@ app.use('/register', registerRouter);
 app.use('/user/login', loginRouter);
 app.use('/refresh', refreshRouter);
 app.use('/logout', logoutRouter);
+app.use('/test', getAllTeachersRouter);
 
 
 if (process.env.NODE_ENV === 'production') {
@@ -62,15 +63,8 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 //MUST BE AT THE END OF FILE heroku deploy react routing fix
-const routeTest = '*';
-app.get(routeTest, (req, res) => {
-  if (routeTest === '/test') {
-    res.sendFile(`${__dirname}/client/build/index.html`);
-    app.use(verifyJWT);
-    app.use('/test', getAllTeachersRouter);
-  } else {
+app.get('*', (req, res) => {
   res.sendFile(`${__dirname}/client/build/index.html`);
-  }
 });
 
 
