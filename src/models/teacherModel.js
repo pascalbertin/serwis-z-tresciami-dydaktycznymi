@@ -14,7 +14,16 @@ const teacherSchema = new mongoose.Schema({
       type: String,
       required: [true, "Nie podano hasła!"]
   },
-  course: [courseSchema]
+  course: [courseSchema],
+  refreshToken: String,
+  roles: {
+    User: {
+        type: Number,
+        default: 2001
+    },
+    Editor: Number,
+    Admin: Number
+    }
 });
 
 module.exports = mongoose.model("Teacher", teacherSchema);
