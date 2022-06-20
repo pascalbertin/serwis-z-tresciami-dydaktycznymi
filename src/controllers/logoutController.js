@@ -1,5 +1,4 @@
 const TeacherModel = require("../models/teacherModel");
-const jwt = require('jsonwebtoken');
 
 const handleLogout = async (req, res) => {
   // On client, also delete the accessToken
