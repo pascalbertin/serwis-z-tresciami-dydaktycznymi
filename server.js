@@ -49,7 +49,7 @@ app.use('/api/course', courseRoute);
 
 //JWT NA FRONCIE TRZEBA UŻYĆ credentials PRZY fetch
 app.use('/register', registerRouter);
-app.use('/login', loginRouter);
+app.use('/user/login', loginRouter);
 app.use('/refresh', refreshRouter);
 app.use('/logout', logoutRouter);
 
