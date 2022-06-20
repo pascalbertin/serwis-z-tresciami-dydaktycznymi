@@ -16,4 +16,5 @@ router.route("/manageCourseBySubject")
 router.route("/manageCourseByAuthor")
     .get(courseController.courseGetByAuthor)
 
+
 module.exports = router;

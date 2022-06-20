@@ -34,6 +34,7 @@ const courseSchema = new mongoose.Schema({
         type: String,
         required: [true, "Nie podano miniaturki"]
     },
+    codes: [{code: String, uses: Number}],
     lectures: [lectureSchema]
   });
 

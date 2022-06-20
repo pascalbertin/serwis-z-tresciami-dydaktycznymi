@@ -11,6 +11,7 @@ const getAllTeachersRouter = require("./src/routes/getAllTeachersRouter");
 const loginRouter = require("./src/routes/loginRouter");
 const registerRouter = require("./src/routes/registerRouter");
 const courseRoute = require("./src/routes/courseRouter");
+const studentRoute = require("./src/routes/studentRouter")
 
 const corsOptions = require('./src/config/corsOptions');
 const dbConnectionLink = require("./src/config/databaseConfig");
@@ -36,12 +37,16 @@ app.use(cookieParser());
 // JWT
 app.use(credentials);
 app.use(cors(corsOptions));
+app.use('/', require('./src/routes/rootRouter'));
 
 //Routes for teacher
 app.use('/api/teacher', teacherRoute);
 
 //Routes for course
 app.use('/api/course', courseRoute);
+
+//Routes for student
+app.use('/api/student', studentRoute);
 
 
 //JWT NA FRONCIE TRZEBA UŻYĆ credentials PRZY fetch
