@@ -12,6 +12,8 @@ const loginRouter = require("./src/routes/loginRouter");
 const registerRouter = require("./src/routes/registerRouter");
 const courseRoute = require("./src/routes/courseRouter");
 const studentRoute = require("./src/routes/studentRouter")
+const rootRouter = require("./src/routes/rootRouter");
+
 
 const corsOptions = require('./src/config/corsOptions');
 const dbConnectionLink = require("./src/config/databaseConfig");
@@ -39,6 +41,8 @@ app.use(credentials);
 app.use(cors(corsOptions));
 app.use('/', require('./src/routes/rootRouter'));
 
+app.use('/', rootRouter);
+
 //Routes for teacher
 app.use('/api/teacher', teacherRoute);
 
@@ -51,12 +55,11 @@ app.use('/api/student', studentRoute);
 
 //JWT NA FRONCIE TRZEBA UŻYĆ credentials PRZY fetch
 app.use('/register', registerRouter);
-app.use('/login', loginRouter);
+app.use('/user/login', loginRouter);
 app.use('/refresh', refreshRouter);
 app.use('/logout', logoutRouter);
-
-app.use(verifyJWT);
 app.use('/test', getAllTeachersRouter);
+
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
@@ -66,9 +69,10 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 //MUST BE AT THE END OF FILE heroku deploy react routing fix
-app.get("*", (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(`${__dirname}/client/build/index.html`);
 });
+
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
