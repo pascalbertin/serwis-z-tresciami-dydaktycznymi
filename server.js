@@ -54,6 +54,7 @@ app.use('/refresh', refreshRouter);
 app.use('/logout', logoutRouter);
 app.use('/test', getAllTeachersRouter);
 
+
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
   console.log('App is set to PRODUCTION');
@@ -62,9 +63,10 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 //MUST BE AT THE END OF FILE heroku deploy react routing fix
-app.get("*", (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(`${__dirname}/client/build/index.html`);
 });
+
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
