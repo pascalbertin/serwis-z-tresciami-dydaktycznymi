@@ -53,8 +53,8 @@ app.use('/user/login', loginRouter);
 app.use('/refresh', refreshRouter);
 app.use('/logout', logoutRouter);
 
-app.use(verifyJWT);
-app.use('/test', getAllTeachersRouter);
+
+
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
@@ -67,6 +67,9 @@ if (process.env.NODE_ENV === 'production') {
 app.get("*", (req, res) => {
   res.sendFile(`${__dirname}/client/build/index.html`);
 });
+
+app.use(verifyJWT);
+app.use('/test', getAllTeachersRouter);
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
