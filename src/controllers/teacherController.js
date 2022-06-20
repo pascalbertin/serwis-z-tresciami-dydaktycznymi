@@ -1,5 +1,6 @@
 const TeacherModel = require("../models/teacherModel");
 const bcrypt = require("bcrypt");
+require('dotenv').config();
 
 const teacherRegister = async (req, res) => {
   try {
@@ -40,6 +41,7 @@ const teacherLogin = async (req, res) => {
 
         try {
           if (await bcrypt.compare(req.body.password, teacherData.password)) {
+            //login successfully
             res.send(teacherData.userName);
           } else {
             res.send("Not Allowed");
