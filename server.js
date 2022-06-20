@@ -52,8 +52,6 @@ app.use('/register', registerRouter);
 app.use('/user/login', loginRouter);
 app.use('/refresh', refreshRouter);
 app.use('/logout', logoutRouter);
-
-app.use(verifyJWT);
 app.use('/test', getAllTeachersRouter);
 
 if (process.env.NODE_ENV === 'production') {
