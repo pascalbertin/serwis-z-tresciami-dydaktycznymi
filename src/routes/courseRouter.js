@@ -10,6 +10,9 @@ router.route("/manageCourseById")
     .delete(courseController.courseDeleteById)
     .patch(courseController.coursePatchById);
 
+router.route("/getAll")
+    .get(courseController.courseGetAll);
+
 router.route("/manageCourseBySubject")
     .get(courseController.courseGetBySubject)
 

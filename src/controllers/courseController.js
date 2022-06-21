@@ -31,7 +31,7 @@ const courseCreate = (req, res) => {
 const courseGetById = async (req, res) => {
     let course
     try{
-      course = await courseModel.findOne({_id: req.body.id})
+      course = await courseModel.findOne({_id: req.query.id})
       if (course == null) {
         return res.status(404).json({message: 'Cannot find course'})
       }
@@ -48,7 +48,7 @@ const courseGetById = async (req, res) => {
 const courseGetBySubject = async (req, res) => {
     let course
     try{
-      course = await courseModel.find({subject: req.body.subject})
+      course = await courseModel.find({subject: req.query.subject})
       if (course == null) {
         return res.status(404).json({message: 'Cannot find course'})
       }
@@ -59,6 +59,7 @@ const courseGetBySubject = async (req, res) => {
 
     console.log(res.course)
     res.json(res.course)
+    // console.log(req.query.subject)
 };
 
 //get all courses of requested author
@@ -76,6 +77,23 @@ const courseGetByAuthor = async (req, res) => {
 
     console.log(res.course)
     res.json(res.course)
+};
+
+//get all courses
+const courseGetAll = async (req, res) => {
+  let course
+  try{
+    course = await courseModel.find()
+    if (course == null) {
+      return res.status(404).json({message: 'Cannot find any course'})
+    }
+  }catch(error) {
+    return res.status(500).json({message: error.message})
+  }
+  res.course = course
+
+  console.log(res.course)
+  res.json(res.course)
 };
 
 const courseDeleteById = async (req, res) => {
@@ -153,5 +171,6 @@ module.exports = {
     courseDeleteById,
     coursePatchById,
     courseGetBySubject,
-    courseGetByAuthor
+    courseGetByAuthor,
+    courseGetAll
 };
