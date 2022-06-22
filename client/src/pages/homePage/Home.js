@@ -6,7 +6,7 @@ import { TextField } from '@material-ui/core';
 import { Toolbar } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
-import science from '../../assets/images/science1.jpg';
+import science from '../../assets/images/logo.JPG';
 import useStyles from '../../styles';
 
 const Home = () => {
@@ -24,9 +24,9 @@ const Home = () => {
   return (
     <AppBar style={{ position: 'relative', background: '#F4EFFA', zIndex: 1 }}>
       <Toolbar>
-        <img className={classes.image} src={science} width="280" height="160"></img>
-        <Typography className={classes.heading} style={{ marginLeft: 8, width: '22%' }} variant='h1' align='left' sx={{ flexGrow: 2 }}>
-          NAZWA FIRMY
+        <img className={classes.image} src={science} width="110" height="120"></img>
+        <Typography className={classes.heading} style={{ marginLeft: 8, width: '22%', fontSize: "4rem"}} variant='h1' align='left' sx={{ flexGrow: 2 }}>
+          TUTORS ALPHA
         </Typography>
         <div className='search' position='left'>
           <TextField
@@ -52,6 +52,7 @@ const Home = () => {
         <a href='/' style={{ textDecoration: 'none' }}>
           <Button
             variant="contained"
+            style={ {borderRadius: 20}}
             className={classes.titleSecondButton}
             onClick={handleOpen}>   Zacznij naukę!
           </Button>

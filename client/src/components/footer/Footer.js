@@ -51,7 +51,7 @@ const Footer = () => {
                 <hr />
                 <div className="row">
                     <p className="col-sm">
-                        NAZWA FIRMY&copy;   {new Date().getFullYear()}  |   Polityka prywatności  |  Regulamin  |   Konto
+                        TUTORS ALPHA &copy;   {new Date().getFullYear()}  |   Polityka prywatności  |  Regulamin  |   Konto
                     </p>
                 </div>
             </div>
