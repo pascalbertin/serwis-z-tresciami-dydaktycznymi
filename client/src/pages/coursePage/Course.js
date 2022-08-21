@@ -1,9 +1,36 @@
-import React from 'react'
+import React,  { useState, useEffect} from 'react'
 import './Course.css'
 import science from '../../assets/images/science1.jpg';
 import useStyles from '../../styles';
 
 const Course = () => {
+
+//   const [isSubmitted, setIsSubmitted] = useState(false)
+//   const [values, setValues] = useState({})
+
+// function submitForm(isValid){
+//   if (isValid){
+//   setIsSubmitted(false);
+//   setValues(values);
+//   fetch("https://serwis-z-tresciami.herokuapp.com/api/course/manageCourseBySubject", {method: "GET",headers: {
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/json'
+//   }})
+//   .then(response => response.json())
+//   .then(data => {
+//       console.log('Success:', data);
+//   })
+//   .catch((error) => {
+//       console.error('Error:', error);
+//   });
+  
+//   }else{
+//   setIsSubmitted(false);
+//   setValues({});
+//   }
+// }
+
+
   const classes = useStyles();
   return (
     <div className='course-info'>

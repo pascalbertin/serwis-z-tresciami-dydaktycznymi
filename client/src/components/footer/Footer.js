@@ -10,41 +10,40 @@ const Footer = () => {
                     <div className="col">
                         <h4>O FIRMIE</h4>
                         <ul className="list-unstyled">
-                            <li>O firmie 1</li>
-                            <li>O firmie 2</li>
-                            <li>O firmie 3</li>
-                            <li>O firmie 4</li>
-                            <li>O firmie 5</li>
+                            <li>Polityka prywatności</li>
+                            <li>Regulamin</li>
+                            <li>Moje konto</li>
+                            <li>Kontakt</li>
+                            <li>Zakup kursu</li>
                         </ul>
                     </div>
                     <div className="col">
                         <h4>NAUCZANIE</h4>
                         <ul className="list-unstyled">
-                            <li>Nauczanie 1</li>
-                            <li>Nauczanie 2</li>
-                            <li>Nauczanie 3</li>
-                            <li>Nauczanie 4</li>
-                            <li>Nauczanie 5</li>
+                            <li>Zostań nauczycielem</li>
+                            <li>Dodawanie kursu</li>
+                            <li>Modyfikacja kursu</li>
+                            <li>Usuwanie kursu</li>
                         </ul>
                     </div>
                     <div className="col">
                         <h4>KATEGORIE</h4>
                         <ul className="list-unstyled">
-                            <li>Kategoria 1</li>
-                            <li>Kategoria 2</li>
-                            <li>Kategoria 3</li>
-                            <li>Kategoria 4</li>
-                            <li>Kategoria 5</li>
+                            <li>Matematyka</li>
+                            <li>Język polski</li>
+                            <li>Język angielski</li>
+                            <li>Informatyka</li>
+                            <li>Fizyka</li>
                         </ul>
                     </div>
                     <div className="col">
                         <h4>MAPA STRONY</h4>
                         <ul className="list-unstyled">
-                            <li>Mapa strony 1</li>
-                            <li>Mapa strony 2</li>
-                            <li>Mapa strony 3</li>
-                            <li>Mapa strony 4</li>
-                            <li>Mapa strony 5</li>
+                            <li>Strona główna</li>
+                            <li>Kursy</li>
+                            <li>Rejestracja</li>
+                            <li>Logowanie</li>
+                            <li>Kontakt</li>
                         </ul>
                     </div>
                 </div>
