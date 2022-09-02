@@ -4,6 +4,7 @@ import Dots from './Dots';
 import Arrows from './Arrows';
 import SliderImage from './SliderImage';
 import './slider.css';
+import science from '../../assets/images/logo.JPG';
 
 const len = SliderImage.length - 1;
 var sliderData = [];
@@ -39,9 +40,33 @@ function Slider(props) {
 
     return (
         <div className='slider-container'>
+            <div className='appbar-container'>
+                <div className='left-column'>
+                    <h2 className='left-main-text'>Obejrzyj i zdaj z Tutors Alpha!</h2>
+                    <h2 className='left-bottom-text'>
+                        Na stronie znajdziesz kursy z przedmiotów ogólnokształcących dla szkół podstawowych i ponadpodstawowych.
+                    </h2>
+                    <div className='left-start-button'>
+                        Zacznij już dziś!
+                    </div>
+                </div>
+                <div className='right-column'>
+                    <img className="right-side-image" src={science}></img>
+                </div>
+            </div>
             <h2 className='main-slide-text'>Przykładowe kursy</h2>
-            <h1></h1>
+            <div className="category-column">
+                <div className="category-column-text">Matematyka</div>
+                <div className="category-column-text">Język polski</div>
+                <div className="category-column-text">Język angielski</div>
+                <div className="category-column-text">Informatyka</div>
+                <div className="category-column-text">Biologia</div>
+                <div className="category-column-text">Fizyka</div>
+                <div className="category-column-text">Chemia</div>
+                <div className="category-column-text">Historia</div>
+            </div>
             <SliderContent activeIndex={activeIndex} sliderImage={sliderData}  />
+            
             <Arrows
                 prevSlide={() =>
                     setActiveIndex(activeIndex < 1 ? len : activeIndex - 1)
@@ -55,7 +80,33 @@ function Slider(props) {
                 SliderImage={SliderImage}
                 onClick={(activeIndex) => setActiveIndex(activeIndex)}
             />
+            <div className="category-menu">
+            <h2 className="category-text">Kategorie</h2>
+            <div className="category-menu-container">
+                <div className="row" key={`row${3}`}>
+                    <div className="col">
+                        <div className='square-button'>Matematyka</div>
+                        <div className='square-button'>Język polski</div>
+                        <div className='square-button'>Język angielski</div>
+                        <div className='square-button'>Informatyka</div>
+                    </div>
+                    <div className="col">
+                        <div className='square-button'>Biologia</div>
+                        <div className='square-button'>Chemia</div>
+                        <div className='square-button'>Fizyka</div>
+                        <div className='square-button'>Historia</div>
+                    </div>
+                    <div className="col">
+                        <div className='square-button'>Geografia</div>
+                        <div className='square-button'>Muzyka</div>
+                        <div className='square-button'>Język niemiecki</div>
+                        <div className='square-button'>Podstawy przedsiębiorczości</div>
+                    </div>
+                </div>
+            </div>
         </div>
+        </div>
+        
     );
 }
 
