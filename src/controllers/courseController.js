@@ -66,7 +66,7 @@ const courseGetBySubject = async (req, res) => {
 const courseGetByAuthor = async (req, res) => {
     let course
     try{
-      course = await courseModel.find({author: req.body.author})
+      course = await courseModel.find({author: req.query.author})
       if (course == null) {
         return res.status(404).json({message: 'Cannot find course'})
       }
