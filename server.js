@@ -33,10 +33,36 @@ const swaggerOptions = {
       title: "Serwis z treściami dydaktycznymi - API",
       description: "Dokumentacja całego API dla strony",
       servers: ["http://localhost:3001","https://serwis-z-tresciami.herokuapp.com/"]
-    }
+    },
+    components: {
+      securitySchemes: {
+          bearerAuth: {
+              type: 'http',
+              scheme: 'bearer',
+              bearerFormat: 'JWT',
+          }
+      }
+  },
+  security: [{
+      bearerAuth: []
+  }]
   },
   apis: ["./src/routes/*.js", "./src/models/*.js"]
 };
+
+// securitySchemes:
+//     api_key:
+//       type: apiKey
+//       name: api_key
+//       in: header
+//     petstore_auth:
+//       type: oauth2
+//       flows:
+//         implicit:
+//           authorizationUrl: https://petstore.swagger.io/oauth/authorize
+//           scopes:
+//             read:pets: read your pets
+//             write:pets: modify pets in your account
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));

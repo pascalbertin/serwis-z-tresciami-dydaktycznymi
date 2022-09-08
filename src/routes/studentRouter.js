@@ -23,6 +23,15 @@ const studentController = require('../controllers/studentController');
  *            example:
  *              _id: 62ae0a8665b471175a9e374c
  *              email: test@test.pl
+ *    responses:
+ *      200:
+ *        description: Wszystko OK
+ *      400:
+ *        description: Błąd podczas wysyłania wiadomości
+ *      404:
+ *        description: Nie znaleziono kursu
+ *      500:
+ *        description: Server error
  */
 router.route("/codeGenerate")
     .patch(studentController.courseGenerateCode);
@@ -48,6 +57,11 @@ router.route("/codeGenerate")
  *            example:
  *              _id: 62b0ebbfe8c19c8936bea112
  *              code: $2b$10$ZScVY.oi/jEaETUMU/e2U.tAcklfvf0K5sDl897.tRL8.LEABDnOu
+ *    responses:
+ *      404:
+ *        description: Nie znaleziono kursu
+ *      500:
+ *        description: Server error
  */
 router.route("/codeUse")
     .patch(studentController.courseUseCode);
