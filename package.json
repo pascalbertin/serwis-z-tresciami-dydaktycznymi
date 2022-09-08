@@ -12,7 +12,13 @@
     "express": "^4.18.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.6",
-    "nodemailer": "^6.7.5"
+    "nodemailer": "^6.7.5",
+    "nodemon": "^2.0.19",
+    "swagger-editor": "^4.4.0",
+    "swagger-editor-dist": "^4.4.0",
+    "swagger-jsdoc": "^6.2.5",
+    "swagger-ui-express": "^4.5.0",
+    "yamljs": "^0.3.0"
   },
   "description": "modules for server",
   "engines": {
