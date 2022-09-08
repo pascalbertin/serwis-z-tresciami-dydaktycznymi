@@ -6,7 +6,12 @@ const logoutController = require('../controllers/logoutController');
  * @swagger
  * /logout:
  *  get:
- *    summary: Wylogowanie
+ *    tags:
+ *    - Autoryzacja JWT
+ *    summary: Wylogowanie - nie wymaga podania żadnych informacji
+ *    responses:
+ *      204:
+ *        description: No content - po prostu OK
  */
 router.route("/")
   .get(logoutController.handleLogout);
