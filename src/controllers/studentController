@@ -61,7 +61,7 @@ const courseGenerateCode = async (req, res) => {
       }
   };
 
-  const courseUseCode = async (req, res) => {
+const courseUseCode = async (req, res) => {
     let course
     try{
       course = await courseModel.findOne({_id: req.body.id})

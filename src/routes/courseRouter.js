@@ -6,6 +6,8 @@ const courseController = require('../controllers/courseController');
  * @swagger
  * /api/course/addCourse:
  *  post:
+ *    tags:
+ *    - Kursy
  *    summary: Dodaje kurs do bazy danych
  *    operationId: addCourse
  *    requestBody:
@@ -52,11 +54,50 @@ router.route("/addCourse")
  * @swagger
  * /api/course/manageCourseById:
  *  get:
+ *    tags:
+ *    - Kursy
  *    summary: Zwraca kurs o zadanym ID
+ *    requestBody:
+ *      description: "Podajemy ID kursu"
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              _id:
+ *                type: string
+ *            example:
+ *              _id: 62ae0a8665b471175a9e374c
  *  delete:
+ *    tags:
+ *    - Kursy
  *    summary: Usuwa kurs o zadanym ID
+ *    requestBody:
+ *      description: "Podajemy ID kursu"
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              _id:
+ *                type: string
+ *            example:
+ *              _id: 62ae0a8665b471175a9e374c
  *  patch:
+ *    tags:
+ *    - Kursy
  *    summary: Modyfikuje informacje o kursie o zadanym ID
+ *    requestBody:
+ *      description: "Podajemy ID kursu"
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              _id:
+ *                type: string
+ *            example:
+ *              _id: 62ae0a8665b471175a9e374c
  */
 router.route("/manageCourseById")
     .get(courseController.courseGetById)
@@ -67,7 +108,16 @@ router.route("/manageCourseById")
  * @swagger
  * /api/course/getAll:
  *  get:
+ *    tags:
+ *    - Kursy
  *    summary: Zwraca wszystkie kursy z bazy
+ *    responses:
+ *      200:
+ *        description: OK
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Courses'
  */
 router.route("/getAll")
     .get(courseController.courseGetAll);
@@ -76,7 +126,17 @@ router.route("/getAll")
  * @swagger
  * /api/course/manageCourseBySubject:
  *  get:
+ *    tags:
+ *    - Kursy
  *    summary: Zwraca kurs po przedmiocie
+ *    parameters:
+ *      - in: query
+ *        name: subject
+ *        description: Nazwa przedmiotu
+ *        required: true
+ *        schema:
+ *          type: string
+ *        example: matematyka
  */
 router.route("/manageCourseBySubject")
     .get(courseController.courseGetBySubject)
@@ -85,7 +145,15 @@ router.route("/manageCourseBySubject")
  * @swagger
  * /api/course/manageCourseByAuthor:
  *  get:
+ *    tags:
+ *    - Kursy
  *    summary: Zwraca kursy konkretnego autora
+ *    parameters:
+ *      - in: query
+ *        name: author
+ *        required: true
+ *        schema:
+ *          type: string
  */
 router.route("/manageCourseByAuthor")
     .get(courseController.courseGetByAuthor)

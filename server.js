@@ -35,7 +35,7 @@ const swaggerOptions = {
       servers: ["http://localhost:3001","https://serwis-z-tresciami.herokuapp.com/"]
     }
   },
-  apis: ["./src/routes/*.js"]
+  apis: ["./src/routes/*.js", "./src/models/*.js"]
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);

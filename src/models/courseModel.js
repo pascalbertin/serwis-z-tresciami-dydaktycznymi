@@ -1,6 +1,48 @@
 const mongoose = require("mongoose");
 const { lectureSchema, lectureModel } = require('./lectureModel');
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *    Courses:
+ *      type: object
+ *      required:
+ *      - title
+ *      - description
+ *      - price
+ *      - author
+ *      - subject
+ *      - level
+ *      - video
+ *      - thumbnail
+ *      properties:
+ *        title:
+ *          type: string
+ *        description:
+ *          type: string
+ *        price:
+ *          type: number
+ *        author:
+ *          type: string
+ *        subject:
+ *          type: string
+ *        level:
+ *          type: number
+ *        video:
+ *          type: string
+ *        thumbnail:
+ *          type: string
+ *        codes:
+ *          type: object
+ *          properties:
+ *            code:
+ *              type: string
+ *            uses:
+ *              type: number
+ *        lectures:
+ *          $ref: '#/components/schemas/Lectures'
+ */
 const courseSchema = new mongoose.Schema({
     title: {
         type: String,

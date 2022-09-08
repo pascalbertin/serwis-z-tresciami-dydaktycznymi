@@ -6,7 +6,16 @@ const refreshTokenController = require('../controllers/refreshTokenController');
  * @swagger
  * /refresh:
  *  get:
- *    summary: Refresh JWT
+ *    tags:
+ *    - Autoryzacja JWT
+ *    summary: Refresh JWT - nie wymaga podawania żadnych informacji
+ *    responses:
+ *      200:
+ *        description: Odświeżono token
+ *      401:
+ *        description: Unauthorized - użytkownik nie zalogowany
+ *      403:
+ *        description: Forbidden - brak dostępu
  */
 router.route("/")
   .get(refreshTokenController.handleRefreshToken);

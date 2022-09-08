@@ -18,6 +18,7 @@ const courseCreate = (req, res) => {
         if (error) {
           console.log(error);
         } else {
+            res.status(200).send("Kurs dodano");
             console.log("Succes");
         }
         });   

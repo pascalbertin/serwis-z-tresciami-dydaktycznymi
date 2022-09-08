@@ -1,6 +1,28 @@
 const mongoose = require("mongoose");
 const { courseSchema, courseModel } = require('./courseModel');
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *    Teachers:
+ *      type: object
+ *      required:
+ *      - userName
+ *      - email
+ *      - password
+ *      properties:
+ *        title:
+ *          type: string
+ *        email:
+ *          type: string
+ *        password:
+ *          type: string
+ *        course:
+ *          $ref: '#/components/schemas/Courses'
+ *        refreshToken:
+ *          type: string
+ */
 const teacherSchema = new mongoose.Schema({
   userName: {
       type: String,

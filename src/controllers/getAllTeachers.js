@@ -3,7 +3,6 @@ const TeacherModel = require("../models/teacherModel");
 //get all courses of requested author
 const teacherGetAll = async (req, res) => {
   let teacher
-  console.log("teacher")
   try{
     teacher = await TeacherModel.find()
     console.log(teacher)

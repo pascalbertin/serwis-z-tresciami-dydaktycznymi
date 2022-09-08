@@ -1,5 +1,20 @@
 const mongoose = require("mongoose");
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *    Lectures:
+ *      type: object
+ *      required:
+ *      - title
+ *      - video
+ *      properties:
+ *        title:
+ *          type: string
+ *        video:
+ *          type: string
+ */
 const lectureSchema = new mongoose.Schema({
   title: {
       type: String,
