@@ -19,7 +19,6 @@
 }
 
 .appbar-container {
-    height: 1800px;
     margin-bottom: 30px;
     width: var(--widths);
     display: flex;
@@ -28,17 +27,17 @@
     padding-bottom: 225px;
 }
 
-.appbar-container .left-column{
+.appbar-container .left-column {
     width: 50%;
     padding-left: 200px;
     padding-right: 200px;
 }
 
-.appbar-container .right-column{
+.appbar-container .right-column {
     width: 50%;
 }
 
-.appbar-container .left-main-text{
+.appbar-container .left-main-text {
     width: 100%;
     color: #2F184B;
     font-size: 50px;
@@ -46,7 +45,7 @@
     padding-top: 170px;
 }
 
-.appbar-container .left-bottom-text{
+.appbar-container .left-bottom-text {
     width: 100%;
     color: black;
     font-size: 20px;
@@ -56,7 +55,7 @@
     padding-bottom: 50px;
 }
 
-.right-side-image{
+.right-side-image {
     width: 110;
     height: 120;
 }
@@ -163,29 +162,35 @@
 
 .category-menu-container{
     display: flex;
-    padding-left: 160px;
+    flex-direction: column;
+    margin: 0 160px;
+}
+
+.row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 65px;
 }
 
 .category-menu .square-button {
-    display:block;
-    width:300px;
-    height:300px;
+    display: flex;
+    justify-content: center;
+    width: 300px;
+    height: 300px;
     text-align: center;
-   /* vertical-align: middle;*/
-   filter: drop-shadow(10px 10px 20px rgba(0, 0, 0, 0.25)) drop-shadow(-10px 10px 20px rgba(0, 0, 0, 0.25));
-    line-height: 240px; 
-	margin:0 100px 100px 0;
-	padding:10px 21px;
-	font-family:'Arial';
-	font-weight:400;
-	font-size:32px;
-	color:#2F184B;
-	background:#F4EFFA; 
-	transition: all 0.4s ease-in-out;
-	-moz-transition: all 0.4s ease-in-out;
-	-webkit-transition: all 0.4s ease-in-out;
-	-o-transition: all 0.4s ease-in-out;
-    float:left;
+    filter: drop-shadow(10px 10px 20px rgba(0, 0, 0, 0.25)) drop-shadow(-10px 10px 20px rgba(0, 0, 0, 0.25));
+    padding: 10px 21px;
+    font-family: 'Arial';
+    font-weight: 400;
+    font-size: 32px;
+    color: #2F184B;
+    background: #F4EFFA;
+    transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    align-items: center;
 }
 
 .category-text {
@@ -223,4 +228,11 @@
     font-size: 20px;
     border-radius: 30px;
 
+}
+
+.slider-row {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    padding-bottom: 20px;
 }

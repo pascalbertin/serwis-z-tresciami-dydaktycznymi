@@ -8,6 +8,7 @@ import science from '../../assets/images/logo.JPG';
 
 const len = SliderImage.length - 1;
 var sliderData = [];
+var idFromSlider = "";
 
 function Slider(props) {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -32,10 +33,10 @@ function Slider(props) {
     useEffect(() => {
         checkUser();
         // auto changing slides
-        // const interval = setInterval(() => {
-        //     setActiveIndex(activeIndex === len ? 0 : activeIndex + 1);
-        // }, 5000);
-        // return () => clearInterval(interval);
+         const interval = setInterval(() => {
+             setActiveIndex(activeIndex === len ? 0 : activeIndex + 1);
+         }, 5000);
+         return () => clearInterval(interval);
     }, [activeIndex]);
 
     return (
@@ -65,8 +66,13 @@ function Slider(props) {
                 <div className="category-column-text">Chemia</div>
                 <div className="category-column-text">Historia</div>
             </div>
-            <SliderContent activeIndex={activeIndex} sliderImage={sliderData}  />
-            
+            <div className='slider-row'>
+               
+                <SliderContent activeIndex={activeIndex < 1 ? len : activeIndex - 1} sliderImage={sliderData}  />
+                <SliderContent activeIndex={activeIndex} sliderImage={sliderData}  onClick={idFromSlider=sliderData._id}/>
+                <SliderContent activeIndex={activeIndex === len ? 0 : activeIndex + 1} sliderImage={sliderData}  />
+
+            </div>
             <Arrows
                 prevSlide={() =>
                     setActiveIndex(activeIndex < 1 ? len : activeIndex - 1)
@@ -83,26 +89,24 @@ function Slider(props) {
             <div className="category-menu">
             <h2 className="category-text">Kategorie</h2>
             <div className="category-menu-container">
-                <div className="row" key={`row${3}`}>
-                    <div className="col">
+                    <div className="row">
                         <div className='square-button'>Matematyka</div>
                         <div className='square-button'>Język polski</div>
                         <div className='square-button'>Język angielski</div>
                         <div className='square-button'>Informatyka</div>
                     </div>
-                    <div className="col">
+                    <div className="row">
                         <div className='square-button'>Biologia</div>
                         <div className='square-button'>Chemia</div>
                         <div className='square-button'>Fizyka</div>
                         <div className='square-button'>Historia</div>
                     </div>
-                    <div className="col">
+                    <div className="row">
                         <div className='square-button'>Geografia</div>
                         <div className='square-button'>Muzyka</div>
                         <div className='square-button'>Język niemiecki</div>
                         <div className='square-button'>Podstawy przedsiębiorczości</div>
                     </div>
-                </div>
             </div>
         </div>
         </div>

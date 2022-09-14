@@ -8,6 +8,7 @@ import Categories from './components/categories/Categories';
 import Footer from './components/footer/Footer';
 import Slider from './components/slider/Slider';
 import Course from './pages/coursePage/Course';
+import VideoCourse from './pages/videoCoursePage/videoCurse';
 
 function App() {
   return (
@@ -34,6 +35,9 @@ function App() {
                 </Route>
                 <Route path="/course">
                   <Course />
+                </Route>
+                <Route path="/video/$id">
+                  <VideoCourse/>
                 </Route>
               </Switch>
             </div>          
