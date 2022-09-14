@@ -36,8 +36,8 @@ function App() {
                 <Route path="/course">
                   <Course />
                 </Route>
-                <Route path="/video/$id">
-                  <VideoCourse/>
+               <Route path="/video">
+                   <VideoCourse/>
                 </Route>
               </Switch>
             </div>          
