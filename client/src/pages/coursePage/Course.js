@@ -1,18 +1,17 @@
-import React,  { useState, useEffect } from 'react'
-import './Course.css'
+import React,  { useState, useEffect } from 'react';
+import './Course.css';
 import science from '../../assets/images/science1.jpg';
-// import useStyles from '../../styles';
+import { Link } from 'react-router-dom';
+
 
 const Course = () => {
 
   var idParam = window.location.search;
   var id = idParam.substring(4);
 
-  //const [isSubmitted, setIsSubmitted] = useState(false)
   const [value, setValues] = useState([])
 
   const submitForm = () => {
-  console.log("AAAAAAAAAAA");
   fetch("https://serwis-z-tresciami.herokuapp.com/api/course/manageCourseById?id="+id, {method: "GET", headers: {
       'Accept': 'application',
       'Content-Type': 'application'
@@ -48,9 +47,11 @@ const Course = () => {
           <div className='row second-row'>
             <form className='activate-code' method="post">
               <input className='form-input' placeholder="Kod dostępu" />
+              <Link to={`/video?id=${id}`}>
                 <button className='form-button' type="submit">
                   Aktywuj 
                 </button>
+              </Link>
             </form>
           </div>
         </div>
