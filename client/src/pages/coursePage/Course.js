@@ -1,37 +1,33 @@
-import React,  { useState, useEffect} from 'react'
+import React,  { useState, useEffect } from 'react'
 import './Course.css'
 import science from '../../assets/images/science1.jpg';
-import useStyles from '../../styles';
+// import useStyles from '../../styles';
 
 const Course = () => {
 
-//   const [isSubmitted, setIsSubmitted] = useState(false)
-//   const [values, setValues] = useState({})
+  var idParam = window.location.search;
+  var id = idParam.substring(4);
 
-// function submitForm(isValid){
-//   if (isValid){
-//   setIsSubmitted(false);
-//   setValues(values);
-//   fetch("https://serwis-z-tresciami.herokuapp.com/api/course/manageCourseBySubject", {method: "GET",headers: {
-//       'Accept': 'application/json',
-//       'Content-Type': 'application/json'
-//   }})
-//   .then(response => response.json())
-//   .then(data => {
-//       console.log('Success:', data);
-//   })
-//   .catch((error) => {
-//       console.error('Error:', error);
-//   });
-  
-//   }else{
-//   setIsSubmitted(false);
-//   setValues({});
-//   }
-// }
+  //const [isSubmitted, setIsSubmitted] = useState(false)
+  const [value, setValues] = useState([])
 
+  const submitForm = () => {
+  console.log("AAAAAAAAAAA");
+  fetch("https://serwis-z-tresciami.herokuapp.com/api/course/manageCourseById?id="+id, {method: "GET", headers: {
+      'Accept': 'application',
+      'Content-Type': 'application'
+  }})
+  .then(response => response.json())
+  .then(data => {
+      console.log('Success:', data);
+      setValues(data);
+  })  
+}
 
-  const classes = useStyles();
+  useEffect(() => {
+    submitForm()
+  }, [])
+
   return (
     <div className='course-info'>
       <div className='container'>
@@ -40,19 +36,21 @@ const Course = () => {
         </div>
         <div className='right-column'>
           <div className='description'>
-            <h1 className='main-course-text'>Tytuł</h1>
-            <h2 className='bottom-course-text'>Kategoria: </h2>
-            <p className='course-text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <h1 className='main-course-text'>{value.title}</h1>
+            <h2 className='bottom-course-text'>Kategoria: {value.subject}</h2>
+            <p className='course-text'>{value.description}</p>
           </div>
           <div className='row first-row'>
-            <h3 className='main-course-text'>Cena kursu: </h3>
+            <h3 className='main-course-text'>Cena kursu: {value.price} zł</h3>
             <button className="form-button" type="submit">Kup kurs</button>
           </div>
           <h2 className='bottom-course-code-text'>Wpisz kod, aby uzyskać dostęp do kursu </h2>
           <div className='row second-row'>
             <form className='activate-code' method="post">
               <input className='form-input' placeholder="Kod dostępu" />
-              <button className='form-button' type="submit">Aktywuj</button>
+                <button className='form-button' type="submit">
+                  Aktywuj 
+                </button>
             </form>
           </div>
         </div>

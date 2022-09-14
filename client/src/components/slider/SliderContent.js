@@ -3,7 +3,6 @@ import {BrowserRouter as Router, Link} from 'react-router-dom';
 
 function SliderContent({ activeIndex, sliderImage }) {    
 
-
     return (
         <section>
             {sliderImage.map((slide, index) => (
@@ -12,7 +11,7 @@ function SliderContent({ activeIndex, sliderImage }) {
                 className={index === activeIndex ? "slides active" : "inactive"}
                 >
                     <div className="slider-image-container">
-                        <Link to='/course'>
+                        <Link to={`/course?id=${slide._id}`}>
                             <img className="slide-image" url={slide.thumbnail} alt={slide.title} />
                         </Link>
                     </div>

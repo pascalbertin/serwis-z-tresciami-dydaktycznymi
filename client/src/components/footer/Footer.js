@@ -48,7 +48,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <hr />
-                <div className="row">
+                <div className="bottom-row">
                     <p className="col-sm">
                         TUTORS ALPHA &copy;   {new Date().getFullYear()}  |   Polityka prywatności  |  Regulamin  |   Konto
                     </p>
