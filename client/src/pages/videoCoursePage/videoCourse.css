@@ -1,3 +1,38 @@
-.course-video-player {
-    align-items: center;
+.video-container {
+    display:list-item;
+    justify-content: left;
+    align-items: baseline;
+    padding-left: 150px;
+}
+
+.video-container .title-text {
+    position: flex;
+    padding-top: 30px;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 44px;
+    color: #2F184B;
+}
+
+.video-container .category-text {
+    position: flex;
+    width: 143px;
+    height: 18px;
+    padding-top: 10px;
+    padding-bottom: 30px;  
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #5E5E5E;
+}
+
+.video-container .description-text {
+    position: flex;
+    width: 718px;
+    height: 70px;
+    padding-top: 30px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
 }
