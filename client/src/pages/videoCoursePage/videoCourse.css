@@ -2,12 +2,18 @@
     display:list-item;
     justify-content: left;
     align-items: baseline;
-    padding-left: 150px;
+}
+
+.video-container .video-player {
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
 }
 
 .video-container .title-text {
     position: flex;
     padding-top: 30px;
+    padding-left: 150px;
     font-weight: 700;
     font-size: 36px;
     line-height: 44px;
@@ -20,6 +26,7 @@
     height: 18px;
     padding-top: 10px;
     padding-bottom: 30px;  
+    padding-left: 150px;
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
@@ -31,6 +38,7 @@
     width: 718px;
     height: 70px;
     padding-top: 30px;
+    padding-left: 150px;
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
