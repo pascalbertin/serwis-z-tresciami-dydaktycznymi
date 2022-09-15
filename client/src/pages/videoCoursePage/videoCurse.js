@@ -1,31 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './videoCourse.css';
 
-
 const videoCourse = () => {
-
-  // var idParam = window.location.search;
-  // var id = idParam.substring(4);
-
-  // const [videos, setVideos] = useState([])
-
-  // const fetchData = () => {
-  //   fetch("https://serwis-z-tresciami.herokuapp.com/api/course/manageCourseById?id="+id, {method: "GET", headers: {
-  //     'Accept': 'application',
-  //     'Content-Type': 'application'
-  //   }})
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     setVideos(data)
-  //   })
-  // }
-
-  // useEffect(() => {
-  //   fetchData()
-  // }, [])
-
+  
+  const title = localStorage.getItem('title');
+  const subject = localStorage.getItem('subject');
+  const info = localStorage.getItem('info');
   return (
-    <div className='course-video-player'>AAAA </div>
+    <div className='video-container'>
+      <div className='title-text'>{title}</div>
+      <div className='category-text'>Kategoria: {subject}</div>
+      <div className='description-text'>{info}</div>
+    </div>
+    
   );
 }
 

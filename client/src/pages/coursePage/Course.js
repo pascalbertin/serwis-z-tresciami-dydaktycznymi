@@ -3,14 +3,13 @@ import './Course.css';
 import science from '../../assets/images/science1.jpg';
 import { Link } from 'react-router-dom';
 
-
-const Course = () => {
+function Course(){
 
   var idParam = window.location.search;
   var id = idParam.substring(4);
 
   const [value, setValues] = useState([])
-
+  
   const submitForm = () => {
   fetch("https://serwis-z-tresciami.herokuapp.com/api/course/manageCourseById?id="+id, {method: "GET", headers: {
       'Accept': 'application',
@@ -19,13 +18,20 @@ const Course = () => {
   .then(response => response.json())
   .then(data => {
       console.log('Success:', data);
-      setValues(data);
+      setValues(data); 
+      localStorage.clear();
+      localStorage.setItem('title', data.title);
+      localStorage.setItem('subject', data.subject);
+      localStorage.setItem('info', data.description);
   })  
 }
+
+
 
   useEffect(() => {
     submitForm()
   }, [])
+
 
   return (
     <div className='course-info'>
