@@ -23,10 +23,9 @@ function Course(){
       localStorage.setItem('title', data.title);
       localStorage.setItem('subject', data.subject);
       localStorage.setItem('info', data.description);
+      localStorage.setItem('url', data.video);
   })  
 }
-
-
 
   useEffect(() => {
     submitForm()
