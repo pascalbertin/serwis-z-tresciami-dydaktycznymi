@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.6",
     "cors": "2.8.5",
@@ -15,6 +16,7 @@
     "nodemailer": "^6.7.5",
     "nodemon": "^2.0.19",
     "react-player": "^2.10.1",
+    "react-router-dom": "^6.0.0",
     "swagger-editor": "^4.4.0",
     "swagger-editor-dist": "^4.4.0",
     "swagger-jsdoc": "^6.2.5",

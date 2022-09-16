@@ -211,11 +211,22 @@
     justify-content: center;     
 }
 
-.category-column-text {
+.category-column-text-button {
     font-size: 28px;
-    color: black;
+    /* background-color: white;
+     color: black;
+    border: 2px solid #4CAF50;  */
+    /* border: #F4EFFA;*/
+    background-color: white; 
+    border: none;
     text-align: center;
     padding: 30px 30px 30px 30px;
+    transition-duration: 0.4s;
+}
+
+.category-column-text-button:hover {
+    background-color: #2F184B;
+    color: black;
 }
 
 .left-start-button {
