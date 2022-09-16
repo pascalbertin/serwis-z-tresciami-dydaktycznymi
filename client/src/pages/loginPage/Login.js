@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import LoginForm from '../../components/login/LoginForm'
 import LoginResponse from '../../components/login/LoginResponse'
-import axios from 'axios'
+import axios from '../../config/axios'
 
 const Login = () => {
   // const { auth, setAuth } = useAuth();
@@ -14,7 +14,7 @@ const Login = () => {
     if (isValid){
       setValues(values)
       try{
-        const response = await axios.post("http://localhost:3001/user/login", JSON.stringify(values),
+        const response = await axios.post("/user/login", JSON.stringify(values),
         {
           headers: {'Content-Type': 'application/json',
                     'Accept': 'application/json'},

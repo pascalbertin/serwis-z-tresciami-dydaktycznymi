@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import axios from 'axios'
+import axios from '../../config/axios'
 // import useAxios from '../../hooks/useAxios'
 // import useAuth from '../../hooks/useAuth'
 
@@ -12,7 +12,7 @@ const Profile = () => {
        
        const getUsers = async () => {
            try {
-                const response = await axios.get('http://localhost:3001/test', {
+                const response = await axios.get('/test', {
                    headers: { 
                        'Authorization': 'Bearer ' + localStorage.getItem('accessToken')}
                 });
@@ -36,7 +36,7 @@ const Profile = () => {
                 <ul>
                     {users.map((user, i) => <li key={i}>{user?.userName}</li>)}
                 </ul>
-                ) : <p>No auth</p>
+                ) : <p></p>
             }
             <br />
         </div>
