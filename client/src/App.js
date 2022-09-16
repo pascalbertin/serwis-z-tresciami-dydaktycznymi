@@ -25,7 +25,7 @@ function App() {
                 <Route path="/register" element={<Form />} />
                 <Route path="/categories" element={ <Categories />} />
                 <Route path="/login" element={ <Login />} />
-                <Route path="/logout" element={ <Logout />} />
+                <Route path="/logoutt" element={ <Logout />} />
                 <Route path="/profile" element={ <Profile />} />
                 <Route path="/addcourse" element={ <AddCourse />} />
                 <Route path="/course" element={ <Course />} />
