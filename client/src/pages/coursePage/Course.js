@@ -17,7 +17,7 @@ function Course(){
   }})
   .then(response => response.json())
   .then(data => {
-      console.log('Success:', data);
+      //console.log('Success:', data);
       setValues(data); 
       localStorage.clear();
       localStorage.setItem('title', data.title);

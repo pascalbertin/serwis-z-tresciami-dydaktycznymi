@@ -5,6 +5,7 @@ import Arrows from './Arrows';
 import SliderImage from './SliderImage';
 import './slider.css';
 import science from '../../assets/images/logo.JPG';
+import { Link } from 'react-router-dom';
 
 const len = SliderImage.length - 1;
 var sliderData = [];
@@ -57,14 +58,16 @@ function Slider(props) {
             </div>
             <h2 className='main-slide-text'>Przykładowe kursy</h2>
             <div className="category-column">
-                <div className="category-column-text">Matematyka</div>
-                <div className="category-column-text">Język polski</div>
-                <div className="category-column-text">Język angielski</div>
-                <div className="category-column-text">Informatyka</div>
-                <div className="category-column-text">Biologia</div>
-                <div className="category-column-text">Fizyka</div>
-                <div className="category-column-text">Chemia</div>
-                <div className="category-column-text">Historia</div>
+                <Link to={`/courses?subject=Matematyka`}>
+                    <button className="category-column-text-button">Matematyka</button>
+                </Link>
+                <Link to={`/courses?subject=Polski`}><button className="category-column-text-button">Język polski</button></Link>
+                <Link to={`/courses?subject=Angielski`}><button className="category-column-text-button">Język angielski</button></Link>
+                <Link to={`/courses?subject=Informatyka`}><button className="category-column-text-button">Informatyka</button></Link>
+                <Link to={`/courses?subject=Biologia`}><button className="category-column-text-button">Biologia</button></Link>
+                <Link to={`/courses?subject=Fizyka`}><button className="category-column-text-button">Fizyka</button></Link>
+                <Link to={`/courses?subject=Chemia`}><button className="category-column-text-button">Chemia</button></Link>
+                <Link to={`/courses?subject=Historia`}><button className="category-column-text-button">Historia</button></Link>
             </div>
             <div className='slider-row'>
                
