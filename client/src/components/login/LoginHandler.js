@@ -30,7 +30,7 @@ const LoginHandler = callback => {
         }
     })
 
-    return {updateHandler, values, submitHandler, errors}
+    return {updateHandler, values, submitHandler, errors, isPositive}
 }
 
 export default LoginHandler;

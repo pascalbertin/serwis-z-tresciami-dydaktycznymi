@@ -12,6 +12,7 @@ import useStyles from '../../styles';
 const Home = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const isLoggedIn = localStorage.getItem('accessToken')
 
   const handleOpen = () => {
     setOpen(true);
@@ -36,27 +37,49 @@ const Home = () => {
             label='Szukaj kursów'
           />
         </div>
-        <a href='/categories' style={{ textDecoration: 'none' }}>
+        {!isLoggedIn && <a href='/categories' style={{ textDecoration: 'none' }}>
           <Button
             className={classes.title}
-            onClick={handleOpen}
-            >   Kategorie
+            onClick={handleOpen}>   Kategorie
           </Button>
-        </a>
-        <a href='/form' style={{ textDecoration: 'none' }}>
+        </a>}
+        {isLoggedIn && <a href='/profile' style={{ textDecoration: 'none' }}>
+        <Button
+          className={classes.title}
+          onClick={handleOpen}>   Profil ({localStorage.getItem('username')})
+        </Button>
+      </a>}
+        
+        {!isLoggedIn && <a href='/register' style={{ textDecoration: 'none' }}>
           <Button
             className={classes.title}
             onClick={handleOpen}>   Zostań nauczycielem
           </Button>
-        </a>
-        <a href='/' style={{ textDecoration: 'none' }}>
+        </a>}
+        {isLoggedIn && <a href='/logout' style={{ textDecoration: 'none' }}>
+        <Button
+          className={classes.title}
+          onClick={handleOpen}>   Wyloguj się
+        </Button>
+      </a>}
+
+      {isLoggedIn && <a href='/addCourse' style={{ textDecoration: 'none'}}>
+          <Button
+            variant="contained"
+            style={ {borderRadius: 20}}
+            className={classes.titleSecondButton}
+            onClick={handleOpen}>   Dodaj kurs
+          </Button>
+        </a>}
+
+        {!isLoggedIn && <a href='/' style={{ textDecoration: 'none' }}>
           <Button
             variant="contained"
             style={ {borderRadius: 20}}
             className={classes.titleSecondButton}
             onClick={handleOpen}>   Zacznij naukę!
           </Button>
-        </a>
+        </a>}
       </Toolbar>
     </AppBar>
   );
