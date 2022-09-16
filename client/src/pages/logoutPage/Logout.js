@@ -12,6 +12,7 @@ const Logout = () => {
 
     async function handleLogout(){
         if(isLoggedIn){
+            console.log("czyszczenie")
             localStorage.removeItem('accessToken')
             localStorage.removeItem('roles')
             localStorage.removeItem('username')
@@ -20,7 +21,6 @@ const Logout = () => {
             const response = await axios.get('/logout')
             console.log(response.status)
             navigate('/', {state: { from: location}, replace: true})
-            navigate(0);
         }
         else{
             setMsg('Nie jesteś zalogowany!')
