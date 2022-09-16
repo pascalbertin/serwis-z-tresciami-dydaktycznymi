@@ -56,7 +56,7 @@ const Home = () => {
             onClick={handleOpen}>   Zostań nauczycielem
           </Button>
         </a>}
-        {isLoggedIn && <a href='/logout' style={{ textDecoration: 'none' }}>
+        {isLoggedIn && <a href='/user/logout' style={{ textDecoration: 'none' }}>
         <Button
           className={classes.title}
           onClick={handleOpen}>   Wyloguj się
