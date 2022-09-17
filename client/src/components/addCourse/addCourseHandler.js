@@ -6,7 +6,7 @@ const AddCourseHandler = callback => {
         title: '',
         description: '',
         price: '',
-        author: 'testowy12',
+        author: localStorage.getItem('username'),
         subject: '',
         level: '',
         video: '',

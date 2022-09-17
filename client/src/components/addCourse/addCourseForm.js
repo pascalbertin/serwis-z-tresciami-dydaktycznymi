@@ -33,7 +33,7 @@ const AddCourseForm = ({submitForm}) => {
                   <label htmlFor="subject" className="form-label"></label>
                   <select id="subject" name="subject" className="form-input select-input" value={values.category} onChange={updateHandler}>
                     <option disabled selected="selected" className="default">Kategoria</option>
-                    <option value="test1">Test1</option>
+                    <option value="Matematyka">Matematyka</option>
                     <option value="test2">Test2</option>
                     <option value="test3">Test3</option>
                     <option value="test4">Test4</option>

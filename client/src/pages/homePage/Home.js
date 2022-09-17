@@ -1,5 +1,5 @@
 import '../../App.css';
-import React, { useState } from 'react';
+import React from 'react';
 
 import { AppBar, Typography } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
@@ -11,22 +11,14 @@ import useStyles from '../../styles';
 
 const Home = () => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
   const isLoggedIn = localStorage.getItem('accessToken')
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const username = localStorage.getItem('username')
 
   return (
     <AppBar style={{ position: 'relative', background: '#F4EFFA', zIndex: 1 }}>
       <Toolbar>
         <a href='/'>
-          <img className={classes.image} src={science} width="110" height="120"></img>
+          <img className={classes.image} src={science} alt="logo" width="110" height="120"></img>
         </a>
         <a href='/' style={{ textDecoration: 'none' }}>
           <Typography className={classes.heading} style={{ marginLeft: 8, width: '18%', fontSize: "4rem"}} variant='h1' align='left' sx={{ flexGrow: 2 }}>
@@ -43,27 +35,23 @@ const Home = () => {
         </div>
         {!isLoggedIn && <a href='/categories' style={{ textDecoration: 'none' }}>
           <Button
-            className={classes.title}
-            onClick={handleOpen}>   Kategorie
+            className={classes.title}>   Kategorie
           </Button>
         </a>}
         {isLoggedIn && <a href='/profile' style={{ textDecoration: 'none' }}>
         <Button
-          className={classes.title}
-          onClick={handleOpen}>   Profil ({localStorage.getItem('username')})
+          className={classes.title}>   Profil ({username})
         </Button>
       </a>}
         
         {!isLoggedIn && <a href='/register' style={{ textDecoration: 'none' }}>
           <Button
-            className={classes.title}
-            onClick={handleOpen}>   Zostań nauczycielem
+            className={classes.title}>   Zostań nauczycielem
           </Button>
         </a>}
         {isLoggedIn && <a href='/user/logout' style={{ textDecoration: 'none' }}>
         <Button
-          className={classes.title}
-          onClick={handleOpen}>   Wyloguj się
+          className={classes.title}>   Wyloguj się
         </Button>
       </a>}
 
@@ -71,8 +59,7 @@ const Home = () => {
           <Button
             variant="contained"
             style={ {borderRadius: 20}}
-            className={classes.titleSecondButton}
-            onClick={handleOpen}>   Dodaj kurs
+            className={classes.titleSecondButton}>   Dodaj kurs
           </Button>
         </a>}
 
@@ -80,8 +67,7 @@ const Home = () => {
           <Button
             variant="contained"
             style={ {borderRadius: 20}}
-            className={classes.titleSecondButton}
-            onClick={handleOpen}>   Zacznij naukę!
+            className={classes.titleSecondButton}>   Zacznij naukę!
           </Button>
         </a>}
       </Toolbar>

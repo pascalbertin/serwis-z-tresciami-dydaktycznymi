@@ -3,7 +3,7 @@ import axios from '../../config/axios'
 // import useAxios from '../../hooks/useAxios'
 // import useAuth from '../../hooks/useAuth'
 
-const Profile = () => {
+const Admin = () => {
     const [users, setUsers] = useState()
     // const axiosPrivate = useAxios();
 
@@ -36,11 +36,10 @@ const Profile = () => {
                 <ul>
                     {users.map((user, i) => <li key={i}>{user?.userName}</li>)}
                 </ul>
-                ) : <p></p>
-            }
+                ) : <p></p>}
             <br />
         </div>
-    );
-};
+    )
+}   
 
-export default Profile;
+export default Admin;
