@@ -209,6 +209,7 @@
     display: flex;               
     align-items: center;         
     justify-content: center;     
+    padding-top: 12px;
 }
 
 .category-column-text-button {
@@ -225,7 +226,7 @@
 }
 
 .category-column-text-button:hover {
-    background-color: #2F184B;
+    background-color: #C8B1E4;
     color: black;
 }
 
@@ -247,4 +248,8 @@
     width: 100%;
     justify-content: space-around;
     padding-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
 }

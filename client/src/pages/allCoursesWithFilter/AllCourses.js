@@ -1,6 +1,7 @@
 import React, { useState, useEffect }  from 'react';
 import './AllCourses.css';
 import science from '../../assets/images/science1.jpg';
+import { Link } from 'react-router-dom';
 
 
 const AllCourses = () => {
@@ -8,7 +9,7 @@ const AllCourses = () => {
   var subParametr = window.location.search;
   var sub = subParametr.substring(9);  
 
-  const [value, setValues] = useState([])
+  const [values, setValues] = useState([])
 
   const madeObjects = (data) => {
     data.forEach(course => {
@@ -26,29 +27,36 @@ const AllCourses = () => {
     .then(data => {
         console.log('Success:', data);
         setValues(data); 
-        var l = data.length;
-        console.log("length: ", l);
     })  
   }
   
   useEffect(() => {
     submitForm()
-    // var l = data.length;
-    // console.log("lengthA: ", l);
-    madeObjects(value);
+    madeObjects(values);
   }, [])
   
   return (
     <div className='all-courses-container'>
-      <div className='title-text'>{sub}</div>
-      <div className='category-text'></div>
-      {/* <div className='description-text'>AAAA {value[1].title}</div> */}
+      <div className='sub-title-text'>{sub}</div>
       <div className='objects-of-course'>
-        <div className='row'>
-          {/* <img className='course-photo' src={science}></img> */}
-          {/* <div className='course-info'> */}
-            {/* <div className='object-title'>{value[0].title}</div> */}
-          {/* </div> */}
+        <div className='column'>
+          {values?.length ? (
+            <ul >
+              {values.map((value, i) => 
+              <li key={i}>
+                <Link to={`/course?id=${value._id}`} style={{ textDecoration: 'none' }}>
+                  <div className='course-object-title'>{value?.title}</div>
+                </Link>
+                <div className='course-object-subject'>Kategoria: {value?.subject}</div>
+                <div className='course-object-price'>Cena: {value?.price} zł</div>
+                <hr />
+              </li>)}              
+            </ul>
+          ) : <p className='empty-courses'>
+              BRAK KURSÓW Z TEGO PRZEDMIOTU
+              <p className='empty-courses-bottom-text'>Spróbuj później</p>
+            </p>
+        }
         </div>
       </div>
     </div>
