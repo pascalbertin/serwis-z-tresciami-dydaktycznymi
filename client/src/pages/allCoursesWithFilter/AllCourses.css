@@ -1,41 +1,54 @@
 .all-courses-container {
-    display: flex;
-    padding-left: 80px;
-    padding-top: 30px;
+    display: list-item;
+    justify-content: center;
 }
 
-.description-text {
-    position: flex;
-    width: 718px;
-    height: 70px;
-    padding-top: 30px;
-    padding-left: 150px;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    color:  black;
+.sub-title-text {
+    width: 100%;
+    color: #2F184B;
+    font-size: 50px;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 .all-courses-container .object-of-course {
     display: flex;
     justify-content: center;
     width: 100%;
-    /* height: 500px; */
 }
 
-.object-of-course .course-photo {
-    padding-top: 30px;
-    height: 0px;
+.all-courses-container .empty-courses {
+    width: 100%;
+    color: #532B88;
+    font-size: 30px;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
-.object-of-course .course-info {
-    display: flex;
-    justify-content: left;
-    padding-top: 10px;
-    padding-left: 5%;
-    padding-right: 5%;
+.all-courses-container .empty-courses-bottom-text {
+    width: 100%;
+    color: #532B88;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 165px;
 }
 
-.object-of-course .course-info .object-title{
-    color: red;
+.all-courses-container .course-object-title {
+    font-size: 30px;
+    font-weight: 600;
+    color: #2F184B;
+}
+
+.all-courses-container .course-object-subject {
+    font-size: 15px;
+    color: gray;
+}
+
+.all-courses-container .course-object-price {
+    font-size: 25px;
+    font-weight: 450;
+    padding-bottom: 20px;
 }

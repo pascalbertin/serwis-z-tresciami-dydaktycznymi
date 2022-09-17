@@ -25,10 +25,14 @@ const Home = () => {
   return (
     <AppBar style={{ position: 'relative', background: '#F4EFFA', zIndex: 1 }}>
       <Toolbar>
-        <img className={classes.image} src={science} width="110" height="120"></img>
-        <Typography className={classes.heading} style={{ marginLeft: 8, width: '22%', fontSize: "4rem"}} variant='h1' align='left' sx={{ flexGrow: 2 }}>
-          TUTORS ALPHA
-        </Typography>
+        <a href='/'>
+          <img className={classes.image} src={science} width="110" height="120"></img>
+        </a>
+        <a href='/' style={{ textDecoration: 'none' }}>
+          <Typography className={classes.heading} style={{ marginLeft: 8, width: '18%', fontSize: "4rem"}} variant='h1' align='left' sx={{ flexGrow: 2 }}>
+            TUTORS ALPHA
+          </Typography>
+        </a>
         <div className='search' position='left'>
           <TextField
             id='outlined-basic'

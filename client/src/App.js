@@ -11,6 +11,7 @@ import Course from './pages/coursePage/Course';
 import VideoCourse from './pages/videoCoursePage/videoCurse';
 import Profile from './pages/userProfilePage/Profile';
 import Logout from './pages/logoutPage/Logout'
+import AllCourses from './pages/allCoursesWithFilter/AllCourses';
 // import {AuthProvider} from './contexts/AuthProvider'
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
                 <Route path="/addcourse" element={ <AddCourse />} />
                 <Route path="/course" element={ <Course />} />
                 <Route path="/video" element={ <VideoCourse />} />
+                <Route exact path="/courses" element={ <AllCourses />} />
               </Routes>
             </div>          
         </Router>

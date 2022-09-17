@@ -10,3 +10,23 @@
   display: flex;
   justify-content:space-around;
 }
+
+ul {
+  list-style-type: none;
+}
+
+.main-footer .list-unstyled {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0%;
+  padding-top: 10px;
+}
+
+.main-footer .list-unstyled li {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.main-footer h4 {
+  font-size: 25px;
+}
