@@ -13,6 +13,8 @@ import Admin from './pages/adminPage/Admin';
 import Logout from './pages/logoutPage/Logout';
 import AllCourses from './pages/allCoursesWithFilter/AllCourses';
 import Profile from './pages/profilePage/Profile';
+import EditCourse from './pages/editCoursePage/EditCourse';
+import DeleteCourse from './pages/deleteCourse/deleteCourse';
 // import {AuthProvider} from './contexts/AuthProvider'
 
 function App() {
@@ -32,6 +34,8 @@ function App() {
                 <Route path="/profile" element={ <Profile /> } />
                 <Route path="/addcourse" element={ <AddCourse />} />
                 <Route path="/course" element={ <Course />} />
+                <Route path="/editcourse" element={ <EditCourse /> } />
+                <Route path="/deletecourse" element={ <DeleteCourse />} />
                 <Route path="/video" element={ <VideoCourse />} />
                 <Route exact path="/courses" element={ <AllCourses />} />
               </Routes>

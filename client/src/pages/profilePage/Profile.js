@@ -33,7 +33,7 @@ const Profile = () => {
 
 
   return (
-    <div className="profile-container">
+    courses ?  <div className="profile-container">
       <div className="profile-top-container">
         <h2>Witaj {username}!</h2>
         <a href="/addCourse"><button className="form-button profile-button">Dodaj kurs</button></a>
@@ -56,7 +56,6 @@ const Profile = () => {
               </li>)}              
             </ul>
           ) : <p className='empty-courses'>
-              Nie posiadasz żadnych kursów
             </p>
         }
         </div> 
@@ -64,6 +63,7 @@ const Profile = () => {
     </div>
     </div>
     </div>
+    : <div></div>
   )
 }
 

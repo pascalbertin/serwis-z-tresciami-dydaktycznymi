@@ -55,10 +55,14 @@ function Course(){
             <h3 className='main-course-text'>Cena kursu: {value.price} zł</h3>
             </div>
             <div className='row first-row'>
+            <Link to={`/editcourse?id=${value._id}`} style={{ textDecoration: 'none' }}>
             <button className='form-button' type="submit"> Edytuj kurs</button>
+            </Link>
           </div>
           <div className='row second-row'>
+          <Link to={`/deletecourse?id=${value._id}`} style={{ textDecoration: 'none' }}>
             <button className='form-button' type="submit"> Usuń kurs</button>
+            </Link>
           </div>
         </div>)
          : (<div>
