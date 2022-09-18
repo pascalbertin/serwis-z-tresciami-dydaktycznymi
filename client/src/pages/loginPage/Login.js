@@ -2,9 +2,12 @@ import React, {useState} from 'react'
 import LoginForm from '../../components/login/LoginForm'
 import LoginResponse from '../../components/login/LoginResponse'
 import axios from '../../config/axios'
+import {useNavigate, useLocation} from 'react-router-dom'
 
 const Login = () => {
   // const { auth, setAuth } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
@@ -23,7 +26,9 @@ const Login = () => {
         {
           console.log(response.data)
           setSuccess(true)
-          setError('Zalogowano poprawnie!')
+          navigate(0);
+          navigate('/profile', {state: { from: location}, replace: true})
+          // setError('Zalogowano poprawnie!')
         }
         const accessToken = response?.data?.accessToken
         const roles = response?.data?.roles
