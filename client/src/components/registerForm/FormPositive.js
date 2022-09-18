@@ -3,20 +3,14 @@ import Form from '../../pages/registerPage/Form'
 import FormHandler from './FormHandler'
 import FormSignup from './FormSignup'
 
+const FormPositive = ({msg, success}) => {
+  const url = "/register"
+  const login = "/login"
 
-
-const FormPositive = ({values}) => {
-console.log(values)
   return (
     <div className="form-container">
-      <h1>
-        {/* {values.username}</h1>
-        <h1>{values.email}</h1>
-        <h1>{values.password}</h1>
-        <h1>{values.passwordRepeat} */
-        }
-        Zarejestrowano Pomyslnie
-      </h1>
+    {msg ? <h1>{msg}</h1> : <h1>Błąd rejestracji</h1>}
+    {success ? <div><a href={login}>Zaloguj się</a></div> : <div><a href={url}>Powróć do rejestracji</a></div>}
     </div>
   )
 }
