@@ -1,16 +1,19 @@
 import React from 'react';
-import AddCourseValidator from '../../validators/addCourseValidator'
-import AddCourseHandler from './addCourseHandler'
+import editCourseHandler from './editCourseHandler'
+import EditCourseValidator from '../../validators/editCourseValidator';
 import '../registerForm/Form.css';
 
-const AddCourseForm = ({submitForm}) => {
+
+const EditCourseForm = ({submitForm}) => {
+    const username = localStorage.getItem('username')
+    const title = localStorage.getItem('title')
   
-    const {updateHandler, values, submitHandler, errors} = AddCourseHandler(submitForm, AddCourseValidator);
+    const {updateHandler, values, submitHandler, errors} = editCourseHandler(submitForm, EditCourseValidator);
 
     return (
       <div className="form-container">
           <form className="form" method="post" onSubmit={submitHandler}>
-              <h1>Aby dodać kurs wypełnij poniższe pola</h1>
+              <h1>Edytujesz kurs {title}</h1>
               <div className="form-container-inputs">
                   <label htmlFor="title" className="form-label"></label>
                   <input id="title" type="text" name="title" className="form-input" placeholder="Tytuł" value={values.title} onChange={updateHandler}/>
@@ -73,4 +76,4 @@ const AddCourseForm = ({submitForm}) => {
     );
   }
   
-  export default AddCourseForm;
+  export default EditCourseForm;

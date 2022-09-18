@@ -1,6 +1,7 @@
 .all-courses-container {
     display: list-item;
     justify-content: center;
+    list-style-type:none;
 }
 
 .sub-title-text {

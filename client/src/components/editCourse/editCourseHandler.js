@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import AddCourseValidator from '../../validators/addCourseValidator'
+import EditCourseValidator from '../../validators/editCourseValidator'
 
-const AddCourseHandler = callback => {
+const EditCourseHandler = callback => {
     const [values, setValues] = useState({
         title: '',
         description: '',
@@ -26,7 +26,7 @@ const AddCourseHandler = callback => {
     const submitHandler = event => {
         event.preventDefault();
 
-        setErrors(AddCourseValidator(values))
+        setErrors(EditCourseValidator(values))
         setIsPositive(true)
     }
 
@@ -39,5 +39,5 @@ const AddCourseHandler = callback => {
     return {updateHandler, values, submitHandler, errors}
 }
 
-export default AddCourseHandler;
+export default EditCourseHandler;
 
