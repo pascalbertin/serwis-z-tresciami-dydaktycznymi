@@ -46,7 +46,9 @@ function Course(){
           </div>
           <div className='row first-row'>
             <h3 className='main-course-text'>Cena kursu: {value.price} zł</h3>
-            <button className="form-button" type="submit">Kup kurs</button>
+            <Link to={`/payment_method`}>
+              <button className="form-button" type="submit">Kup kurs</button>
+            </Link>
           </div>
           <h2 className='bottom-course-code-text'>Wpisz kod, aby uzyskać dostęp do kursu </h2>
           <div className='row second-row'>

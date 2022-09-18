@@ -1,0 +1,72 @@
+.payment-container {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #2F184B;
+    padding-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 100px;
+}
+
+.payment-container .payment-text {    
+    padding-bottom: 50px;
+}
+
+.payment-container .payment-button {
+    margin: 0;
+    width: 400px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #532B88;
+    outline: none;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    align-items: center;
+    text-align: center;
+}
+
+.payment-container .payment-options {
+    padding-bottom: 50px;
+    list-style-type: none;
+}
+
+.payment-container .form {
+    width: 400px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 30px;
+}
+
+.payment-container .form-container-inputs {
+    margin-bottom: 0.4rem;
+    width: 100%;
+}
+
+.payment-container .form-input {
+    outline: none;
+    border-radius: 10px;
+    height: 50px;
+    width: 400px;
+    border: 1px solid black;
+    font-size:16px;
+}
+
+
+.payment-container .wrong-email-message {
+    flex-direction: column;
+}
+
+.payment-container .list-unstyled {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0%;
+    padding-top: 10px;
+  }
