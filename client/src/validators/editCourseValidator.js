@@ -25,7 +25,7 @@ export default function EditCourseValidator(values){
         errors.video = "Plik wideo jest wymagany"
     }
 
-    if(!values.thumbnail){
+    if(!values.thumnail){
         errors.thumbnail = "Miniaturka jest wymagana"
     }
 

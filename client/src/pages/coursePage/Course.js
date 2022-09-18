@@ -3,12 +3,19 @@ import './Course.css';
 import '../../styles/profile.css'
 import science from '../../assets/images/science1.jpg';
 import { Link } from 'react-router-dom';
+import axios from '../../config/axios';
+import {useNavigate, useLocation} from 'react-router-dom';
+import UseCodeResponse from '../../components/useCode/UseCodeResponse'
 
 function Course(){
-
+  const navigate = useNavigate();
+  const location = useLocation();
   var idParam = window.location.search;
   var id = idParam.substring(4);
 
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [error, setError] = useState('')
+  const [code, setCode] = useState({ code: ''})
   const [value, setValues] = useState([])
   const username = localStorage.getItem('username')
   
@@ -32,12 +39,46 @@ function Course(){
   })  
 }
 
+const submitHandler = async event =>{
+  event.preventDefault();
+  try{
+    const response = await axios.patch("/api/student/codeUse", {id: id, ...code},
+    {
+      headers: {'Content-Type': 'application/json',
+                'Accept': 'application/json'},
+    })
+    console.log(response);
+    console.log(response.data?.message)
+    if(response.data?.message === "Out of uses"){
+        setError("Kod wygasł. Zakup kurs ponownie!")
+    }
+    if(response.data?.message === "Incorrect code"){
+        setError("Nieprawidłowy kod")
+    }
+    if(response.data?._id)
+    {
+        navigate('/video?id='+id, {state: { from: location}, replace: true});
+    }
+    setIsSubmitted(true)
+  }
+  catch (err){
+    console.log(err)
+  }
+}
+
+const updateHandler = event => {
+  setCode({
+      [event.target.name]: event.target.value
+  })
+}
+
   useEffect(() => {
     submitForm()
   }, [])
 
 
   return (
+    !isSubmitted ? 
     value.title ? (<div className='course-info'>
     <div className='container'>
       <div className='left-column'>
@@ -74,13 +115,11 @@ function Course(){
           </div>
         <h2 className='bottom-course-code-text'>Wpisz kod, aby uzyskać dostęp do kursu </h2>
         <div className='row second-row'>
-          <form className='activate-code' method="post">
-            <input className='form-input' placeholder="Kod dostępu" />
-            <Link to={`/video?id=${id}`}>
+          <form className='activate-code' method="post" onSubmit={submitHandler}>
+            <input id="username" type="text" name="code" className='form-input' placeholder="Kod dostępu" value={code.code} onChange={updateHandler} />
               <button className='form-button' type="submit">
                 Aktywuj 
               </button>
-            </Link>
           </form>
         </div>
         </div>)
@@ -89,6 +128,7 @@ function Course(){
     </div>
   </div>) : 
 <div></div>
+: <div><UseCodeResponse msg={error}/></div>
   );
 }
 
