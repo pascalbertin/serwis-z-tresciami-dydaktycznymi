@@ -4,7 +4,7 @@ import Dots from './Dots';
 import Arrows from './Arrows';
 import SliderImage from './SliderImage';
 import './slider.css';
-import science from '../../assets/images/logo.JPG';
+import study from '../../assets/images/study.jpg';
 import { Link } from 'react-router-dom';
 
 const len = SliderImage.length - 1;
@@ -53,7 +53,7 @@ function Slider(props) {
                     </div>
                 </div>
                 <div className='right-column'>
-                    {/* <img className="right-side-image" src={science}></img> */}
+                    <img className="right-side-image" src={study}></img>
                 </div>
             </div>
             <h2 className='main-slide-text'>Przykładowe kursy</h2>
