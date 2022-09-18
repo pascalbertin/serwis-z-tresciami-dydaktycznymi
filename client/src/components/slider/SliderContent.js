@@ -12,7 +12,7 @@ function SliderContent({ activeIndex, sliderImage }) {
                 >
                     <div className="slider-image-container">
                         <Link to={`/course?id=${slide._id}`}>
-                            <img className="slide-image" url={slide.thumbnail} alt={slide.title} />
+                            <img className="slide-image" src={slide.thumbnail} alt={slide.title} />
                         </Link>
                     </div>
                     <h2 className="slide-title">{slide.title}</h2>

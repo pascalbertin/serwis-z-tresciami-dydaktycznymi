@@ -16,7 +16,7 @@ const videoCourse = () => {
           controls
           width='1700px'
           height='863px'
-          url='https://www.youtube.com/watch?v=7sDY4m8KNLc'>        
+          url={link}>        
         </ReactPlayer>
       </div>
       <div className='title-text'>{title}</div>
