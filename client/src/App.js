@@ -12,6 +12,7 @@ import VideoCourse from './pages/videoCoursePage/videoCurse';
 import Admin from './pages/adminPage/Admin';
 import Logout from './pages/logoutPage/Logout';
 import AllCourses from './pages/allCoursesWithFilter/AllCourses';
+import PaymentMethod from './pages/paymentPage/PaymentMethod';
 import Profile from './pages/profilePage/Profile';
 import EditCourse from './pages/editCoursePage/EditCourse';
 import DeleteCourse from './pages/deleteCourse/deleteCourse';
@@ -38,6 +39,7 @@ function App() {
                 <Route path="/deletecourse" element={ <DeleteCourse />} />
                 <Route path="/video" element={ <VideoCourse />} />
                 <Route exact path="/courses" element={ <AllCourses />} />
+                <Route path="/payment_method" element={ <PaymentMethod />} />
               </Routes>
             </div>          
         </Router>

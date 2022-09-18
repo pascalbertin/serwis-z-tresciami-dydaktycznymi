@@ -53,6 +53,8 @@ function Course(){
         (<div>
           <div className='row'>
             <h3 className='main-course-text'>Cena kursu: {value.price} zł</h3>
+            <Link to={`/payment_method`}>
+              <button className="form-button" type="submit">Kup kurs</button>
             </div>
             <div className='row first-row'>
             <Link to={`/editcourse?id=${value._id}`} style={{ textDecoration: 'none' }}>
