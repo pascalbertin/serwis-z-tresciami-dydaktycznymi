@@ -153,7 +153,7 @@ const coursePatchById = async (req, res) => {
         res.course.video = req.body.video
       }
       if (req.body.thumbnail != null){
-        res.course.thumbnail = req.body.thumnail
+        res.course.thumbnail = req.body.thumbnail
       }
 
       try {
