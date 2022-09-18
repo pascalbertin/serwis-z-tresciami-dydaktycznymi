@@ -65,8 +65,8 @@ const EditCourseForm = ({submitForm}) => {
 
               <div className="form-container-inputs">
               Miniaturka
-                  <input id="thumnail" type="file" name="thumnail" className="file-form-input" value={values.thumnail} onChange={updateHandler}/>
-                  <label htmlFor="thumnail" className="form-label"></label>
+                  <input id="thumbnail" type="file" name="thumbnail" className="file-form-input" value={values.thumbnail} onChange={updateHandler}/>
+                  <label htmlFor="thumbnail" className="form-label"></label>
                   {errors.thumbnail && <p>{errors.thumbnail}</p>}
               </div>
   

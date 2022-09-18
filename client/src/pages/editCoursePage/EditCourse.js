@@ -14,19 +14,11 @@ const EditCourse = () => {
     if (isValid){
       setIsSubmitted(true);
       setValues(values);
-      const response = await axios.patch('/api/course/manageCourseById',{
+      const response = await axios.patch('/api/course/manageCourseById',
+      {id: id, ...values},
+      {
         headers: { 
              'Content-Type': 'application/json'},
-             data: {
-                "id": "632666b79bbd15888a28d00b",
-                "title":"sdksskksk",
-              "description":"sossdodso",
-              "price":"1212","author":"uzytkownik",
-              "subject":"Matematyka",
-              "level":"1",
-              "video":"https://drive.google.com/file/d/1MI_dOiSHHcws3nB8JStZmaEccj5M1qw3/view?usp=sharing",
-              "thumnail":"https://drive.google.com/file/d/1MI_dOiSHHcws3nB8JStZmaEccj5M1qw3/view?usp=sharing"
-             }
         });
      
     }else{

@@ -1,7 +1,6 @@
 import React from 'react'
 
 const EditCourseResponse = ({values}) => {
-console.log(values)
   return (
     <div className="form-container">
       <h1>

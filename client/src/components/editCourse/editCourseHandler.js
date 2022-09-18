@@ -10,7 +10,7 @@ const EditCourseHandler = callback => {
         subject: '',
         level: '',
         video: '',
-        thumnail: ''
+        thumbnail: ''
     })
     const [isPositive, setIsPositive] = useState(false);
 
