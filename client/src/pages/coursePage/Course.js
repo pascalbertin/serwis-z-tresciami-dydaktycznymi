@@ -41,7 +41,7 @@ function Course(){
     value.title ? (<div className='course-info'>
     <div className='container'>
       <div className='left-column'>
-        <img className='course-image' src={science}></img>
+        <img className='course-image' src={value.thumbnail}></img>
       </div>
       <div className='right-column'>
         <div className='description'>
