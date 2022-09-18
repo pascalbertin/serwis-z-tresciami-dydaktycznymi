@@ -9,9 +9,7 @@
 }
 
 .slider-container {
-    height: 2900px;
-    /*font-family: 'Cabin';
-    font-style: normal;*/
+    height: 3200px;
     margin-bottom: 30px;
     width: var(--widths);
     display: flex;
@@ -35,6 +33,7 @@
 
 .appbar-container .right-column {
     width: 50%;
+    margin-top: 150px;
 }
 
 .appbar-container .left-main-text {
@@ -55,9 +54,10 @@
     padding-bottom: 50px;
 }
 
-.right-side-image {
-    width: 110;
-    height: 120;
+.appbar-container .right-side-image {
+    width: 900px;
+    height: 600px;
+    border-radius: 8%;
 }
 
 .active {
@@ -122,7 +122,7 @@
     top: 50%;
     width: auto;
     padding: 1rem;
-    margin-top: 800px;
+    margin-top: 1050px;
     font-size: 40px;
     font-weight: bold;
     border-radius: 0px 5px 5px 0px;

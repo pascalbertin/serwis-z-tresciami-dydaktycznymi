@@ -10,12 +10,32 @@ import p24 from '../../assets/images/przelewy24_logo.png'
 
 const PaymentMethod = ({submitForm}) => {
 
+    var idParam = window.location.search;
+    var id = idParam.substring(4);
+
+    const [isSubmitted, setIsSubmitted] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const {updateHandler, values, submitHandler, errors } = FormHandler(submitForm, FormValidator);
 
     const handleOnChange = () => {
         setIsChecked(!isChecked);
     };
+
+    // const submitForm = () => {
+    //     setIsSubmitted(true);
+    //     fetch("https://serwis-z-tresciami.herokuapp.com/api/student/codeGenerate", {
+    //         method: 'PATCH',
+    //         body: JSON.stringify({
+    //             _id: id,
+    //             email: values.email,
+    //         }),
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //     })
+    //     .then((response) => response.json())
+    //     .then((json) => console.log(json));
+    // }
 
     return(
     <div className='payment-container'>
