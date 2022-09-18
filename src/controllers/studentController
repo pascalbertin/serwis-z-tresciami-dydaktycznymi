@@ -20,6 +20,7 @@ var transporter = nodemailer.createTransport({
 const courseGenerateCode = async (req, res) => {
 
     let course
+    let link = "https://serwis-z-tresciami.herokuapp.com/course?id="+req.body.id
     try{
       course = await courseModel.findOne({_id: req.body.id})
       if (course == null) {
@@ -37,13 +38,15 @@ const courseGenerateCode = async (req, res) => {
   
     console.log(res.course)
 
+
     try {
         const updatedCourse = await res.course.save()
           var mailOptions = {
-            from: 'Serwis z treściami dydaktycznymi <JakubStyszynski@gmail.com>',
+            from: 'Tutors Alpha <JakubStyszynski@gmail.com>',
             to: req.body.email,
-            subject: 'Your code',
-            text: generatedCode
+            subject: 'Tutors Alpha - Twój Kod',
+            text: generatedCode,
+            html: "<b><strong><p>Dziękujemy za zakup</p></strong></b> <br/> <p>Twój kod: </p>"+generatedCode+" <br/> <p>Zakupiony kurs znajdziesz tutaj: </p>"+"<a href="+link+">Link do kursu</a>"
           };
         
         
