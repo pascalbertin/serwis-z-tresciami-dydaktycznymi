@@ -12,7 +12,7 @@ const Footer = () => {
                         <ul className="list-unstyled">
                             <li>Polityka prywatności</li>
                             <li>Regulamin</li>
-                            <li>Moje konto</li>
+                            <li><a href="https://serwis-z-tresciami.herokuapp.com/login">Moje konto</a></li>
                             <li>Kontakt</li>
                             <li>Zakup kursu</li>
                         </ul>
@@ -20,7 +20,7 @@ const Footer = () => {
                     <div className="col">
                         <h4>NAUCZANIE</h4>
                         <ul className="list-unstyled">
-                            <li>Zostań nauczycielem</li>
+                            <li><a href="https://serwis-z-tresciami.herokuapp.com/register">Zostań nauczycielem</a></li>
                             <li>Dodawanie kursu</li>
                             <li>Modyfikacja kursu</li>
                             <li>Usuwanie kursu</li>
@@ -29,20 +29,20 @@ const Footer = () => {
                     <div className="col">
                         <h4>KATEGORIE</h4>
                         <ul className="list-unstyled">
-                            <li>Matematyka</li>
-                            <li>Język polski</li>
-                            <li>Język angielski</li>
-                            <li>Informatyka</li>
-                            <li>Fizyka</li>
+                            <li><a href="https://serwis-z-tresciami.herokuapp.com/courses?subject=Matematyka">Matematyka</a></li>
+                            <li><a href="https://serwis-z-tresciami.herokuapp.com/courses?subject=Polski">Język polski</a></li>
+                            <li><a href="https://serwis-z-tresciami.herokuapp.com/courses?subject=Angielski">Język angielski</a></li>
+                            <li><a href="https://serwis-z-tresciami.herokuapp.com/courses?subject=Informatyka">Informatyka</a></li>
+                            <li><a href="https://serwis-z-tresciami.herokuapp.com/courses?subject=Fizyka">Fizyka</a></li>
                         </ul>
                     </div>
                     <div className="col">
                         <h4>MAPA STRONY</h4>
                         <ul className="list-unstyled">
-                            <li>Strona główna</li>
-                            <li>Kursy</li>
-                            <li>Rejestracja</li>
-                            <li>Logowanie</li>
+                            <li><a href="https://serwis-z-tresciami.herokuapp.com">Strona główna</a></li>
+                            <li><a href="https://serwis-z-tresciami.herokuapp.com/categories">Kursy</a></li>
+                            <li><a href="https://serwis-z-tresciami.herokuapp.com/register">Rejestracja</a></li>
+                            <li><a href="https://serwis-z-tresciami.herokuapp.com/login">Logowanie</a></li>
                             <li>Kontakt</li>
                         </ul>
                     </div>
