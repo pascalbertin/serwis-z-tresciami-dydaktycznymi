@@ -30,3 +30,8 @@ ul {
 .main-footer h4 {
   font-size: 25px;
 }
+
+li > a{
+  text-decoration:none;
+  color:white;
+}

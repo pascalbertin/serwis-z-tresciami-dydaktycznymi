@@ -1,7 +1,6 @@
 import React,  { useState, useEffect } from 'react';
 import './Course.css';
 import '../../styles/profile.css'
-import science from '../../assets/images/science1.jpg';
 import { Link } from 'react-router-dom';
 import axios from '../../config/axios';
 import {useNavigate, useLocation} from 'react-router-dom';
@@ -19,24 +18,22 @@ function Course(){
   const [value, setValues] = useState([])
   const username = localStorage.getItem('username')
   
-  const submitForm = () => {
-  fetch("https://serwis-z-tresciami.herokuapp.com/api/course/manageCourseById?id="+id, {method: "GET", headers: {
-      'Accept': 'application',
-      'Content-Type': 'application'
-  }})
-  .then(response => response.json())
-  .then(data => {
-      //console.log('Success:', data);
-      setValues(data); 
-      localStorage.removeItem('title');
-      localStorage.removeItem('subject');
-      localStorage.removeItem('info');
-      localStorage.removeItem('url');
-      localStorage.setItem('title', data.title);
-      localStorage.setItem('subject', data.subject);
-      localStorage.setItem('info', data.description);
-      localStorage.setItem('url', data.video);
-  })  
+  const submitForm = async () => {
+    const response = await axios.get('api/course/manageCourseById?id='+id,
+      {
+        headers: { 
+          'Accept': 'application',
+          'Content-Type': 'application'},
+      });
+    setValues(response?.data); 
+    localStorage.removeItem('title');
+    localStorage.removeItem('subject');
+    localStorage.removeItem('info');
+    localStorage.removeItem('url');
+    localStorage.setItem('title', response.data.title);
+    localStorage.setItem('subject', response.data.subject);
+    localStorage.setItem('info', response.data.description);
+    localStorage.setItem('url', response.data.video);
 }
 
 const submitHandler = async event =>{

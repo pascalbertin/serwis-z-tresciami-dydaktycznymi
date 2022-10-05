@@ -1,6 +1,6 @@
 import React, { useState, useEffect }  from 'react';
 import './AllCourses.css';
-import science from '../../assets/images/science1.jpg';
+import axios from '../../config/axios'
 import { Link } from 'react-router-dom';
 
 
@@ -18,16 +18,15 @@ const AllCourses = () => {
     });
   }
 
-  const submitForm = () => {
-    fetch("https://serwis-z-tresciami.herokuapp.com/api/course/manageCourseBySubject?subject="+sub, {method: "GET", headers: {
-        'Accept': 'application',
-        'Content-Type': 'application'
-    }})
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-        setValues(data); 
-    })  
+  const submitForm = async () => {
+    const response = await axios.get('/api/course/manageCourseBySubject?subject='+sub,
+      {
+        headers: { 
+          'Accept': 'application',
+          'Content-Type': 'application/json'},
+      });
+      console.log('Success:', response?.data);
+      setValues(response?.data); 
   }
   
   useEffect(() => {

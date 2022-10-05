@@ -6,6 +6,7 @@ import SliderImage from './SliderImage';
 import './slider.css';
 import study from '../../assets/images/study.jpg';
 import { Link } from 'react-router-dom';
+import axios from '../../config/axios';
 
 const len = SliderImage.length - 1;
 var sliderData = [];
@@ -15,21 +16,13 @@ function Slider(props) {
     const [activeIndex, setActiveIndex] = useState(0);
 
     async function checkUser() {
-        const req = await fetch('https://serwis-z-tresciami.herokuapp.com/api/course/manageCourseBySubject?subject=' + 'Matematyka', {
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-        })
-    
-        const data = await req.json()
-        console.log(data);
-        sliderData = data;
-        
+        const response = await axios.get('/api/course/manageCourseBySubject?subject=Matematyka',{
+            headers: { 
+                'Accept': 'application',
+                'Content-Type': 'application/json'},
+            });
+        sliderData = response?.data;
     }
-    
-
-
 
     useEffect(() => {
         checkUser();
