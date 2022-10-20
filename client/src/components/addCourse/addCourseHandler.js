@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import AddCourseValidator from '../../validators/addCourseValidator'
+import AddCourseValidator from '../../validators/addCourse'
 
 const AddCourseHandler = callback => {
     const [values, setValues] = useState({

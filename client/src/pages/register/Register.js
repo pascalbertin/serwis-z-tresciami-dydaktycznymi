@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import axios from '../../config/axios'
-import FormSignup from '../../components/registerForm/FormSignup'
-import FormPositive from '../../components/registerForm/FormPositive'
+import RegisterForm from '../../components/register/RegisterForm'
+import RegisterResponse from '../../components/register/RegisterResponse'
 
-const Form = () => {
+const Register = () => {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [values, setValues] = useState({})
   const [error, setError] = useState('')
@@ -50,9 +50,9 @@ const Form = () => {
   }
   return (
     <div>
-        {!isSubmitted ? <FormSignup submitForm={submitForm} /> : <FormPositive msg={error} success={success} />}
+        {!isSubmitted ? <RegisterForm submitForm={submitForm} /> : <RegisterResponse msg={error} success={success} />}
     </div>
   )
 }
 
-export default Form;
+export default Register;

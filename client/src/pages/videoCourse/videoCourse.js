@@ -1,5 +1,5 @@
 import React from 'react';
-import './videoCourse.css';
+import '../../styles/VideoCourse.css';
 import ReactPlayer from 'react-player';
 
 const videoCourse = () => {

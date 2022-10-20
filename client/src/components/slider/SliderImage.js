@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import foto1 from '../../assets/images/study.jpg';
-import foto2 from '../../assets/images/words.jpg';
 
 const SliderImage = () => {
 
@@ -42,18 +41,18 @@ export default
         id: 2,
         title: "Title2",
         author: "Arthur",
-        thumbnail: foto2,
+        thumbnail: foto1,
     },
     {
         id: 3,
         title: "Title3",
         author: "Andrew",
-        thumbnail: foto2,
+        thumbnail: foto1,
     },
     {
         id: 4,
         title: "Title4",
         author: "Alex",
-        thumbnail: foto2,
+        thumbnail: foto1,
     },
 ];

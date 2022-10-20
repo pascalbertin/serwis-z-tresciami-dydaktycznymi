@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import PaymentValidator from '../../validators/PaymentValidator'
+import PaymentValidator from '../../validators/Payment'
 import PaymentHandler from './PaymentHandler'
-import '../registerForm/Form.css';
-import blik from '../../assets/images/blik_logo.png'
-import payU from '../../assets/images/PayU_logo.png'
-import paysafecard from '../../assets/images/paysafecard_logo.png'
-import p24 from '../../assets/images/przelewy24_logo.png'
+import '../../styles/Form.css';
+import blik from '../../assets/images/logos/blik_logo.png'
+import payU from '../../assets/images/logos/PayU_logo.png'
+import paysafecard from '../../assets/images/logos/paysafecard_logo.png'
+import p24 from '../../assets/images/logos/przelewy24_logo.png'
 
 const PaymentForm = ({submitForm}) => {
     const idParam = window.location.search;

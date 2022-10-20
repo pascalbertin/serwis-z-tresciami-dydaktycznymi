@@ -1,9 +1,4 @@
-import React from 'react'
-import Form from '../../pages/registerPage/Form'
-import FormHandler from './FormHandler'
-import FormSignup from './FormSignup'
-
-const FormPositive = ({msg, success}) => {
+const RegisterResponse = ({msg, success}) => {
   const url = "/register"
   const login = "/login"
 
@@ -15,4 +10,4 @@ const FormPositive = ({msg, success}) => {
   )
 }
 
-export default FormPositive
+export default RegisterResponse
