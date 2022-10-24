@@ -1,11 +1,11 @@
 import React from 'react'
-import FormHandler from './FormHandler'
-import FormValidator from '../../validators/FormValidator'
-import './Form.css'
+import RegisterHandler from './RegisterHandler'
+import RegisterValidator from '../../validators/Register'
+import '../../styles/Form.css'
 
-const FormSignup = ({submitForm}) => {
+const RegisterForm = ({submitForm}) => {
   
-  const {updateHandler, values, submitHandler, errors, isChecked, checkHandler} = FormHandler(submitForm, FormValidator);
+  const {updateHandler, values, submitHandler, errors, isChecked, checkHandler} = RegisterHandler(submitForm, RegisterValidator);
 
   return (
     <div className="form-container">
@@ -48,4 +48,4 @@ const FormSignup = ({submitForm}) => {
   );
 }
 
-export default FormSignup
+export default RegisterForm;

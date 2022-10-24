@@ -1,10 +1,8 @@
-import React from 'react'
-
-const EditCourseResponse = ({values}) => {
+const EditCourseResponse = () => {
   return (
     <div className="form-container">
       <h1>
-        Dodano kurs
+        Zmieniono treść kursu
       </h1>
     </div>
   )

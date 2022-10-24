@@ -1,7 +1,7 @@
 import React from 'react';
-import AddCourseValidator from '../../validators/addCourseValidator'
+import AddCourseValidator from '../../validators/addCourse'
 import AddCourseHandler from './addCourseHandler'
-import '../registerForm/Form.css';
+import '../../styles/Form.css';
 
 const AddCourseForm = ({submitForm}) => {
   

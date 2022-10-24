@@ -2,8 +2,8 @@ import React from 'react'
 import axios from '../../config/axios'
 import {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
-import '../../styles/profile.css'
-import '../allCoursesWithFilter/AllCourses.css'
+import '../../styles/Profile.css'
+import '../../styles/AllCourses.css'
 
 const Profile = () => {
     const [courses, setCourses] = useState({})

@@ -1,11 +1,10 @@
 import React from 'react';
 import editCourseHandler from './editCourseHandler'
-import EditCourseValidator from '../../validators/editCourseValidator';
-import '../registerForm/Form.css';
+import EditCourseValidator from '../../validators/editCourse';
+import '../../styles/Form.css';
 
 
 const EditCourseForm = ({submitForm}) => {
-    const username = localStorage.getItem('username')
     const title = localStorage.getItem('title')
   
     const {updateHandler, values, submitHandler, errors} = editCourseHandler(submitForm, EditCourseValidator);

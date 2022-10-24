@@ -1,7 +1,7 @@
 import React from 'react'
 import LoginHandler from './LoginHandler'
-import LoginValidator from '../../validators/LoginValidator'
-import '../registerForm/Form.css'
+import LoginValidator from '../../validators/Login'
+import '../../styles/Form.css'
 
 const LoginForm = ({submitForm}) => {
   

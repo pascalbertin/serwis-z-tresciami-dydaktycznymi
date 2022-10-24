@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AddCourseForm from '../../components/addCourse/addCourseForm'
-import AddCoursePositive from '../../components/addCourse/addCoursePositive'
+import AddCourseResponse from '../../components/addCourse/addCourseResponse'
 import axios from '../../config/axios'
 
 const AddCourse = () => {
@@ -28,7 +28,7 @@ const AddCourse = () => {
   }
   return (
     <div>
-        {!isSubmitted ? <AddCourseForm submitForm={submitForm} /> : <AddCoursePositive values={values} />}
+        {!isSubmitted ? <AddCourseForm submitForm={submitForm} /> : <AddCourseResponse values={values} />}
     </div>
   )
 }

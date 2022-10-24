@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import FormValidator from '../../validators/FormValidator'
+import RegisterValidator from '../../validators/Register'
 
-const FormHandler = callback => {
+const RegisterHandler = callback => {
     const [values, setValues] = useState({
         username: '',
         email: '',
@@ -27,7 +27,7 @@ const FormHandler = callback => {
     const submitHandler = event => {
         event.preventDefault();
 
-        setErrors(FormValidator(values, isChecked))
+        setErrors(RegisterValidator(values, isChecked))
         setIsPositive(true)
     }
 
@@ -40,5 +40,5 @@ const FormHandler = callback => {
     return {updateHandler, values, submitHandler, errors, isChecked, checkHandler}
 }
 
-export default FormHandler;
+export default RegisterHandler;
 

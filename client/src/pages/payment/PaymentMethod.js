@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './PaymentMethod.css'
-import PaymentResponse from '../../components/paymentMethod/PaymentResponse'
+import '../../styles/PaymentMethod.css';
+import PaymentResponse from '../../components/paymentMethod/PaymentResponse';
 import PaymentForm from '../../components/paymentMethod/PaymentForm';
-import axios from '../../config/axios'
+import axios from '../../config/axios';
 
 const PaymentMethod = () => {
     const idParam = window.location.search;

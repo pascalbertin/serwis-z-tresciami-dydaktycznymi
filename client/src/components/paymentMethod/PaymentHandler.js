@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import PaymentValidator from '../../validators/PaymentValidator'
+import PaymentValidator from '../../validators/Payment'
 
 const PaymentHandler = callback => {
     const [values, setValues] = useState({

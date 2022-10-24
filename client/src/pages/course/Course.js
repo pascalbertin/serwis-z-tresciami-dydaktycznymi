@@ -1,10 +1,10 @@
 import React,  { useState, useEffect } from 'react';
-import './Course.css';
-import '../../styles/profile.css'
+import '../../styles/Course.css';
+import '../../styles/Profile.css';
 import { Link } from 'react-router-dom';
 import axios from '../../config/axios';
 import {useNavigate, useLocation} from 'react-router-dom';
-import UseCodeResponse from '../../components/useCode/UseCodeResponse'
+import UseCodeResponse from '../../components/useCode/UseCodeResponse';
 
 function Course(){
   const navigate = useNavigate();

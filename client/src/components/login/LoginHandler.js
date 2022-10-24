@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import LoginValidator from '../../validators/LoginValidator'
+import LoginValidator from '../../validators/Login'
 
 const LoginHandler = callback => {
     const [values, setValues] = useState({

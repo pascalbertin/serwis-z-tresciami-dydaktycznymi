@@ -6,7 +6,7 @@ import { TextField } from '@material-ui/core';
 import { Toolbar } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
-import science from '../../assets/images/logo.JPG';
+import science from '../../assets/images/logos/logo.JPG';
 import useStyles from '../../styles';
 
 const Home = () => {
