@@ -2,7 +2,7 @@ const EditCourseResponse = () => {
   return (
     <div className="form-container">
       <h1>
-        Zmieniono treść kursu
+        {process.env.REACT_APP_COURSE_EDIT_SUCCESS}
       </h1>
     </div>
   )

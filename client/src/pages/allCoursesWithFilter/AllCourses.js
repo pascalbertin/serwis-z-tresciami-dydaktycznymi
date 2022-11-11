@@ -52,7 +52,7 @@ const AllCourses = () => {
               </li>)}              
             </ul>
           ) : <p className='empty-courses'>
-              BRAK KURSÓW Z TEGO PRZEDMIOTU
+              {process.env.REACT_APP_SUBJECT_NO_COURSES}
               <p className='empty-courses-bottom-text'>Spróbuj później</p>
             </p>
         }

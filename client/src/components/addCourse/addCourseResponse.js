@@ -2,7 +2,7 @@ const addCourseResponse = () => {
   return (
     <div className="form-container">
       <h1>
-        Dodano kurs
+        {process.env.REACT_APP_COURSE_ADD_SUCCESS}
       </h1>
     </div>
   )

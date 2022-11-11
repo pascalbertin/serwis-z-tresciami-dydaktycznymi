@@ -8,7 +8,7 @@ const UseCodeResponse = ({msg}) => {
 
   return (
     <div className="form-container">
-      {msg ? <h1>{msg}</h1> : <h1>Wystąpił nieznany błąd. Spróbuj ponownie później.</h1>}
+      {msg ? <h1>{msg}</h1> : <h1>{process.env.REACT_APP_SERVER_CONN_ERROR}</h1>}
       <br />
       <div><a href={url}>Powróć do kursu</a></div>
     </div>
