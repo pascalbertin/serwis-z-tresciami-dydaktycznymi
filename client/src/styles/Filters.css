@@ -1,0 +1,80 @@
+.filters-menu-container {
+    display: list-item;
+    justify-content: center;
+    list-style-type:none;
+}
+
+.filters-menu-container .main-text {
+    width: 100%;
+    color: #2F184B;
+    font-size: 50px;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+
+.filters-menu-container .object-of-course {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.filters-menu-container .row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.filters-menu-container .search {
+    width: 20%;
+    margin-right: 20px;
+}
+
+.filters-menu-container .form-button {
+    margin: 0;
+    width: 300px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #532B88;
+    outline: none;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    justify-content: left;
+  }
+
+.filters-menu-container .empty-courses {
+    width: 100%;
+    color: #532B88;
+    font-size: 30px;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.filters-menu-container .empty-courses-bottom-text {
+    width: 100%;
+    color: #532B88;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 165px;
+}
+
+.filters-menu-container .course-object-title {
+    font-size: 30px;
+    font-weight: 600;
+    color: #2F184B;
+}
+
+.filters-menu-container .course-object-subject {
+    font-size: 15px;
+    color: gray;
+}
+
+.filters-menu-container .course-object-price {
+    font-size: 25px;
+    font-weight: 450;
+    padding-bottom: 20px;
+}

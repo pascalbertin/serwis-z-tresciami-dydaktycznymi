@@ -16,7 +16,7 @@ import PaymentMethod from './pages/payment/PaymentMethod';
 import Profile from './pages/profile/Profile';
 import EditCourse from './pages/editCourse/EditCourse';
 import DeleteCourse from './pages/deleteCourse/deleteCourse';
-// import {AuthProvider} from './contexts/AuthProvider'
+import FilterCourses from './pages/filterPage/FilterPage';
 
 function App() {
   return (
@@ -40,6 +40,7 @@ function App() {
                 <Route path="/video" element={ <VideoCourse />} />
                 <Route path="/courses" element={ <AllCourses />} />
                 <Route path="/payment_method" element={ <PaymentMethod />} />
+                <Route path="/filter_courses" element={ <FilterCourses />} />
               </Routes>
             </div>          
         </Router>
