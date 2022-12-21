@@ -20,9 +20,10 @@ var transporter = nodemailer.createTransport({
 const courseGenerateCode = async (req, res) => {
 
     let course
-    let link = "https://serwis-z-tresciami.herokuapp.com/course?id="+req.body.id
+    let endpoint = req.params.title
+    let link = "https://serwis-z-tresciami.herokuapp.com/courses/"+endpoint.replace(" ","%20")
     try{
-      course = await courseModel.findOne({_id: req.body.id})
+      course = await courseModel.findOne({title: req.params.title})
       if (course == null) {
         return res.status(404).json({message: 'Cannot find course'})
       }
@@ -67,7 +68,7 @@ const courseGenerateCode = async (req, res) => {
 const courseUseCode = async (req, res) => {
     let course
     try{
-      course = await courseModel.findOne({_id: req.body.id})
+      course = await courseModel.findOne({title: req.params.title})
       if (course == null) {
         return res.status(404).json({message: 'Cannot find course'})
       }

@@ -16,7 +16,7 @@ const getAllTeachersRouter  = require("./src/routes/getAllTeachersRouter");
 const loginRouter           = require("./src/routes/loginRouter");
 const registerRouter        = require("./src/routes/registerRouter");
 const courseRoute           = require("./src/routes/courseRouter");
-const studentRoute          = require("./src/routes/studentRouter")
+//const studentRoute          = require("./src/routes/studentRouter")
 
 const corsOptions        = require('./src/config/corsOptions');
 const dbConnectionLink   = require("./src/config/databaseConfig");
@@ -75,10 +75,10 @@ app.use('/', rootRouter);
 app.use('/api/teacher', teacherRoute);
 
 //Routes for course
-app.use('/api/course', courseRoute);
+app.use('/api/courses', courseRoute);
 
 //Routes for student
-app.use('/api/student', studentRoute);
+//app.use('/api/student', studentRoute);
 
 app.use('/register', registerRouter);
 app.use('/user/login', loginRouter);

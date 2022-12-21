@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const courseController = require('../controllers/courseController');
+const studentController = require('../controllers/studentController');
 
 /** 
  * @swagger
@@ -100,9 +101,9 @@ router.route("/addCourse")
  *              _id: 62ae0a8665b471175a9e374c
  */
 router.route("/manageCourseById")
-    .get(courseController.courseGetById)
-    .delete(courseController.courseDeleteById)
-    .patch(courseController.coursePatchById);
+    .get(courseController.courseGetByTitle)
+    .delete(courseController.courseDeleteByTitle)
+    .patch(courseController.coursePatchByTitle);
 
 /**
  * @swagger
@@ -157,6 +158,26 @@ router.route("/manageCourseBySubject")
  */
 router.route("/manageCourseByAuthor")
     .get(courseController.courseGetByAuthor)
+
+//----------------------------------NEW-------------------------------
+router.route("/")
+    .get(courseController.courseGetAll)
+    .post(courseController.courseCreate)
+    
+router.route("/:title")
+    .get(courseController.courseGetByTitle)
+    .patch(courseController.coursePatchByTitle)
+    .delete(courseController.courseDeleteByTitle)
+
+
+router.route("/:title/order")
+    .patch(studentController.courseGenerateCode);
+
+router.route("/:title/usage")
+    .patch(studentController.courseUseCode)
+
+router.route("/test/test")
+    .get(courseController.courseGetFiltered)
 
 
 module.exports = router;
