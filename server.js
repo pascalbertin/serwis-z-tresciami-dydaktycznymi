@@ -17,6 +17,7 @@ const loginRouter           = require("./src/routes/loginRouter");
 const registerRouter        = require("./src/routes/registerRouter");
 const courseRoute           = require("./src/routes/courseRouter");
 //const studentRoute          = require("./src/routes/studentRouter")
+const usersRouter           = require("./src/routes/usersRouter");
 
 const corsOptions        = require('./src/config/corsOptions');
 const dbConnectionLink   = require("./src/config/databaseConfig");
@@ -85,6 +86,8 @@ app.use('/user/login', loginRouter);
 app.use('/refresh', refreshRouter);
 app.use('/logout', logoutRouter);
 app.use('/test', getAllTeachersRouter);
+
+app.use('/api/users', usersRouter);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
