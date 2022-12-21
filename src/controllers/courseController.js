@@ -1,5 +1,6 @@
 const {CourseSchema, courseModel} = require("../models/courseModel");
 
+
 const courseCreate = (req, res) => {
     try {
         const new_course = courseModel({
@@ -29,10 +30,12 @@ const courseCreate = (req, res) => {
 };
 
 //get one course by id
-const courseGetById = async (req, res) => {
+const courseGetByTitle = async (req, res) => {
     let course
     try{
-      course = await courseModel.findOne({_id: req.query.id})
+//      course = await courseModel.findOne({_id: req.query.id})
+      console.log(req.params)
+      course = await courseModel.findOne({title: req.params.title})
       if (course == null) {
         return res.status(404).json({message: 'Cannot find course'})
       }
@@ -97,10 +100,10 @@ const courseGetAll = async (req, res) => {
   res.json(res.course)
 };
 
-const courseDeleteById = async (req, res) => {
+const courseDeleteByTitle = async (req, res) => {
     let course
     try{
-      course = await courseModel.findOne({_id: req.body.id})
+      course = await courseModel.findOne({title: req.params.title})
       if (course == null) {
         return res.status(404).json({message: 'Cannot find course'})
       }
@@ -118,10 +121,10 @@ const courseDeleteById = async (req, res) => {
       }
 };
 
-const coursePatchById = async (req, res) => {
+const coursePatchByTitle = async (req, res) => {
     let course
     try{
-      course = await courseModel.findOne({_id: req.body.id})
+      course = await courseModel.findOne({title: req.params.title})
       if (course == null) {
         return res.status(404).json({message: 'Cannot find course'})
       }
@@ -165,13 +168,79 @@ const coursePatchById = async (req, res) => {
 };
 
 
+//get all courses that fulfills the filter
+//price subject level
+const courseGetFiltered = async (req, res) => {
+
+  let course
+  try{
+    course = await courseModel.find()
+    //console.log(course)
+    if(req.body.subject != null){
+      subject = req.body.subject.split(",")
+      let tempList = []
+      course.forEach(function(element){
+        //console.log(level, element.level)
+        if (subject.includes(element.subject)) {
+          tempList.push(element)
+        }
+      course = tempList
+      })
+      console.log(tempList)
+    }
+
+
+    if(req.body.level != null){
+        level = req.body.level.split(",")
+        level = level.map(Number)
+        let tempList = []
+        course.forEach(function(element){
+          //console.log(level, element.level)
+          if (level.includes(element.level)) {
+            tempList.push(element)
+          }
+        course = tempList
+        })
+        console.log(tempList)
+    }
+
+    if(req.body.priceMin != null){
+      console.log("min")
+      course = course.filter(function(item){
+        return item.price >= req.body.priceMin
+      })
+    }
+
+    if(req.body.priceMax != null){
+      console.log("max")
+      course = course.filter(function(item){
+        return item.price <= req.body.priceMax
+        })  
+    }
+    //course = await courseModel.find({author: req.query.author})
+    if (course == null) {
+      return res.status(404).json({message: 'Cannot find course'})
+    }
+  }catch(error) {
+    return res.status(500).json({message: error.message})
+  }
+  res.course = course
+
+  //console.log(res.course)
+  res.json(res.course)
+};
+
+
+
+
 
 module.exports = {
     courseCreate,
-    courseGetById,
-    courseDeleteById,
-    coursePatchById,
+    courseGetByTitle,
+    courseDeleteByTitle,
+    coursePatchByTitle,
     courseGetBySubject,
     courseGetByAuthor,
-    courseGetAll
+    courseGetAll,
+    courseGetFiltered
 };
