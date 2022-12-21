@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const courseController = require('../controllers/courseController');
 const studentController = require('../controllers/studentController');
+const verifyJWT = require('../middleware/verifyJWT');
 
 /** 
  * @swagger
@@ -162,12 +163,12 @@ router.route("/manageCourseByAuthor")
 //----------------------------------NEW-------------------------------
 router.route("/")
     .get(courseController.courseGetAll)
-    .post(courseController.courseCreate)
+    .post(verifyJWT, courseController.courseCreate)
     
 router.route("/:title")
     .get(courseController.courseGetByTitle)
-    .patch(courseController.coursePatchByTitle)
-    .delete(courseController.courseDeleteByTitle)
+    .patch(verifyJWT, courseController.coursePatchByTitle)
+    .delete(verifyJWT, courseController.courseDeleteByTitle)
 
 
 router.route("/:title/order")
