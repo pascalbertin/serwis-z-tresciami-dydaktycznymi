@@ -6,7 +6,7 @@ import RegisterResponse from '../../components/register/RegisterResponse'
 const Register = () => {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [values, setValues] = useState({})
-  const [error, setError] = useState('')
+  const [msg, setMsg] = useState('')
   const [success, setIsSuccess] = useState(false);
 
   async function submitForm(isValid, values){
@@ -20,25 +20,15 @@ const Register = () => {
         })
         if (response?.status === 201)
         {
-          setError('Zarejestrowano nowe konto!')
+          setMsg(process.env.REACT_APP_REGISTER_SUCCESS)
           setIsSuccess(true)
         }
       } catch (err)
       {
-          if(!err?.response){
-            setError('Błąd połączenia')
-          }
-          else if(err.response?.status === 400)
-          {
-            setError('Login, email i hasło są wymagane!')
-          }
-          else if(err.response?.status === 409)
-          {
-            setError('Użytkownik o takich danych już istnieje!')
-          }
-          else{
-            setError('Błąd rejestracji')
-          }
+          if(!err?.response) setMsg(process.env.REACT_APP_SERVER_CONN_ERROR)
+          else if(err.response?.status === 400) setMsg(process.env.REACT_APP_USER_LOGIN_DATA_REQUIRED)
+          else if(err.response?.status === 409) setMsg(process.env.REACT_APP_REGISTER_ALREADY_EXISTS)
+          else setMsg(process.env.REACT_APP_REGISTER_GENERAL_ERROR)
       }
       setIsSubmitted(true);
       setValues(values);
@@ -50,7 +40,7 @@ const Register = () => {
   }
   return (
     <div>
-        {!isSubmitted ? <RegisterForm submitForm={submitForm} /> : <RegisterResponse msg={error} success={success} />}
+        {!isSubmitted ? <RegisterForm submitForm={submitForm} /> : <RegisterResponse msg={msg} success={success} />}
     </div>
   )
 }

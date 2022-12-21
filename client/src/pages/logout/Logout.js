@@ -14,7 +14,7 @@ const Logout = () => {
             localStorage.removeItem('accessToken')
             localStorage.removeItem('roles')
             localStorage.removeItem('username')
-            setMsg('Wylogowano pomyślnie!')
+            setMsg(process.env.REACT_APP_LOGOUT_SUCCESS)
     
             const response = await axios.get('/logout')
             console.log(response.status)
@@ -22,7 +22,7 @@ const Logout = () => {
             navigate(0)
         }
         else{
-            setMsg('Nie jesteś zalogowany!')
+            setMsg(process.env.REACT_APP_USER_NOT_LOGGED_IN)
         }
     }
 

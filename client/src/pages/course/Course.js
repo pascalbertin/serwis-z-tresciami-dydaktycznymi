@@ -47,10 +47,10 @@ const submitHandler = async event =>{
     console.log(response);
     console.log(response.data?.message)
     if(response.data?.message === "Out of uses"){
-        setError("Kod wygasł. Zakup kurs ponownie!")
+        setError(process.env.REACT_APP_COURSE_OUT_OF_USES)
     }
     if(response.data?.message === "Incorrect code"){
-        setError("Nieprawidłowy kod")
+        setError(process.env.REACT_APP_COURSE_INCORRECT_CODE)
     }
     if(response.data?._id)
     {
