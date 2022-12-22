@@ -27,7 +27,7 @@ const swaggerOptions = {
   swaggerDefinition: {
     openapi: '3.0.2',
     info: {
-      version: "0.0.1",
+      version: "0.0.2",
       title: "Serwis z treściami dydaktycznymi - API",
       description: "Dokumentacja całego API dla strony",
       servers: ["http://localhost:3001","https://serwis-z-tresciami.herokuapp.com/"]

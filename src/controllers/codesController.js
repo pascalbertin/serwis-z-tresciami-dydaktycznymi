@@ -5,7 +5,7 @@ const crypto = require("crypto")
 require('dotenv').config();
 const AppError = require("../helpers/AppError");
 const { COURSE_ERROR } = require("../helpers/errorCodes");
-const { COURSE_NOT_FOUND, COURSE_MISSING_EMAIL } = require("../helpers/errorMessages");
+const { COURSE_NOT_FOUND, COURSE_MISSING_EMAIL, COURSE_CODE_MISSING } = require("../helpers/errorMessages");
 const { EMAIL_SENT, COURSE_CODE_OUT_OF_USES, COURSE_INCORRECT_CODE } = require("../helpers/confirmationMessages");
 const { tryCatch } = require("../helpers/tryCatch");
 
@@ -67,6 +67,10 @@ const courseUseCode = tryCatch(async (req, res) => {
     throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
   }
 
+  if (!req.body.code) {
+    throw new AppError(COURSE_ERROR, COURSE_CODE_MISSING, 400);
+  }
+
   res.course = course;
 
   let i = 0;
@@ -85,14 +89,14 @@ const courseUseCode = tryCatch(async (req, res) => {
         return res.status(200).json(updatedCourse);
       } else {
         //Out of uses case
-        return res.status(200).json({message: COURSE_CODE_OUT_OF_USES});
+        return res.status(204).json({message: COURSE_CODE_OUT_OF_USES});
       }
 
     } else {
       //code not found case
       if (i === course.codes.length - 1) {
         shouldContinue = false;
-        return res.status(404).json({message: COURSE_INCORRECT_CODE});
+        return res.status(406).json({message: COURSE_INCORRECT_CODE});
       }
     }
 
