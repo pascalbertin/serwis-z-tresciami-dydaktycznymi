@@ -9,14 +9,7 @@ const swaggerJsDoc  = require('swagger-jsdoc');
 const swaggerUi     = require('swagger-ui-express');
 
 const rootRouter            = require("./src/routes/rootRouter");
-const teacherRoute          = require("./src/routes/teacherRouter");
-const refreshRouter         = require("./src/routes/refreshRouter");
-const logoutRouter          = require("./src/routes/logoutRouter");
-const getAllTeachersRouter  = require("./src/routes/getAllTeachersRouter");
-const loginRouter           = require("./src/routes/loginRouter");
-const registerRouter        = require("./src/routes/registerRouter");
-const courseRoute           = require("./src/routes/courseRouter");
-//const studentRoute          = require("./src/routes/studentRouter")
+const coursesRouter         = require("./src/routes/courseRouter");
 const usersRouter           = require("./src/routes/usersRouter");
 const authRouter            = require("./src/routes/authRouter");
 
@@ -70,31 +63,13 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-// JWT
 app.use(credentials);
 app.use(cors(corsOptions));
 
 app.use('/', rootRouter);
-
-//Routes for teacher
-app.use('/api/teacher', teacherRoute);
-
-//Routes for course
-app.use('/api/courses', courseRoute);
-
-//Routes for student
-//app.use('/api/student', studentRoute);
-
+app.use('/api/courses', coursesRouter);
 app.use('/api/auth', authRouter);
-
-app.use('/register', registerRouter);
-app.use('/user/login', loginRouter);
-app.use('/refresh', refreshRouter);
-app.use('/logout', logoutRouter);
-app.use('/test', getAllTeachersRouter);
-
 app.use('/api/users', usersRouter);
-
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
@@ -102,8 +77,6 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   console.log('[server.js]: App is set to DEVELOPMENT');
 }
-
-
 
 //MUST BE AT THE END OF FILE heroku deploy react routing fix
 app.get('*', (req, res) => {

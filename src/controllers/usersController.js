@@ -6,25 +6,25 @@ const { USER_DELETED } = require("../helpers/confirmationMessages");
 const { tryCatch } = require("../helpers/tryCatch");
 
 const teacherGetAll = tryCatch(async (req, res) => {
-  const teacher = await TeacherModel.find();
+  const user = await TeacherModel.find();
 
-  if (teacher == null) {
+  if (user == null) {
     throw new AppError(USER_ERROR, USER_NOT_FOUND, 404);
   }
 
-  res.teacher = teacher;
-  return res.status(200).json(res.teacher);
+  res.user = user;
+  return res.status(200).json(res.user);
 });
 
 const userGetByUsername = tryCatch(async (req, res) => {
-  const teacher = await TeacherModel.findOne({userName: req.params.username});
+  const user = await TeacherModel.findOne({userName: req.params.username});
 
-  if (teacher == null) {
+  if (user == null) {
     throw new AppError(USER_ERROR, USER_NOT_FOUND, 404);
   }
 
-  res.teacher = teacher;
-  return res.status(200).json(res.teacher);
+  res.user = user;
+  return res.status(200).json(res.user);
 });
 
 const userPatchByUsername = tryCatch(async (req, res) => {

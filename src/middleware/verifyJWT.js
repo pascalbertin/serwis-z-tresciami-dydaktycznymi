@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const AppError = require("../helpers/AppError");
 const { AUTH_ERROR } = require("../helpers/errorCodes");
 const { INVALID_TOKEN, USER_FORBIDDEN } = require("../helpers/errorMessages");
-const { tryCatch } = require("../helpers/tryCatch");
 
 const verifyJWT = (req, res, next) => {
     const authHeader = req.headers.authorization || req.headers.Authorization;
