@@ -51,43 +51,8 @@ const courseGetByTitle = tryCatch(async (req, res) => {
   return res.status(200).json(res.course);
 });
 
-//get all courses with requested subject
-const courseGetBySubject = async (req, res) => {
-    let course
-    try{
-      course = await courseModel.find({subject: req.query.subject})
-      if (course == null) {
-        return res.status(404).json({message: 'Cannot find course'})
-      }
-    }catch(error) {
-      return res.status(500).json({message: error.message})
-    }
-    res.course = course
-
-    console.log(res.course)
-    res.json(res.course)
-    // console.log(req.query.subject)
-};
-
-//get all courses of requested author
-const courseGetByAuthor = async (req, res) => {
-    let course
-    try{
-      course = await courseModel.find({author: req.query.author})
-      if (course == null) {
-        return res.status(404).json({message: 'Cannot find course'})
-      }
-    }catch(error) {
-      return res.status(500).json({message: error.message})
-    }
-    res.course = course
-
-    console.log(res.course)
-    res.json(res.course)
-};
-
 const courseGetAll = tryCatch(async (req, res) => {
-  let course = await courseModel.find();
+  const course = await courseModel.find();
 
   if (course == null) {
     throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
@@ -147,7 +112,6 @@ const coursePatchByTitle = tryCatch(async (req, res) => {
   const updatedCourse = await res.course.save();
   return res.status(200).json(updatedCourse);
 });
-
 
 //get all courses that fulfills the filter
 //price subject level
@@ -211,17 +175,11 @@ const courseGetFiltered = async (req, res) => {
   res.json(res.course)
 };
 
-
-
-
-
 module.exports = {
     courseCreate,
     courseGetByTitle,
     courseDeleteByTitle,
     coursePatchByTitle,
-    courseGetBySubject,
-    courseGetByAuthor,
     courseGetAll,
     courseGetFiltered
 };

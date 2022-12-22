@@ -9,8 +9,8 @@ const { COURSE_NOT_FOUND, COURSE_MISSING_EMAIL } = require("../helpers/errorMess
 const { EMAIL_SENT, COURSE_CODE_OUT_OF_USES, COURSE_INCORRECT_CODE } = require("../helpers/confirmationMessages");
 const { tryCatch } = require("../helpers/tryCatch");
 
-const nodemailerPass = process.env.nodemailerPass
-const nodemailerMail = process.env.nodemailerMail
+const nodemailerPass = process.env.NODEMAILER_PASS;
+const nodemailerMail = process.env.NODEMAILER_MAIL;
 
 var transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
