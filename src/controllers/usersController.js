@@ -1,7 +1,7 @@
 const TeacherModel = require("../models/teacherModel");
 const AppError = require("../helpers/AppError");
 const { USER_ERROR } = require("../helpers/errorCodes");
-const { USER_NOT_FOUND } = require("../helpers/errorMessages");
+const { USER_NOT_FOUND, USER_MISSING_PASSWORD } = require("../helpers/errorMessages");
 const { USER_DELETED } = require("../helpers/confirmationMessages");
 const { tryCatch } = require("../helpers/tryCatch");
 
@@ -38,6 +38,8 @@ const userPatchByUsername = tryCatch(async (req, res) => {
   
   if (req.body.password != null) {
     res.user.password = req.body.password;
+  } else {
+    throw new AppError(USER_ERROR, USER_MISSING_PASSWORD, 400);
   }
    
   const updatedUser = await res.user.save();
