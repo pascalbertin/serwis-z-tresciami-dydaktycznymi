@@ -18,11 +18,15 @@ const registerRouter        = require("./src/routes/registerRouter");
 const courseRoute           = require("./src/routes/courseRouter");
 //const studentRoute          = require("./src/routes/studentRouter")
 const usersRouter           = require("./src/routes/usersRouter");
+const authRouter            = require("./src/routes/authRouter");
 
 const corsOptions        = require('./src/config/corsOptions');
 const dbConnectionLink   = require("./src/config/databaseConfig");
 const credentials        = require('./src/middleware/credentials');
 const cookieParser       = require('cookie-parser');
+
+const errorHandler = require("./src/middleware/errorHandler");
+
 
 const app = express();
 
@@ -81,6 +85,8 @@ app.use('/api/courses', courseRoute);
 //Routes for student
 //app.use('/api/student', studentRoute);
 
+app.use('/api/auth', authRouter);
+
 app.use('/register', registerRouter);
 app.use('/user/login', loginRouter);
 app.use('/refresh', refreshRouter);
@@ -89,6 +95,7 @@ app.use('/test', getAllTeachersRouter);
 
 app.use('/api/users', usersRouter);
 
+
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
   console.log('[server.js]: App is set to PRODUCTION');
@@ -96,10 +103,14 @@ if (process.env.NODE_ENV === 'production') {
   console.log('[server.js]: App is set to DEVELOPMENT');
 }
 
+
+
 //MUST BE AT THE END OF FILE heroku deploy react routing fix
 app.get('*', (req, res) => {
   res.sendFile(`${__dirname}/client/build/index.html`);
 });
+
+app.use(errorHandler);
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {

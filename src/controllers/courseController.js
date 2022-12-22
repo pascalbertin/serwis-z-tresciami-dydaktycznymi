@@ -1,52 +1,55 @@
 const {CourseSchema, courseModel} = require("../models/courseModel");
+const AppError = require("../helpers/AppError");
+const { COURSE_ERROR } = require("../helpers/errorCodes");
+const { COURSE_NOT_FOUND, COURSE_DUPLICATE, COURSE_MISSING_PARAMETERS } = require("../helpers/errorMessages");
+const { COURSE_CREATED } = require("../helpers/confirmationMessages");
+const { tryCatch } = require("../helpers/tryCatch");
 
+const courseCreate = tryCatch(async (req, res) => {
+  if (!req.body.title || 
+      !req.body.description ||
+      !req.body.price ||
+      !req.body.author ||
+      !req.body.subject ||
+      !req.body.level ||
+      !req.body.video ||
+      !req.body.thumbnail) {
+    throw new AppError(COURSE_ERROR, COURSE_MISSING_PARAMETERS, 400);
+  }
 
-const courseCreate = (req, res) => {
-    try {
-        const new_course = courseModel({
-          title: req.body.title,
-          description: req.body.description,
-          price: req.body.price,
-          author: req.body.author,
-          subject: req.body.subject,
-          level: req.body.level,
-          video: req.body.video,
-          thumbnail: req.body.thumbnail
-        });
+  const ifCourseDuplicate = await courseModel.findOne({ title: req.body.title }).exec();
+  if (ifCourseDuplicate) {
+    throw new AppError(COURSE_ERROR, COURSE_DUPLICATE, 409);
+  }
+
+  const newCourse = courseModel({
+    title: req.body.title,
+    description: req.body.description,
+    price: req.body.price,
+    author: req.body.author,
+    subject: req.body.subject,
+    level: req.body.level,
+    video: req.body.video,
+    thumbnail: req.body.thumbnail
+  });
         
-        console.log(new_course)
-        new_course.save(function(error){
-        if (error) {
-          console.log(error);
-        } else {
-            res.status(200).send("Kurs dodano");
-            console.log("Succes");
-        }
-        });   
-      }catch{
-        console.log("error sent")
-        res.status(500).send()
-      }
-};
-
-//get one course by id
-const courseGetByTitle = async (req, res) => {
-    let course
-    try{
-//      course = await courseModel.findOne({_id: req.query.id})
-      console.log(req.params)
-      course = await courseModel.findOne({title: req.params.title})
-      if (course == null) {
-        return res.status(404).json({message: 'Cannot find course'})
-      }
-    }catch(error) {
-      return res.status(500).json({message: error.message})
+  newCourse.save(error => {
+    if (!error) {
+      return res.status(200).json({message: COURSE_CREATED});
     }
-    res.course = course
+  });
+});
 
-    console.log(res.course)
-    res.json(res.course)
-};
+const courseGetByTitle = tryCatch(async (req, res) => {
+  const course = await courseModel.findOne({title: req.params.title});
+
+  if (course == null) {
+    throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
+  }
+
+  res.course = course;
+  return res.status(200).json(res.course);
+});
 
 //get all courses with requested subject
 const courseGetBySubject = async (req, res) => {
@@ -83,89 +86,67 @@ const courseGetByAuthor = async (req, res) => {
     res.json(res.course)
 };
 
-//get all courses
-const courseGetAll = async (req, res) => {
-  let course
-  try{
-    course = await courseModel.find()
-    if (course == null) {
-      return res.status(404).json({message: 'Cannot find any course'})
-    }
-  }catch(error) {
-    return res.status(500).json({message: error.message})
+const courseGetAll = tryCatch(async (req, res) => {
+  let course = await courseModel.find();
+
+  if (course == null) {
+    throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
   }
-  res.course = course
 
-  console.log(res.course)
-  res.json(res.course)
-};
+  res.course = course;
+  return res.status(200).json(res.course);
+});
 
-const courseDeleteByTitle = async (req, res) => {
-    let course
-    try{
-      course = await courseModel.findOne({title: req.params.title})
-      if (course == null) {
-        return res.status(404).json({message: 'Cannot find course'})
-      }
-    }catch(error) {
-      return res.status(500).json({message: error.message})
-    }
-    res.course = course
+const courseDeleteByTitle = tryCatch(async (req, res) => {
+  const course = await courseModel.findOne({title: req.params.title});
 
-    try{
-        console.log(res.course._id)
-        await courseModel.deleteOne({_id: res.course._id})
-        res.json({message:"usunieto kurs"})
-      }catch(error){
-        res.status(500).json({message: error.message})
-      }
-};
+  if (course == null) {
+    throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
+  }
 
-const coursePatchByTitle = async (req, res) => {
-    let course
-    try{
-      course = await courseModel.findOne({title: req.params.title})
-      if (course == null) {
-        return res.status(404).json({message: 'Cannot find course'})
-      }
-    }catch(error) {
-      return res.status(500).json({message: error.message})
-    }
-    res.course = course
+  res.course = course;
 
+  await courseModel.deleteOne({_id: res.course._id});
+  return res.status(200).json({message: COURSE_DELETED});
+});
 
-    if (req.body.title != null){
-        res.course.title = req.body.title
-      }
-      if (req.body.description != null){
-        res.course.description = req.body.description
-      }
-      if (req.body.price != null){
-        res.course.price = req.body.price
-      }
-      if (req.body.author != null){
-        res.course.author = req.body.author
-      }
-      if (req.body.subject != null){
-        res.course.subject = req.body.subject
-      }
-      if (req.body.level != null){
-        res.course.level = req.body.level
-      }
-      if (req.body.video != null){
-        res.course.video = req.body.video
-      }
-      if (req.body.thumbnail != null){
-        res.course.thumbnail = req.body.thumbnail
-      }
+const coursePatchByTitle = tryCatch(async (req, res) => {
+  const course = await courseModel.findOne({title: req.params.title});
 
-      try {
-        const updatedCourse = await res.course.save()
-          res.json(updatedCourse)
-      } catch(error){
-          res.status(400).json({message: error.message})
-      }
-};
+  if (course == null) {
+    throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
+  }
+
+  res.course = course;
+
+  if (req.body.title != null) {
+    res.course.title = req.body.title;
+  }
+  if (req.body.description != null) {
+    res.course.description = req.body.description;
+  }
+  if (req.body.price != null) {
+    res.course.price = req.body.price;
+  }
+  if (req.body.author != null) {
+    res.course.author = req.body.author;
+  }
+  if (req.body.subject != null) {
+    res.course.subject = req.body.subject;
+  }
+  if (req.body.level != null) {
+    res.course.level = req.body.level;
+  }
+  if (req.body.video != null) {
+    res.course.video = req.body.video;
+  }
+  if (req.body.thumbnail != null) {
+    res.course.thumbnail = req.body.thumbnail;
+  }
+
+  const updatedCourse = await res.course.save();
+  return res.status(200).json(updatedCourse);
+});
 
 
 //get all courses that fulfills the filter

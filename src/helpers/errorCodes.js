@@ -1,0 +1,4 @@
+exports.USER_ERROR = 1001;
+exports.COURSE_ERROR = 2001;
+exports.AUTH_ERROR = 4001;
+exports.SERVER_ERROR = 5001;
