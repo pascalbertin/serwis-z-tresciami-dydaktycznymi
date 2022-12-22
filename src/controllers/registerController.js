@@ -1,31 +1,38 @@
 const TeacherModel = require("../models/teacherModel");
 const bcrypt = require("bcrypt");
 require('dotenv').config();
+const AppError = require("../helpers/AppError");
+const { USER_ERROR } = require("../helpers/errorCodes");
+const { USER_MISSING_PARAMETERS, USER_DUPLICATE } = require("../helpers/errorMessages");
+const { USER_CREATED } = require("../helpers/confirmationMessages");
+const { tryCatch } = require("../helpers/tryCatch");
 
-/*NOWA METODA REJESTRACJI*/
-const handleRegistration = async (req, res) => {
+const handleRegistration = tryCatch(async (req, res) => {
   //const {teacherName, teacherEmail, teacherPassword} = req.body;
 
-  if (!req.body.username || !req.body.email || !req.body.password) return res.status(400).json({ 'message': 'Username, e-mail and password are required.' });
+  if (!req.body.username || !req.body.email || !req.body.password) {
+    throw new AppError(USER_ERROR, USER_MISSING_PARAMETERS, 400);
+  }
 
-  const ifTeacherNameDuplicate = await TeacherModel.findOne({ userName: req.body.username }).exec();
-  if (ifTeacherNameDuplicate) return res.sendStatus(409); //Conflict
+  const ifUserNameDuplicate = await TeacherModel.findOne({ userName: req.body.username }).exec();
 
-  try {
-    //const hashedTeacherPassword = await bcrypt.hash(teacherPassword, 10);
+  if (ifUserNameDuplicate) {
+    throw new AppError(USER_ERROR, USER_DUPLICATE, 409);
+  }
 
-    const newTeacher = TeacherModel({
-      userName: req.body.username,
-      email: req.body.email,
-      password: req.body.password
-    });
-    newTeacher.save();
+  //const hashedTeacherPassword = await bcrypt.hash(teacherPassword, 10);
 
-    res.status(201).json({ 'success': `New teacher ${req.body.username} created!` });
+  const newUser = TeacherModel({
+    userName: req.body.username,
+    email: req.body.email,
+    password: req.body.password
+  });
 
-  } catch (error) {
-    res.status(500).json({ 'message_error': error.message });
-  }  
-}
+  newUser.save();
 
-module.exports = { handleRegistration };
+  return res.status(200).json({message: USER_CREATED });
+});
+
+module.exports = {
+  handleRegistration
+};

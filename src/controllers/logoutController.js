@@ -1,27 +1,31 @@
 const TeacherModel = require("../models/teacherModel");
+require('dotenv').config();
+const AppError = require("../helpers/AppError");
+const { USER_ERROR } = require("../helpers/errorCodes");
+const { RESPONSE_NO_CONTENT } = require("../helpers/confirmationMessages");
+const { tryCatch } = require("../helpers/tryCatch");
 
-const handleLogout = async (req, res) => {
-  // On client, also delete the accessToken
-
+const handleLogout = tryCatch(async (req, res) => {
   const cookies = req.cookies;
-  if (!cookies?.jwt) return res.sendStatus(204); //No content
-  const refreshToken = cookies.jwt;
-
-  // Is refreshToken in db?
-  const foundTeacher = await TeacherModel.findOne({ refreshToken }).exec();
-  if (!foundTeacher) {
-      res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
-      return res.sendStatus(204);
+  if (!cookies?.jwt) {
+    throw new AppError(USER_ERROR, RESPONSE_NO_CONTENT, 204);
   }
 
-  // Delete refreshToken in db
+  const refreshToken = cookies.jwt;
+  const foundTeacher = await TeacherModel.findOne({ refreshToken }).exec();
+
+  if (!foundTeacher) {
+    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
+    throw new AppError(USER_ERROR, RESPONSE_NO_CONTENT, 204);
+  }
+
   foundTeacher.refreshToken = '';
   const result = await foundTeacher.save();
-  console.log(result);
 
   res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
-  res.sendStatus(204);
+  return res.sendStatus(204);
+});
+
+module.exports = {
+  handleLogout
 }
-
-
-module.exports = { handleLogout }

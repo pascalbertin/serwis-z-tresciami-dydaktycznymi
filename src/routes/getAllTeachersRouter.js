@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const getAllTeachers = require('../controllers/getAllTeachers');
+const getAllTeachers = require('../controllers/usersController');
 const verifyJWT = require('../middleware/verifyJWT');
 
 /**
