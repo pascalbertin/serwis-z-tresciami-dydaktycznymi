@@ -121,8 +121,8 @@ const courseGetFiltered = async (req, res) => {
   try{
     course = await courseModel.find()
     //console.log(course)
-    if(req.body.subject != null){
-      subject = req.body.subject.split(",")
+    if(req.query.subject != null){
+      subject = req.query.subject.split(",")
       let tempList = []
       course.forEach(function(element){
         //console.log(level, element.level)
@@ -135,8 +135,8 @@ const courseGetFiltered = async (req, res) => {
     }
 
 
-    if(req.body.level != null){
-        level = req.body.level.split(",")
+    if(req.query.level != null){
+        level = req.query.level.split(",")
         level = level.map(Number)
         let tempList = []
         course.forEach(function(element){
@@ -149,17 +149,17 @@ const courseGetFiltered = async (req, res) => {
         console.log(tempList)
     }
 
-    if(req.body.priceMin != null){
+    if(req.query.priceMin != null){
       console.log("min")
       course = course.filter(function(item){
-        return item.price >= req.body.priceMin
+        return item.price >= req.query.priceMin
       })
     }
 
-    if(req.body.priceMax != null){
+    if(req.query.priceMax != null){
       console.log("max")
       course = course.filter(function(item){
-        return item.price <= req.body.priceMax
+        return item.price <= req.query.priceMax
         })  
     }
     //course = await courseModel.find({author: req.query.author})

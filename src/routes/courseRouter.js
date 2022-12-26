@@ -68,7 +68,7 @@ const verifyJWT = require('../middleware/verifyJWT');
  *        description: Błąd po stronie serwera
  */
 router.route("/")
-    .get(courseController.courseGetAll)
+    .get(courseController.courseGetFiltered)
     .post(verifyJWT, courseController.courseCreate)
     .patch(wrongEndpointHandler.errorHandler)
     .delete(wrongEndpointHandler.errorHandler);
