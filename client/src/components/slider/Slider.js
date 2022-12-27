@@ -16,7 +16,7 @@ function Slider(props) {
     const [activeIndex, setActiveIndex] = useState(0);
 
     async function checkUser() {
-        const response = await axios.get('/api/course/manageCourseBySubject?subject=Matematyka',{
+        const response = await axios.get('/api/courses?subject=Matematyka',{
             headers: { 
                 'Accept': 'application',
                 'Content-Type': 'application/json'},

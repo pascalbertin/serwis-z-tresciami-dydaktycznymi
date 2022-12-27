@@ -19,7 +19,7 @@ const AllCourses = () => {
   }
 
   const submitForm = async () => {
-    const response = await axios.get('/api/course/manageCourseBySubject?subject='+sub,
+    const response = await axios.get('/api/courses?subject='+sub,
       {
         headers: { 
           'Accept': 'application',
@@ -43,7 +43,7 @@ const AllCourses = () => {
             <ul >
               {values.map((value, i) => 
               <li key={i}>
-                <Link to={`/course?id=${value._id}`} style={{ textDecoration: 'none' }}>
+                <Link to={`/api/course?id=${value._id}`} style={{ textDecoration: 'none' }}>
                   <div className='course-object-title'>{value?.title}</div>
                 </Link>
                 <div className='course-object-subject'>Kategoria: {value?.subject}</div>

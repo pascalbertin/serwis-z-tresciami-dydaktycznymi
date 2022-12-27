@@ -23,7 +23,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 20px;
+}
+
+.filters-menu-container .row-collapse {
+    display: flex;
+    justify-content: center;
+    width: 60%;
+    margin-top: 15px;
+}
+
+.filters-menu-container .row-checkbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
 }
 
 .filters-menu-container .search {
@@ -34,7 +49,8 @@
 .filters-menu-container .form-button {
     margin: 0;
     width: 300px;
-    height: 40px;
+    height: 55px;
+    margin-left: 20px;
     border-radius: 10px;
     background-color: #532B88;
     outline: none;
@@ -77,4 +93,27 @@
     font-size: 25px;
     font-weight: 450;
     padding-bottom: 20px;
+}
+
+.filters-menu-container .select-subject{
+    font-size: 15px;
+    background-color:rgb(244, 239, 250);
+    margin-right: 20px;
+    margin-left: 20px;
+    text-align: center;
+    height: 55px;
+}
+
+.filters-menu-container .price-text {
+    font-size: 20px;
+    color: #2F184B;
+}
+
+.filters-menu-container .price-input {
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 40px;
+    font-size: large;
+    border-color: #2F184B;
+    width: 5%;
 }

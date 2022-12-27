@@ -10,8 +10,7 @@ function Course(){
   const navigate = useNavigate();
   const location = useLocation();
   var idParam = window.location.search;
-  var id = idParam.substring(4);
-
+  var id = idParam.substring(7); //it's not ID, it's title
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [error, setError] = useState('')
   const [code, setCode] = useState({ code: ''})
@@ -19,12 +18,12 @@ function Course(){
   const username = localStorage.getItem('username')
   
   const submitForm = async () => {
-    const response = await axios.get('api/course/manageCourseById?id='+id,
+    const response = await axios.get('api/courses/'+id,
       {
         headers: { 
           'Accept': 'application',
-          'Content-Type': 'application'},
-      });
+          'Content-Type': 'application/json'},
+      }); 
     setValues(response?.data); 
     localStorage.removeItem('title');
     localStorage.removeItem('subject');
