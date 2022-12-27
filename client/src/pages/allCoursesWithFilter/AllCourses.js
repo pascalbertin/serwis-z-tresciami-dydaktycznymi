@@ -43,7 +43,7 @@ const AllCourses = () => {
             <ul >
               {values.map((value, i) => 
               <li key={i}>
-                <Link to={`/api/course?id=${value._id}`} style={{ textDecoration: 'none' }}>
+                <Link to={`/course/?title=${value.title}`} style={{ textDecoration: 'none' }}>
                   <div className='course-object-title'>{value?.title}</div>
                 </Link>
                 <div className='course-object-subject'>Kategoria: {value?.subject}</div>
