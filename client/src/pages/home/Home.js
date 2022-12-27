@@ -27,14 +27,6 @@ const Home = () => {
             TUTORS ALPHA
           </Typography>
         </a>
-        {/* <div className='search' position='left'>
-          <TextField
-            id='outlined-basic'
-            variant='outlined'
-            fullWidth
-            label='Szukaj kursów'
-          />
-        </div> */}
         {!isLoggedIn && <a href='/filter_courses' style={{ textDecoration: 'none' }}>
           <Button
             className={classes.title}>   Szukaj kursu
