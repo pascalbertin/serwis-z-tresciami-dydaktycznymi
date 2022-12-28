@@ -2,7 +2,7 @@ import React, { useState, useEffect }  from 'react';
 import '../../styles/AllCourses.css';
 import axios from '../../config/axios'
 import { Link } from 'react-router-dom';
-
+import { API } from '../../config/api'
 
 const AllCourses = () => {
 
@@ -19,7 +19,7 @@ const AllCourses = () => {
   }
 
   const submitForm = async () => {
-    const response = await axios.get('/api/courses?subject='+sub,
+    const response = await axios.get(API.course + '?subject=' + sub,
       {
         headers: { 
           'Accept': 'application',
