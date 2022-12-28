@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AddCourseForm from '../../components/addCourse/addCourseForm'
 import AddCourseResponse from '../../components/addCourse/addCourseResponse'
 import axios from '../../config/axios'
+import { API } from '../../config/api';
 
 const AddCourse = () => {
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -11,9 +12,10 @@ const AddCourse = () => {
     if (isValid){
       setIsSubmitted(true);
       setValues(values);
-      const response = await axios.post('/api/course/addCourse', {...values},
+      const response = await axios.post(API.course, {...values},
       {
-        headers: { 
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
           'Accept': 'application',
           'Content-Type': 'application/json'},
       });

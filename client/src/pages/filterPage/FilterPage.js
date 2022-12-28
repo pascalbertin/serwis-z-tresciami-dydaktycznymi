@@ -4,6 +4,7 @@ import axios from '../../config/axios'
 import { TextField } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { Checkbox, Collapse } from 'antd';
+import { API } from '../../config/api'
 
 const {Panel} = Collapse
 
@@ -114,7 +115,7 @@ const FliterPage = () => {
         }else{
             level = ""
         }
-        const response = await axios.get('/api/courses?subject='+sub+level,
+        const response = await axios.get(API.course + '?subject=' + sub + level,
         {
             headers: { 
             'Accept': 'application',
