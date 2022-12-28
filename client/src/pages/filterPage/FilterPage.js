@@ -12,8 +12,12 @@ const FliterPage = () => {
     const [values, setValues] = useState([])
     const [CheckedSubject, setCheckedSubject] = useState([])
     const [CheckedClasses, setCheckedClasses] = useState([])
+    const [priceMin, setPriceMin] = useState(5)
+    const [priceMax, setPriceMax] = useState(20)
     var sub = CheckedSubject.join()
     var level = ""
+    var minPrice = "&priceMin="+priceMin.toString()
+    var maxPrice = "&priceMax="+priceMax.toString()
     //var level = "&level=" + CheckedClasses.join()
 
     const subjects = [
@@ -115,7 +119,7 @@ const FliterPage = () => {
         }else{
             level = ""
         }
-        const response = await axios.get(API.course + '?subject=' + sub + level,
+        const response = await axios.get('/api/courses?subject='+sub+minPrice+maxPrice+level,
         {
             headers: { 
             'Accept': 'application',
@@ -160,7 +164,12 @@ const FliterPage = () => {
         //props.handleFilters(newChecked)
         //update this checked information into Parent Component
     }
-
+    const handleInputMin = (e)=>{
+        setPriceMin( e.target.value );
+      }
+    const handleInputMax = (e)=>{
+    setPriceMax( e.target.value );
+    }
     // useEffect(() => {
     //     submitForm()
     //     madeObjects(values);
@@ -192,10 +201,9 @@ const FliterPage = () => {
     return (
         <div className="filters-menu-container">
             <div className="row">
-                <label className="price-text">Cena min:</label>
-                <input className="price-input" id="min" type="number" />
-                <label className="price-text">Cena max:</label>
-                <input className="price-input" id="max" type="number" />
+                {/* <input className="price-input" id="min" type="number" />
+                <label className="price-text">do:</label>
+                <input className="price-input" id="max" type="number" /> */}
                 <div className='search'>
                     <TextField
                         id='outlined-basic'
@@ -207,6 +215,14 @@ const FliterPage = () => {
                 <button className='form-button' type="submit" onClick={submitForm}>
                     Filtruj 
                 </button>
+            </div>
+            <div className="row">                
+                <input className="price-slider" type="range" onInput={ handleInputMin } min={1} max={priceMax-1} value={priceMin}/>
+                <input className="price-slider" type="range" onInput={ handleInputMax } min={priceMin} max={250} value={priceMax}/>
+            </div>
+            <div className="row">
+                <label className="price-text">Cena min: {priceMin}zł</label> 
+                <label className="price-text">Cena max: {priceMax}zł</label> 
             </div>
             <div className="row-checkbox">
                 <Collapse defaultActiveKey={['0']}>
