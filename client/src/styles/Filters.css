@@ -24,6 +24,7 @@
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+    margin-bottom: 5px;
 }
 
 .filters-menu-container .row-collapse {
@@ -107,13 +108,14 @@
 .filters-menu-container .price-text {
     font-size: 20px;
     color: #2F184B;
+    margin-right: 12px;
+    margin-left: 12px;
+    margin-bottom: 10px;
 }
 
-.filters-menu-container .price-input {
+.filters-menu-container .price-slider{
     margin-left: 10px;
     margin-right: 10px;
-    height: 40px;
-    font-size: large;
-    border-color: #2F184B;
-    width: 5%;
+    margin-top: 20px;
+    cursor: grab;
 }
