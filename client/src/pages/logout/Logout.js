@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from '../../config/axios'
+import { API } from '../../config/api'
 import { useNavigate, useLocation } from "react-router-dom"
 
 const Logout = () => {
@@ -16,7 +17,7 @@ const Logout = () => {
             localStorage.removeItem('username')
             setMsg(process.env.REACT_APP_LOGOUT_SUCCESS)
     
-            const response = await axios.get('/logout')
+            const response = await axios.get(API.user + '/logout')
             console.log(response.status)
             navigate('/', {state: { from: location}, replace: true})
             navigate(0)

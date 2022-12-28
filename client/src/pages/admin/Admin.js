@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from '../../config/axios'
+import { API } from '../../config/api'
 // import useAxios from '../../hooks/useAxios'
 // import useAuth from '../../hooks/useAuth'
 
@@ -12,7 +13,7 @@ const Admin = () => {
        
        const getUsers = async () => {
            try {
-                const response = await axios.get('/test', {
+                const response = await axios.get(API.user, {
                    headers: { 
                        'Authorization': 'Bearer ' + localStorage.getItem('accessToken')}
                 });
