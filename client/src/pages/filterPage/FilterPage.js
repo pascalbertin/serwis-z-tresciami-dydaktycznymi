@@ -18,7 +18,6 @@ const FliterPage = () => {
     var level = ""
     var minPrice = "&priceMin="+priceMin.toString()
     var maxPrice = "&priceMax="+priceMax.toString()
-    //var level = "&level=" + CheckedClasses.join()
 
     const subjects = [
         {
@@ -125,12 +124,7 @@ const FliterPage = () => {
             'Accept': 'application',
             'Content-Type': 'application/json'},
         });
-       // console.log('Success:', response?.data);
         setValues(response?.data);
-        // console.log('SUBJECTS: ', CheckedSubject);
-        // console.log('sub: ', sub);
-        // console.log('CLASSES: ', CheckedClasses);
-        // console.log('classes: ', CheckedClasses.join());
     }
     
     const handleToggleSubjects = (value) => {
@@ -145,8 +139,6 @@ const FliterPage = () => {
         }
 
         setCheckedSubject(newChecked)
-        //props.handleFilters(newChecked)
-        //update this checked information into Parent Component
     }
 
     const handleToggleClasses = (value) => {
@@ -161,8 +153,6 @@ const FliterPage = () => {
         }
 
         setCheckedClasses(newChecked)
-        //props.handleFilters(newChecked)
-        //update this checked information into Parent Component
     }
     const handleInputMin = (e)=>{
         setPriceMin( e.target.value );
@@ -194,28 +184,10 @@ const FliterPage = () => {
             />
             <span>{" " +value.name+" "}</span>
         </React.Fragment>
-    ))
-
-    
+    ))    
 
     return (
         <div className="filters-menu-container">
-            <div className="row">
-                {/* <input className="price-input" id="min" type="number" />
-                <label className="price-text">do:</label>
-                <input className="price-input" id="max" type="number" /> */}
-                <div className='search'>
-                    <TextField
-                        id='outlined-basic'
-                        variant='outlined'
-                        fullWidth
-                        label='Szukaj kursów'
-                    />
-                </div>
-                <button className='form-button' type="submit" onClick={submitForm}>
-                    Filtruj 
-                </button>
-            </div>
             <div className="row">                
                 <input className="price-slider" type="range" onInput={ handleInputMin } min={1} max={priceMax-1} value={priceMin}/>
                 <input className="price-slider" type="range" onInput={ handleInputMax } min={priceMin} max={250} value={priceMax}/>
@@ -238,18 +210,32 @@ const FliterPage = () => {
                     </Panel>
                 </Collapse>
             </div>
-            <div className='objects-of-course'>
+            <div className="row">
+                <button className='form-button' type="submit" onClick={submitForm}>
+                    Filtruj 
+                </button>
+            </div>
+            <div className='objects-of-course'> 
                 <div className='column'>
                 {values?.length ? (
                     <ul >
                     {values.map((value, i) => 
                     <li key={i}>
-                        <Link to={`/course/?title=${value.title}`} style={{ textDecoration: 'none' }}>
-                        <div className='course-object-title'>{value?.title}</div>
-                        </Link>
-                        <div className='course-object-subject'>Kategoria: {value?.subject}</div>
-                        <div className='course-object-price'>Cena: {value?.price} zł</div>
-                        <hr />
+                        <div className="row">
+                            <div className="filters-left-column">
+                                <Link to={`/course/?title=${value.title}`}>
+                                    <img className='filters-course-image' src={value.thumbnail}></img>
+                                </Link>
+                            </div>
+                            <div className="filters-right-column">
+                                <Link to={`/course/?title=${value.title}`} style={{ textDecoration: 'none' }}>
+                                <div className='course-object-title'>{value?.title}</div>
+                                </Link>
+                                <div className='course-object-subject'>Kategoria: {value?.subject}</div>
+                                <div className='course-object-price'>Cena: {value?.price} zł</div>
+                                <hr />
+                            </div>
+                        </div>
                     </li>)}              
                     </ul>
                 ) : <p className='empty-courses'>

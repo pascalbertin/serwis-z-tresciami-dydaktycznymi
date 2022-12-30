@@ -43,12 +43,21 @@ const AllCourses = () => {
             <ul >
               {values.map((value, i) => 
               <li key={i}>
-                <Link to={`/course/?title=${value.title}`} style={{ textDecoration: 'none' }}>
-                  <div className='course-object-title'>{value?.title}</div>
-                </Link>
-                <div className='course-object-subject'>Kategoria: {value?.subject}</div>
-                <div className='course-object-price'>Cena: {value?.price} zł</div>
-                <hr />
+                <div className='row'>
+                  <div className="allCourses-left-column">
+                    <Link to={`/course/?title=${value.title}`}>
+                      <img className='course-object-image' src={value.thumbnail}></img>
+                    </Link>
+                  </div>
+                  <div className='allCourses-right-column'>
+                    <Link to={`/course/?title=${value.title}`} style={{ textDecoration: 'none' }}>
+                      <div className='course-object-title'>{value?.title}</div>
+                    </Link>
+                    <div className='course-object-subject'>Kategoria: {value?.subject}</div>
+                    <div className='course-object-price'>Cena: {value?.price} zł</div>
+                    <hr />
+                    </div>
+                  </div>
               </li>)}              
             </ul>
           ) : <p className='empty-courses'>
