@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import AddCourseForm from '../../components/addCourse/addCourseForm'
 import AddCourseResponse from '../../components/addCourse/addCourseResponse'
+import AddFileForm from '../../components/addCourse/addFileForm'
 import axios from '../../config/axios'
 import { API } from '../../config/api';
 
@@ -33,7 +34,12 @@ const AddCourse = () => {
   }
   return (
     <div>
-        {!isSubmitted ? <AddCourseForm submitForm={submitForm} /> : <AddCourseResponse values={values} />}
+      <div>
+          {!isSubmitted ? <AddCourseForm submitForm={submitForm} /> : <AddCourseResponse values={values} />}
+      </div>
+      <div>
+          <AddFileForm />
+      </div>
     </div>
   )
 }
