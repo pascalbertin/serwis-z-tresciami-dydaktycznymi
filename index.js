@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const app = express();
 const port = 8080;
@@ -15,7 +16,7 @@ const multer = Multer({
 });
 
 let projectId = "tutorsalpha-452626"; // Get this from Google Cloud
-let keyFilename = "myKey.json"; // Get this from Google Cloud -> Credentials -> Service Accounts
+let keyFilename = "./src/config/googleStorageKey.json"; // Get this from Google Cloud -> Credentials -> Service Accounts
 const storage = new Storage({
   projectId,
   keyFilename,
