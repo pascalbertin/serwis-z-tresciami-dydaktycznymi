@@ -7,12 +7,14 @@ import { API } from '../../config/api';
 const AddCourse = () => {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [values, setValues] = useState({})
+  const [files, setFiles] = useState({})
 
-  const submitForm = async (isValid, values) => {
+  const submitForm = async (isValid, values, files) => {
     if (isValid){
       setIsSubmitted(true);
       setValues(values);
-      const response = await axios.post(API.course, {...values},
+      setFiles(files);
+      const response = await axios.post(API.course, {...values, ...files},
       {
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
@@ -25,6 +27,7 @@ const AddCourse = () => {
     }else{
       setIsSubmitted(false);
       setValues({});
+      setFiles({});
     }
       
   }

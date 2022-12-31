@@ -9,8 +9,10 @@ const AddCourseHandler = callback => {
         author: localStorage.getItem('username'),
         subject: '',
         level: '',
-        video: '',
-        thumbnail: ''
+    })
+    const [files, setFiles] = useState({
+        video: File,
+        thumbnail: File
     })
     const [isPositive, setIsPositive] = useState(false);
 
@@ -23,6 +25,13 @@ const AddCourseHandler = callback => {
         })
     }
 
+    const fileHandler = event => {
+        setFiles({
+            ...files,
+            [event.target.name]: event.target.files[0],
+        })
+    }
+
     const submitHandler = event => {
         event.preventDefault();
 
@@ -32,11 +41,11 @@ const AddCourseHandler = callback => {
 
     useEffect(() => {
         if(Object.keys(errors).length === 0 && isPositive) {
-            callback(true, values)
+            callback(true, values, files)
         }
     })
 
-    return {updateHandler, values, submitHandler, errors}
+    return {updateHandler, fileHandler, values, submitHandler, errors, files}
 }
 
 export default AddCourseHandler;
