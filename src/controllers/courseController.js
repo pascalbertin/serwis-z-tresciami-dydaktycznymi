@@ -30,7 +30,8 @@ const courseCreate = tryCatch(async (req, res) => {
     subject: req.body.subject,
     level: req.body.level,
     video: req.body.video,
-    thumbnail: req.body.thumbnail
+    thumbnail: req.body.thumbnail,
+    verification: false
   });
         
   newCourse.save(error => {
@@ -175,11 +176,27 @@ const courseGetFiltered = async (req, res) => {
   res.json(res.course)
 };
 
+const courseVerifyByAdministrator = tryCatch(async (req, res) => {
+  const course = await courseModel.findOne({title: req.params.title});
+
+  if (course == null) {
+    throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
+  }
+
+  res.course = course;
+
+  course.verification = true;
+
+  const updatedCourse = await res.course.save();
+  return res.status(200).json(updatedCourse);
+});
+
 module.exports = {
     courseCreate,
     courseGetByTitle,
     courseDeleteByTitle,
     coursePatchByTitle,
     courseGetAll,
-    courseGetFiltered
+    courseGetFiltered,
+    courseVerifyByAdministrator
 };

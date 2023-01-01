@@ -76,6 +76,10 @@ const courseSchema = new mongoose.Schema({
         type: String,
         required: [true, "Nie podano miniaturki"]
     },
+    verification: {
+      type: Boolean,
+      required: [true]
+    },
     codes: [{code: String, uses: Number}],
     lectures: [lectureSchema]
   });

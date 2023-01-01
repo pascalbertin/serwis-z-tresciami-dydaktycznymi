@@ -215,6 +215,12 @@ router.route("/:title/usage")
     .patch(codesController.courseUseCode)
     .delete(wrongEndpointHandler.errorHandler);
 
+router.route("/:title/verification")
+    .get(wrongEndpointHandler.errorHandler)
+    .post(wrongEndpointHandler.errorHandler)
+    .patch(courseController.courseVerifyByAdministrator)
+    .delete(wrongEndpointHandler.errorHandler);
+
 router.route("/test/test")
     .get(courseController.courseGetFiltered);
 

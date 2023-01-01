@@ -118,4 +118,10 @@ router.route('/:username')
   .patch(verifyJWT, usersController.userPatchByUsername)
   .delete(verifyJWT, usersController.userDeleteByUsername);
 
+router.route('/:username/verification')
+  .get(wrongEndpointHandler.errorHandler)
+  .post(wrongEndpointHandler.errorHandler)
+  .patch(usersController.userVerifyAfterRegistration)
+  .delete(wrongEndpointHandler.errorHandler)
+  
 module.exports = router;
