@@ -11,10 +11,8 @@ const AddCourse = () => {
   const [thumbnail, setThumbnail] = useState(null)
 
   const uploadFile = async (file) => {
-    console.log('file', file)
     const formData = new FormData();
     formData.append("file", file);
-    console.log('formdata:', formData)
 
     const response = await axios.post('/api/fileUpload', formData);
     console.log('Success:', response?.data);
