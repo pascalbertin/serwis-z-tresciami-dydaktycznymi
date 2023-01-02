@@ -5,7 +5,7 @@ import '../../styles/Form.css';
 
 const AddCourseForm = ({submitForm}) => {
   
-    const {updateHandler, values, submitHandler, errors} = AddCourseHandler(submitForm, AddCourseValidator);
+    const {updateHandler, values, submitHandler, errors, videoHandler, thumbnailHandler, video, thumbnail} = AddCourseHandler(submitForm, AddCourseValidator);
 
     return (
       <div className="form-container">
@@ -64,14 +64,14 @@ const AddCourseForm = ({submitForm}) => {
             
               <div className="form-container-inputs">
                   <label htmlFor="video" className="form-label"></label>
-                  <input id="video" type="text" name="video" className="form-input" placeholder="Link do wideo" value={values.video} onChange={updateHandler}/>
-                  {errors.video && <p>{errors.video}</p>}
+                  <input id="video" type="file" name="video" accept="video/mkv" placeholder="Link do wideo" value={video?.value} onChange={videoHandler}/>
+                  {/* {errors.video && <p>{errors.video}</p>} */}
               </div>
 
               <div className="form-container-inputs">
                   <label htmlFor="thumbnail" className="form-label"></label>
-                  <input id="thumbnail" type="text" name="thumbnail" className="form-input" placeholder="Link do miniaturki" value={values.thumbnail} onChange={updateHandler}/>
-                  {errors.thumbnail && <p>{errors.thumbnail}</p>}
+                  <input id="thumbnail" type="file" name="thumbnail" accept="image/jpeg" placeholder="Link do miniaturki" onChange={thumbnailHandler}/>
+                  {/* {errors.thumbnail && <p>{errors.thumbnail}</p>} */}
               </div>
   
               <button className="form-button" type="submit">Dodaj kurs</button>

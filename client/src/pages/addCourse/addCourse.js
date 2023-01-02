@@ -7,12 +7,19 @@ import { API } from '../../config/api';
 const AddCourse = () => {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [values, setValues] = useState({})
+  const [video, setVideo] = useState(null)
+  const [thumbnail, setThumbnail] = useState(null)
 
-  const submitForm = async (isValid, values) => {
-    if (isValid){
-      setIsSubmitted(true);
-      setValues(values);
-      const response = await axios.post(API.course, {...values},
+  const uploadFile = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const response = await axios.post('/api/fileUpload', formData);
+    console.log('Success:', response?.data);
+  }
+
+  const addCourse = async (formValues) => {
+    const response = await axios.post(API.course, {...formValues},
       {
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
@@ -21,16 +28,32 @@ const AddCourse = () => {
       });
       console.log('Success:', response?.data);
       setValues(response?.data); 
-     
+  }
+
+  const submitForm = async (isValid, values, video, thumbnail) => {
+    if (isValid){
+      setIsSubmitted(true);
+      setValues(values);
+      setVideo(video);
+      setThumbnail(thumbnail)
+
+      //calling endpoints
+      uploadFile(video);
+      uploadFile(thumbnail);
+      addCourse(values);
     }else{
       setIsSubmitted(false);
       setValues({});
+      setVideo(null);
+      setThumbnail(null);
     }
       
   }
   return (
     <div>
-        {!isSubmitted ? <AddCourseForm submitForm={submitForm} /> : <AddCourseResponse values={values} />}
+      <div>
+          {!isSubmitted ? <AddCourseForm submitForm={submitForm} /> : <AddCourseResponse values={values} />}
+      </div>
     </div>
   )
 }
