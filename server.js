@@ -22,6 +22,7 @@ const errorHandler = require("./src/middleware/errorHandler");
 
 const { Storage } = require("@google-cloud/storage");
 const Multer = require("multer");
+const GOOGLE_STORAGE_KEY = require('./src/config/googleStorageKey');
 
 const app = express();
 
@@ -81,12 +82,13 @@ const multer = Multer({
   },
 });
 
-let projectId = process.env.GOOGLE_STORAGE_PROJECT_ID;
-let keyFilename = "./src/config/googleStorageKey.json";
+const projectId = process.env.GOOGLE_STORAGE_PROJECT_ID;
+//let keyFilename = "./src/config/googleStorageKey.json";
+const googleCredentials = GOOGLE_STORAGE_KEY
 
 const storage = new Storage({
   projectId,
-  keyFilename,
+  googleCredentials
 });
 
 const bucket = storage.bucket(process.env.GOOGLE_STORAGE_THUMBNAILS_BUCKET);

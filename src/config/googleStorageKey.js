@@ -13,6 +13,4 @@ const GOOGLE_STORAGE_KEY = {
   "client_x509_cert_url": process.env.KEY_CLIENT_X509_CERT_URL
 }
 
-const KEYJSON = JSON.stringify(GOOGLE_STORAGE_KEY)
-
-module.exports = KEYJSON;
+module.exports = GOOGLE_STORAGE_KEY;
