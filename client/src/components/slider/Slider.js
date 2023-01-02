@@ -7,16 +7,16 @@ import './slider.css';
 import study from '../../assets/images/study.jpg';
 import { Link } from 'react-router-dom';
 import axios from '../../config/axios';
+import { API } from '../../config/api'
 
 const len = SliderImage.length - 1;
-var sliderData = [];
-var idFromSlider = "";
+let sliderData = [];
 
-function Slider(props) {
+function Slider() {
     const [activeIndex, setActiveIndex] = useState(0);
 
     async function checkUser() {
-        const response = await axios.get('/api/course/manageCourseBySubject?subject=Matematyka',{
+        const response = await axios.get(API.course + '?subject=Matematyka',{
             headers: { 
                 'Accept': 'application',
                 'Content-Type': 'application/json'},
@@ -65,7 +65,7 @@ function Slider(props) {
             <div className='slider-row'>
                
                 <SliderContent activeIndex={activeIndex < 1 ? len : activeIndex - 1} sliderImage={sliderData}  />
-                <SliderContent activeIndex={activeIndex} sliderImage={sliderData}  onClick={idFromSlider=sliderData._id}/>
+                <SliderContent activeIndex={activeIndex} sliderImage={sliderData}  onClick={sliderData.title}/>
                 <SliderContent activeIndex={activeIndex === len ? 0 : activeIndex + 1} sliderImage={sliderData}  />
 
             </div>

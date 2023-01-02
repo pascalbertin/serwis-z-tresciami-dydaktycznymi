@@ -20,6 +20,8 @@ const cookieParser       = require('cookie-parser');
 
 const errorHandler = require("./src/middleware/errorHandler");
 
+const { Storage } = require("@google-cloud/storage");
+const Multer = require("multer");
 
 const app = express();
 
@@ -70,6 +72,47 @@ app.use('/', rootRouter);
 app.use('/api/courses', coursesRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
+
+
+const multer = Multer({
+  storage: Multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024, // No larger than 5mb, change as you need
+  },
+});
+
+let projectId = process.env.GOOGLE_STORAGE_PROJECT_ID;
+let keyFilename = "./src/config/googleStorageKey.json";
+
+const storage = new Storage({
+  projectId,
+  keyFilename,
+});
+
+const bucket = storage.bucket(process.env.GOOGLE_STORAGE_THUMBNAILS_BUCKET);
+
+
+app.post('/api/fileUpload', multer.single("file"), (req, res) => {
+  console.log("Made it /upload");
+  try {
+    if (req.file) {
+      console.log("File found, trying to upload...");
+      const blob = bucket.file(req.file.originalname);
+      const blobStream = blob.createWriteStream();
+
+      blobStream.on("finish", () => {
+        res.status(200).send("Success");
+        console.log("Success");
+      });
+      blobStream.end(req.file.buffer);
+    } else throw "error with img";
+  } catch (error) {
+    res.status(500).send(error);
+  }
+})
+
+
+
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));

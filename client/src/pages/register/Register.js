@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import axios from '../../config/axios'
 import RegisterForm from '../../components/register/RegisterForm'
 import RegisterResponse from '../../components/register/RegisterResponse'
+import { API } from '../../config/api'
 
 const Register = () => {
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -13,12 +14,12 @@ const Register = () => {
     if (isValid){
       setValues(values)
       try{
-        const response = await axios.post("/register", JSON.stringify(values),
+        const response = await axios.post(API.user, JSON.stringify(values),
         {
           headers: {'Content-Type': 'application/json',
                     'Accept': 'application/json'},
         })
-        if (response?.status === 201)
+        if (response?.status === 200)
         {
           setMsg(process.env.REACT_APP_REGISTER_SUCCESS)
           setIsSuccess(true)

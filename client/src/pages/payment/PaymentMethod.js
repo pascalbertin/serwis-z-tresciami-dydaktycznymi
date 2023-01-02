@@ -3,10 +3,11 @@ import '../../styles/PaymentMethod.css';
 import PaymentResponse from '../../components/paymentMethod/PaymentResponse';
 import PaymentForm from '../../components/paymentMethod/PaymentForm';
 import axios from '../../config/axios';
+import { API } from '../../config/api'
 
 const PaymentMethod = () => {
     const idParam = window.location.search;
-    const id = idParam.substring(4);
+    const id = idParam.substring(7);
   
     const [isSubmitted, setIsSubmitted] = useState(false)
     const [values, setValues] = useState({})
@@ -15,8 +16,7 @@ const PaymentMethod = () => {
       if (isValid){
         setIsSubmitted(true);
         setValues(values);
-        const response = await axios.patch('/api/student/codeGenerate',
-        {id: id, ...values},
+        const response = await axios.patch(API.code + '/' + id + '/order', {...values},
         {
           headers: { 
                'Content-Type': 'application/json'},

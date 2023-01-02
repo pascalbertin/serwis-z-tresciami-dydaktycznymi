@@ -38,6 +38,7 @@
 }
 
 .all-courses-container .course-object-title {
+    margin-top: 25px;
     font-size: 30px;
     font-weight: 600;
     color: #2F184B;
@@ -52,4 +53,20 @@
     font-size: 25px;
     font-weight: 450;
     padding-bottom: 20px;
+}
+
+.all-courses-container .allCourses-left-column {
+    width: 18%;
+}
+
+.all-courses-container .allCourses-right-column {
+    width: 100%;
+}
+
+.all-courses-container .course-object-image {
+    width: 100%;
+    height: 100%;
+    max-width: 250px;
+    max-height: 180px;
+    border-radius: 40px;
 }

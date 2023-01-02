@@ -11,7 +11,7 @@ function SliderContent({ activeIndex, sliderImage }) {
                 className={index === activeIndex ? "slides active" : "inactive"}
                 >
                     <div className="slider-image-container">
-                        <Link to={`/course?id=${slide._id}`}>
+                        <Link to={`/course/?title=${slide.title}`}>
                             <img className="slide-image" src={slide.thumbnail} alt={slide.title} />
                         </Link>
                     </div>
