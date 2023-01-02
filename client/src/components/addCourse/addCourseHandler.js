@@ -10,10 +10,8 @@ const AddCourseHandler = callback => {
         subject: '',
         level: '',
     })
-    const [files, setFiles] = useState({
-        video: File,
-        thumbnail: File
-    })
+    const [video, setVideo] = useState(null);
+    const [thumbnail, setThumbnail] = useState(null);
     const [isPositive, setIsPositive] = useState(false);
 
     const [errors, setErrors] = useState({})
@@ -25,11 +23,24 @@ const AddCourseHandler = callback => {
         })
     }
 
-    const fileHandler = event => {
-        setFiles({
-            ...files,
-            [event.target.name]: event.target.files[0],
-        })
+    const videoHandler = event => {
+        const generateUuid = crypto.randomUUID();
+        let tempVideo = event.target.files[0];
+
+        const blob = tempVideo.slice(0, tempVideo.size, "video/mkv");
+        const newFile = new File([blob], `${generateUuid}_VIDEO_post.mkv`, { type: "video/mkv" });
+        setVideo(newFile)
+        console.log(newFile)
+    }
+
+    const thumbnailHandler = event => {
+        const generateUuid = crypto.randomUUID();
+        let tempThumbnail = event.target.files[0];
+
+        const blob = tempThumbnail.slice(0, tempThumbnail.size, "image/jpeg");
+        const newFile = new File([blob], `${generateUuid}_post.jpeg`, { type: "image/jpeg" });
+        setThumbnail(newFile)
+        console.log(newFile)
     }
 
     const submitHandler = event => {
@@ -41,11 +52,11 @@ const AddCourseHandler = callback => {
 
     useEffect(() => {
         if(Object.keys(errors).length === 0 && isPositive) {
-            callback(true, values, files)
+            callback(true, values, video, thumbnail)
         }
     })
 
-    return {updateHandler, fileHandler, values, submitHandler, errors, files}
+    return {updateHandler, videoHandler, thumbnailHandler, values, submitHandler, errors, video, thumbnail}
 }
 
 export default AddCourseHandler;
