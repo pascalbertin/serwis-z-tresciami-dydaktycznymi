@@ -20,8 +20,6 @@ const cookieParser       = require('cookie-parser');
 
 const errorHandler = require("./src/middleware/errorHandler");
 
-
-const path = require("path");
 const { Storage } = require("@google-cloud/storage");
 const Multer = require("multer");
 
@@ -83,13 +81,15 @@ const multer = Multer({
   },
 });
 
-let projectId = "tutorsalpha-452626"; // Get this from Google Cloud
-let keyFilename = "./src/config/googleStorageKey.json"; // Get this from Google Cloud -> Credentials -> Service Accounts
+let projectId = process.env.GOOGLE_STORAGE_PROJECT_ID;
+let keyFilename = "./src/config/googleStorageKey.json";
+
 const storage = new Storage({
   projectId,
   keyFilename,
 });
-const bucket = storage.bucket("tutorsalpha-bucket"); // Get this from Google Cloud -> Storage
+
+const bucket = storage.bucket(process.env.GOOGLE_STORAGE_THUMBNAILS_BUCKET);
 
 
 app.post('/api/fileUpload', multer.single("file"), (req, res) => {

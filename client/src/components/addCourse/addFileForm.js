@@ -67,7 +67,7 @@ class AddFileForm extends Component {
     formData.append("file", newFile);
     
     axios({
-      url: 'http://localhost:3001/api/fileUpload',
+      url: '/api/fileUpload',
       method : 'POST',
       data: formData
     });
