@@ -5,7 +5,7 @@ import "../../styles/Footer.css";
 const Footer = () => {
     return(
         <div className="main-footer">
-            <div className="container">
+            <div className="footer-container">
                 <div className="row" key={`row${4}`}>
                     <div className="col">
                         <h4>O FIRMIE</h4>

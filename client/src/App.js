@@ -21,10 +21,10 @@ import FilterCourses from './pages/filterPage/FilterPage';
 function App() {
   return (
     <div className="page-container">
+    <Home />
       <div className="content-wrap">
         <Router>
             <div className="content">
-            <Home />
               <Routes>
                 <Route exact path="/" element={<Slider />} />
                 <Route path="/register" element={<Register />} />
