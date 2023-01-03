@@ -226,7 +226,7 @@ const courseVerifyByAdministrator = tryCatch(async (req, res) => {
 
   const mailOptions = {
     from: 'Tutors Alpha <JakubStyszynski@gmail.com>',
-    to: "wpisac email",
+    to: req.body.email,
     subject: 'Tutors Alpha - Zweryfikowano Twój kurs',
     text: req.body.title,
     html: "<p>Twój kurs "+res.course.title+" został zweryfikowany przez administratora serwisu. Użytkownicy mogą już z niego korzystać.</p>"
