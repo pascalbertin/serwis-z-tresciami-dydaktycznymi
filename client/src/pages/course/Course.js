@@ -77,7 +77,7 @@ const updateHandler = event => {
   return (
     !isSubmitted ? 
     value.title ? (<div className='course-info'>
-    <div className='container'>
+    <div className='course-container'>
       <div className='left-column'>
         <img className='course-image' src={value.thumbnail}></img>
       </div>

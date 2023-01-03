@@ -3,13 +3,13 @@
     margin: 0;
 }
 
-:root {
+/* :root {
     --heights: 50vh;
     --widths: 100%;
-}
+} */
 
 .slider-container {
-    height: 3200px;
+    /* height: 3200px; */
     margin-bottom: 30px;
     width: var(--widths);
     display: flex;
