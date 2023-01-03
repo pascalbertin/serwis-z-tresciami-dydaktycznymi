@@ -37,7 +37,7 @@ const courseCreate = tryCatch(async (req, res) => {
   
   const mailOptions = {
     from: 'Tutors Alpha <JakubStyszynski@gmail.com>',
-    to: "MAIL WPISAĆ",
+    to: req.body.email,
     subject: 'Tutors Alpha - Dodanie kursu',
     text: req.body.title,
     html: "<p>Kurs "+req.body.title+" został przesłany i oczekuje na weryfikację przez administratora serwisu. Poinformujemy Cię w osobnej wiadomości e-mail gdy kurs zostanie zweryfikowany.</p>"
@@ -202,6 +202,17 @@ const courseGetByAuthor = tryCatch(async (req, res) => {
   return res.status(200).json(res.course);
 });
 
+const courseGetByVerification = tryCatch(async (req, res) => {
+  const course = await courseModel.find({verification: false});
+
+  if (course == null) {
+    throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
+  }
+
+  res.course = course;
+  return res.status(200).json(res.course);
+});
+
 const courseVerifyByAdministrator = tryCatch(async (req, res) => {
   const course = await courseModel.findOne({title: req.params.title});
 
@@ -215,7 +226,7 @@ const courseVerifyByAdministrator = tryCatch(async (req, res) => {
 
   const mailOptions = {
     from: 'Tutors Alpha <JakubStyszynski@gmail.com>',
-    to: req.body.email,
+    to: "wpisac email",
     subject: 'Tutors Alpha - Zweryfikowano Twój kurs',
     text: req.body.title,
     html: "<p>Twój kurs "+res.course.title+" został zweryfikowany przez administratora serwisu. Użytkownicy mogą już z niego korzystać.</p>"
@@ -239,5 +250,6 @@ module.exports = {
     courseGetAll,
     courseGetFiltered,
     courseGetByAuthor,
-    courseVerifyByAdministrator
+    courseVerifyByAdministrator,
+    courseGetByVerification
 };

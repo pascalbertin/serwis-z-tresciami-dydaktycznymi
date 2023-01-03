@@ -69,7 +69,7 @@ const verifyJWT = require('../middleware/verifyJWT');
  */
 router.route("/")
     .get(courseController.courseGetFiltered)
-    .post(verifyJWT, courseController.courseCreate)
+    .post(courseController.courseCreate)
     .patch(wrongEndpointHandler.errorHandler)
     .delete(wrongEndpointHandler.errorHandler);
 
@@ -223,5 +223,8 @@ router.route("/:title/verification")
 
 router.route("/test/test")
     .get(courseController.courseGetFiltered);
+
+router.route("/admin/notVerified")
+    .get(courseController.courseGetByVerification);
 
 module.exports = router;
