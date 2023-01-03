@@ -9,7 +9,7 @@ import p24 from '../../assets/images/logos/przelewy24_logo.png'
 
 const PaymentForm = ({submitForm}) => {
     const idParam = window.location.search;
-    const id = idParam.substring(4);
+    const id = idParam.substring(7);
     const [isChecked, setIsChecked] = useState(false);
   
     const {updateHandler, values, submitHandler, errors} = PaymentHandler(submitForm, PaymentValidator);

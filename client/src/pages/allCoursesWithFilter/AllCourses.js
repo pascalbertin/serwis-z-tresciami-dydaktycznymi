@@ -2,7 +2,7 @@ import React, { useState, useEffect }  from 'react';
 import '../../styles/AllCourses.css';
 import axios from '../../config/axios'
 import { Link } from 'react-router-dom';
-
+import { API } from '../../config/api'
 
 const AllCourses = () => {
 
@@ -19,7 +19,7 @@ const AllCourses = () => {
   }
 
   const submitForm = async () => {
-    const response = await axios.get('/api/course/manageCourseBySubject?subject='+sub,
+    const response = await axios.get(API.course + '?subject=' + sub,
       {
         headers: { 
           'Accept': 'application',
@@ -43,12 +43,21 @@ const AllCourses = () => {
             <ul >
               {values.map((value, i) => 
               <li key={i}>
-                <Link to={`/course?id=${value._id}`} style={{ textDecoration: 'none' }}>
-                  <div className='course-object-title'>{value?.title}</div>
-                </Link>
-                <div className='course-object-subject'>Kategoria: {value?.subject}</div>
-                <div className='course-object-price'>Cena: {value?.price} zł</div>
-                <hr />
+                <div className='row'>
+                  <div className="allCourses-left-column">
+                    <Link to={`/course/?title=${value.title}`}>
+                      <img className='course-object-image' src={value.thumbnail}></img>
+                    </Link>
+                  </div>
+                  <div className='allCourses-right-column'>
+                    <Link to={`/course/?title=${value.title}`} style={{ textDecoration: 'none' }}>
+                      <div className='course-object-title'>{value?.title}</div>
+                    </Link>
+                    <div className='course-object-subject'>Kategoria: {value?.subject}</div>
+                    <div className='course-object-price'>Cena: {value?.price} zł</div>
+                    <hr />
+                    </div>
+                  </div>
               </li>)}              
             </ul>
           ) : <p className='empty-courses'>

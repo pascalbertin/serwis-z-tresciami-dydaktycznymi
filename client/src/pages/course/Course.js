@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 import axios from '../../config/axios';
 import {useNavigate, useLocation} from 'react-router-dom';
 import UseCodeResponse from '../../components/useCode/UseCodeResponse';
+import { API } from '../../config/api'
 
 function Course(){
   const navigate = useNavigate();
   const location = useLocation();
-  var idParam = window.location.search;
-  var id = idParam.substring(4);
-
+  const idParam = window.location.search;
+  const id = idParam.substring(7); //it's not ID, it's title
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [error, setError] = useState('')
   const [code, setCode] = useState({ code: ''})
@@ -19,12 +19,12 @@ function Course(){
   const username = localStorage.getItem('username')
   
   const submitForm = async () => {
-    const response = await axios.get('api/course/manageCourseById?id='+id,
+    const response = await axios.get(API.course + '/' + id,
       {
         headers: { 
           'Accept': 'application',
-          'Content-Type': 'application'},
-      });
+          'Content-Type': 'application/json'},
+      }); 
     setValues(response?.data); 
     localStorage.removeItem('title');
     localStorage.removeItem('subject');
@@ -39,7 +39,7 @@ function Course(){
 const submitHandler = async event =>{
   event.preventDefault();
   try{
-    const response = await axios.patch("/api/student/codeUse", {id: id, ...code},
+    const response = await axios.patch(API.code + '/' + id + '/usage', {...code},
     {
       headers: {'Content-Type': 'application/json',
                 'Accept': 'application/json'},
@@ -93,12 +93,12 @@ const updateHandler = event => {
             <h3 className='main-course-text'>Cena kursu: {value.price} zł</h3>
             </div>
             <div className='row first-row'>
-            <Link to={`/editcourse?id=${value._id}`} style={{ textDecoration: 'none' }}>
+            <Link to={`/editcourse?title=${value.title}`} style={{ textDecoration: 'none' }}>
             <button className='form-button' type="submit"> Edytuj kurs</button>
             </Link>
           </div>
           <div className='row second-row'>
-          <Link to={`/deletecourse?id=${value._id}`} style={{ textDecoration: 'none' }}>
+          <Link to={`/deletecourse?title=${value.title}`} style={{ textDecoration: 'none' }}>
             <button className='form-button' type="submit"> Usuń kurs</button>
             </Link>
           </div>
@@ -106,7 +106,7 @@ const updateHandler = event => {
          : (<div>
         <div className='row first-row'>
           <h3 className='main-course-text'>Cena kursu: {value.price} zł</h3>
-            <Link to={`/payment_method?id=${value._id}`}>
+            <Link to={`/payment_method?title=${value.title}`}>
                 <button className="form-button" type="submit">Kup kurs</button>
             </Link>
           </div>

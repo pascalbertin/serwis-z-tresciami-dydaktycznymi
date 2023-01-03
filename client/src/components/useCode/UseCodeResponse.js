@@ -2,7 +2,7 @@ import React from 'react'
 
 const UseCodeResponse = ({msg}) => {
   const idParam = window.location.search;
-  const id = idParam.substring(4);
+  const id = idParam.substring(7);
 
   const url = "/course?id="+id
 

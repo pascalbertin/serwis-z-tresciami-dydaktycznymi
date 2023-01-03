@@ -9,9 +9,9 @@ const AddCourseHandler = callback => {
         author: localStorage.getItem('username'),
         subject: '',
         level: '',
-        video: '',
-        thumbnail: ''
     })
+    const [video, setVideo] = useState(null);
+    const [thumbnail, setThumbnail] = useState(null);
     const [isPositive, setIsPositive] = useState(false);
 
     const [errors, setErrors] = useState({})
@@ -23,6 +23,24 @@ const AddCourseHandler = callback => {
         })
     }
 
+    const videoHandler = event => {
+        const generateUuid = crypto.randomUUID();
+        let tempVideo = event.target.files[0];
+
+        const blob = tempVideo.slice(0, tempVideo.size, "video/mkv");
+        const newFile = new File([blob], `${generateUuid}_VIDEO.mkv`, { type: "video/mkv" });
+        setVideo(newFile)
+    }
+
+    const thumbnailHandler = event => {
+        const generateUuid = crypto.randomUUID();
+        let tempThumbnail = event.target.files[0];
+
+        const blob = tempThumbnail.slice(0, tempThumbnail.size, "image/jpeg");
+        const newFile = new File([blob], `${generateUuid}_THUMBNAIL.jpeg`, { type: "image/jpeg" });
+        setThumbnail(newFile)
+    }
+
     const submitHandler = event => {
         event.preventDefault();
 
@@ -32,11 +50,11 @@ const AddCourseHandler = callback => {
 
     useEffect(() => {
         if(Object.keys(errors).length === 0 && isPositive) {
-            callback(true, values)
+            callback(true, values, video, thumbnail)
         }
     })
 
-    return {updateHandler, values, submitHandler, errors}
+    return {updateHandler, videoHandler, thumbnailHandler, values, submitHandler, errors, video, thumbnail}
 }
 
 export default AddCourseHandler;

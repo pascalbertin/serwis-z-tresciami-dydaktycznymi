@@ -4,6 +4,7 @@ import {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import '../../styles/Profile.css'
 import '../../styles/AllCourses.css'
+import { API } from '../../config/api'
 
 const Profile = () => {
     const [courses, setCourses] = useState({})
@@ -14,11 +15,13 @@ const Profile = () => {
         
         const getUserCourses = async () => {
             try {
-                 const response = await axios.get('/api/course/manageCourseByAuthor?author='+username, {
+                console.log(API.user + '/' + username + '/courses')
+                const response = await axios.get(API.user + '/' + username + '/courses', {
                     headers: { 
                         'Content-Type': 'application/json'}
                  });
                  isMounted && setCourses(response.data);
+                 console.log("KURSY",courses);
             } catch (err) {
                 console.log(err);
             }
@@ -47,7 +50,7 @@ const Profile = () => {
             <ul >
               {courses.map((value, i) => 
               <li key={i}>
-                <Link to={`/course?id=${value._id}`} style={{ textDecoration: 'none' }}>
+                <Link to={`/course/?title=${value.title}`} style={{ textDecoration: 'none' }}>
                   <div className='course-object-title'>{value?.title}</div>
                 </Link>
                 <div className='course-object-subject'>Kategoria: {value?.subject}</div>

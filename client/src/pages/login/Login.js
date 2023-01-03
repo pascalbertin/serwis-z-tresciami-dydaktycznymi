@@ -3,6 +3,7 @@ import LoginForm from '../../components/login/LoginForm'
 import LoginResponse from '../../components/login/LoginResponse'
 import axios from '../../config/axios'
 import {useNavigate, useLocation} from 'react-router-dom'
+import { API } from '../../config/api'
 
 const Login = () => {
   // const { auth, setAuth } = useAuth();
@@ -17,10 +18,11 @@ const Login = () => {
     if (isValid){
       setValues(values)
       try{
-        const response = await axios.post("/user/login", JSON.stringify(values),
+        const response = await axios.post(API.auth + '/login', JSON.stringify(values),
         {
           headers: {'Content-Type': 'application/json',
-                    'Accept': 'application/json'},
+                    'Accept': 'application/json'
+                  },
         })
         if (response?.status === 200)
         {

@@ -176,6 +176,17 @@ const courseGetFiltered = async (req, res) => {
   res.json(res.course)
 };
 
+const courseGetByAuthor = tryCatch(async (req, res) => {
+  const course = await courseModel.find({author: req.params.username});
+
+  if (course == null) {
+    throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
+  }
+
+  res.course = course;
+  return res.status(200).json(res.course);
+});
+
 const courseVerifyByAdministrator = tryCatch(async (req, res) => {
   const course = await courseModel.findOne({title: req.params.title});
 
@@ -198,5 +209,6 @@ module.exports = {
     coursePatchByTitle,
     courseGetAll,
     courseGetFiltered,
+    courseGetByAuthor,
     courseVerifyByAdministrator
 };
