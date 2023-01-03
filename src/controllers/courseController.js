@@ -176,7 +176,7 @@ const courseGetFiltered = async (req, res) => {
 };
 
 const courseGetByAuthor = tryCatch(async (req, res) => {
-  const course = await courseModel.findOne({author: req.params.username});
+  const course = await courseModel.find({author: req.params.username});
 
   if (course == null) {
     throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);

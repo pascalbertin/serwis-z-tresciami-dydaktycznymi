@@ -15,12 +15,13 @@ const Profile = () => {
         
         const getUserCourses = async () => {
             try {
-                console.log(API.course + '?author=' + username)
-                 const response = await axios.get(API.course + '?author=' + username, {
+                console.log(API.user + '/' + username + '/courses')
+                const response = await axios.get(API.user + '/' + username + '/courses', {
                     headers: { 
                         'Content-Type': 'application/json'}
                  });
                  isMounted && setCourses(response.data);
+                 console.log("KURSY",courses);
             } catch (err) {
                 console.log(err);
             }

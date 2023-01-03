@@ -14,7 +14,7 @@ const FliterPage = () => {
     const [CheckedClasses, setCheckedClasses] = useState([])
     const [priceMin, setPriceMin] = useState(5)
     const [priceMax, setPriceMax] = useState(20)
-    var sub = CheckedSubject.join()
+    var sub = ""
     var level = ""
     var minPrice = "&priceMin="+priceMin.toString()
     var maxPrice = "&priceMax="+priceMax.toString()
@@ -118,7 +118,12 @@ const FliterPage = () => {
         }else{
             level = ""
         }
-        const response = await axios.get('/api/courses?subject='+sub+minPrice+maxPrice+level,
+        if(CheckedSubject.length > 0){
+            sub = "subject=" + CheckedSubject.join()
+        }else{
+            sub = ""
+        }
+        const response = await axios.get('/api/courses?'+sub+minPrice+maxPrice+level,
         {
             headers: { 
             'Accept': 'application',
