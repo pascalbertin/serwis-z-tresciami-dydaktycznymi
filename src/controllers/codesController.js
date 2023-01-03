@@ -1,26 +1,27 @@
 const {CourseSchema, courseModel} = require("../models/courseModel");
 const bcrypt = require("bcrypt");
-const nodemailer = require("nodemailer");
+//const nodemailer = require("nodemailer");
 const crypto = require("crypto")
-require('dotenv').config();
+//require('dotenv').config();
 const AppError = require("../helpers/AppError");
 const { COURSE_ERROR } = require("../helpers/errorCodes");
 const { COURSE_NOT_FOUND, COURSE_MISSING_EMAIL, COURSE_CODE_MISSING } = require("../helpers/errorMessages");
 const { EMAIL_SENT, COURSE_CODE_OUT_OF_USES, COURSE_INCORRECT_CODE } = require("../helpers/confirmationMessages");
 const { tryCatch } = require("../helpers/tryCatch");
+const { transporter } = require('../config/nodemailerConfig');
 
-const nodemailerPass = process.env.NODEMAILER_PASS;
-const nodemailerMail = process.env.NODEMAILER_MAIL;
+// const nodemailerPass = process.env.NODEMAILER_PASS;
+// const nodemailerMail = process.env.NODEMAILER_MAIL;
 
-var transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-  auth: {
-    user: nodemailerMail,
-    pass: nodemailerPass
-  }
-});
+// var transporter = nodemailer.createTransport({
+//     host: 'smtp.gmail.com',
+//     port: 465,
+//     secure: true,
+//   auth: {
+//     user: nodemailerMail,
+//     pass: nodemailerPass
+//   }
+// });
 
 const courseGenerateCode = tryCatch(async (req, res) => {
   const endpoint = req.params.title;
@@ -49,8 +50,8 @@ const courseGenerateCode = tryCatch(async (req, res) => {
       subject: 'Tutors Alpha - Twój Kod',
       text: generatedCode,
       html: "<b><strong><p>Dziękujemy za zakup</p></strong></b> <br/> <p>Twój kod: </p>"+generatedCode+" <br/> <p>Zakupiony kurs znajdziesz tutaj: </p>"+"<a href="+link+">Link do kursu</a>"
-    };
-        
+    }; 
+
   transporter.sendMail(mailOptions, (error, info) => {
     if (!error) {
       console.log("E-mail sent: " + info.response);
