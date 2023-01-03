@@ -3,6 +3,7 @@ const router = express.Router();
 const usersController = require('../controllers/usersController');
 const registerController = require('../controllers/registerController');
 const wrongEndpointHandler = require('../helpers/wrongEndpointHandler');
+const courseController = require('../controllers/courseController');
 const verifyJWT = require('../middleware/verifyJWT');
 
 /**
@@ -117,5 +118,8 @@ router.route('/:username')
   .post(wrongEndpointHandler.errorHandler)
   .patch(verifyJWT, usersController.userPatchByUsername)
   .delete(verifyJWT, usersController.userDeleteByUsername);
+
+router.route('/:username/courses')
+  .get(courseController.courseGetByAuthor);
 
 module.exports = router;
