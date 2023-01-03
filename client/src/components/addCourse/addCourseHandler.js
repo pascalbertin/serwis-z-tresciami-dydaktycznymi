@@ -28,7 +28,7 @@ const AddCourseHandler = callback => {
         let tempVideo = event.target.files[0];
 
         const blob = tempVideo.slice(0, tempVideo.size, "video/mkv");
-        const newFile = new File([blob], `${generateUuid}_VIDEO_post.mkv`, { type: "video/mkv" });
+        const newFile = new File([blob], `${generateUuid}_VIDEO.mkv`, { type: "video/mkv" });
         setVideo(newFile)
     }
 
@@ -37,7 +37,7 @@ const AddCourseHandler = callback => {
         let tempThumbnail = event.target.files[0];
 
         const blob = tempThumbnail.slice(0, tempThumbnail.size, "image/jpeg");
-        const newFile = new File([blob], `${generateUuid}_post.jpeg`, { type: "image/jpeg" });
+        const newFile = new File([blob], `${generateUuid}_THUMBNAIL.jpeg`, { type: "image/jpeg" });
         setThumbnail(newFile)
     }
 

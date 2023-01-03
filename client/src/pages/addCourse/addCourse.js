@@ -10,11 +10,19 @@ const AddCourse = () => {
   const [video, setVideo] = useState(null)
   const [thumbnail, setThumbnail] = useState(null)
 
-  const uploadFile = async (file) => {
+  const uploadThumbnail = async (thumbnail) => {
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", thumbnail);
 
-    const response = await axios.post('/api/fileUpload', formData);
+    const response = await axios.post('/api/fileUploadThumbnail', formData);
+    console.log('Success:', response?.data);
+  }
+
+  const uploadVideo = async (video) => {
+    const formData = new FormData();
+    formData.append("file", video);
+
+    const response = await axios.post('/api/fileUploadVideo', formData);
     console.log('Success:', response?.data);
   }
 
@@ -38,8 +46,8 @@ const AddCourse = () => {
       setThumbnail(thumbnail)
 
       //calling endpoints
-      uploadFile(video);
-      uploadFile(thumbnail);
+      uploadThumbnail(thumbnail);
+      uploadVideo(video);
       addCourse(values);
     }else{
       setIsSubmitted(false);
@@ -47,7 +55,7 @@ const AddCourse = () => {
       setVideo(null);
       setThumbnail(null);
     }
-      
+
   }
   return (
     <div>

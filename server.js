@@ -83,7 +83,6 @@ const multer = Multer({
 });
 
 const projectId = process.env.GOOGLE_STORAGE_PROJECT_ID;
-//let keyFilename = "./src/config/googleStorageKey.json";
 const googleCredentials = GOOGLE_STORAGE_KEY
 
 const storage = new Storage({
@@ -91,15 +90,15 @@ const storage = new Storage({
   googleCredentials
 });
 
-const bucket = storage.bucket(process.env.GOOGLE_STORAGE_THUMBNAILS_BUCKET);
+const bucketThumbnails = storage.bucket(process.env.GOOGLE_STORAGE_THUMBNAILS_BUCKET);
+const bucketVideos = storage.bucket(process.env.GOOGLE_STORAGE_VIDEOS_BUCKET);
 
-
-app.post('/api/fileUpload', multer.single("file"), (req, res) => {
+app.post('/api/fileUploadThumbnail', multer.single("file"), (req, res) => {
   console.log("Made it /upload");
   try {
     if (req.file) {
-      console.log("File found, trying to upload...");
-      const blob = bucket.file(req.file.originalname);
+      console.log("File found, trying to upload a Thumbnail...");
+      const blob = bucketThumbnails.file(req.file.originalname);
       const blobStream = blob.createWriteStream();
 
       blobStream.on("finish", () => {
@@ -111,10 +110,26 @@ app.post('/api/fileUpload', multer.single("file"), (req, res) => {
   } catch (error) {
     res.status(500).send(error);
   }
-})
+});
 
+app.post('/api/fileUploadVideo', multer.single("file"), (req, res) => {
+  console.log("Made it /upload");
+  try {
+    if (req.file) {
+      console.log("File found, trying to upload a Video...");
+      const blob = bucketVideos.file(req.file.originalname);
+      const blobStream = blob.createWriteStream();
 
-
+      blobStream.on("finish", () => {
+        res.status(200).send("Success");
+        console.log("Success");
+      });
+      blobStream.end(req.file.buffer);
+    } else throw "error with img";
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
