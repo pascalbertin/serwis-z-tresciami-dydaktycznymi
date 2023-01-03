@@ -120,7 +120,7 @@ router.route('/:username')
   .delete(verifyJWT, usersController.userDeleteByUsername);
 
 router.route('/:username/verification')
-  .get(wrongEndpointHandler.errorHandler)
+  .get(usersController.userVerifyAfterRegistration)
   .post(wrongEndpointHandler.errorHandler)
   .patch(usersController.userVerifyAfterRegistration)
   .delete(wrongEndpointHandler.errorHandler)
