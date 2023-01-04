@@ -82,12 +82,11 @@ const multer = Multer({
   },
 });
 
-let projectId = process.env.GOOGLE_STORAGE_PROJECT_ID;
-let keyFilename = "./src/config/key.json";
+const projectId = process.env.GOOGLE_STORAGE_PROJECT_ID;
 
 const storage = new Storage({
   projectId,
-  keyFilename,
+  credentials: JSON.parse(process.env.GOOGLE_KEY)
 });
 
 const bucketThumbnails = storage.bucket(process.env.GOOGLE_STORAGE_THUMBNAILS_BUCKET);
