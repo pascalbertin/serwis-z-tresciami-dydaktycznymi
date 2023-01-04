@@ -47,14 +47,20 @@
 }
 
 .filters-menu-container .form-button {
-    width: 300px;
-    height: 55px;
+    width: 250px;
+    height: 40px;
     border-radius: 10px;
     background-color: #532B88;
     outline: none;
     border: none;
     color: #fff;
     font-size: 1rem;
+  }
+
+  .form-button:hover {
+    cursor: pointer;
+    background-color: #2F184B;
+    transition: all 0.2s ease-out;
   }
 
 .filters-menu-container .empty-courses {

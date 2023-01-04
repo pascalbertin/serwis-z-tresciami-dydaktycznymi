@@ -17,7 +17,7 @@ const Footer = () => {
                             <li><a href="/categories">Zakup kursu</a></li>
                         </ul>
                     </div>
-                    <div className="col">
+                    <div className="col hidden sm:block">
                         <h4>NAUCZANIE</h4>
                         <ul className="list-unstyled">
                             <li><a href="/register">Zostań nauczycielem</a></li>
@@ -36,7 +36,7 @@ const Footer = () => {
                             <li><a href="/courses?subject=Fizyka">Fizyka</a></li>
                         </ul>
                     </div>
-                    <div className="col">
+                    <div className="col hidden sm:block">
                         <h4>MAPA STRONY</h4>
                         <ul className="list-unstyled">
                             <li><a href="/">Strona główna</a></li>
@@ -48,9 +48,9 @@ const Footer = () => {
                     </div>
                 </div>
                 <hr />
-                <div className="bottom-row">
-                    <p className="col-sm">
-                        TUTORS ALPHA &copy;   {new Date().getFullYear()}  |   Polityka prywatności  |  Regulamin  |   Konto
+                <div className="bottom-row mt-1 pb-1">
+                    <p className="col-sm text-xs text-center items-center text">
+                        Tutors Alpha &copy;   {new Date().getFullYear()}
                     </p>
                 </div>
             </div>

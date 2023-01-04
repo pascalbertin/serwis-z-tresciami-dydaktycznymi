@@ -2,52 +2,45 @@ import React from 'react'
 import axios from '../../config/axios'
 import {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
-import '../../styles/Profile.css'
+import '../../components/slider/slider.css'
 import { API } from '../../config/api'
+import Loading from '../../components/loading/Loading'
 
 const Profile = () => {
+    const [isLoaded, setIsLoaded] = useState(false)
     const [courses, setCourses] = useState({})
     const username = localStorage.getItem('username')
 
     useEffect(() => {
-        let isMounted = true;
-        
-        const getUserCourses = async () => {
-            try {
-                console.log(API.user + '/' + username + '/courses')
-                const response = await axios.get(API.user + '/' + username + '/courses', {
-                    headers: { 
-                        'Content-Type': 'application/json'}
-                 });
-                 isMounted && setCourses(response.data);
-                 console.log("KURSY",courses);
+    const getUserCourses = async () => {
+        try {
+            const response = await axios.get(API.user + '/' + username + '/courses', {
+                headers: { 
+                    'Content-Type': 'application/json'}
+                });
+                 setCourses(response.data);
+                 setIsLoaded(true)
             } catch (err) {
                 console.log(err);
-            }
         }
- 
-        getUserCourses();
-        
-        return () => {
-            isMounted = false;
-        }
-     }, [])
-
+    }
+    getUserCourses();
+    }, [])
 
   return (
-    courses ?  <div className="profile-container">
+    courses ?  
+        <div className="profile-container">
       <div className="profile-top-container">
         <h2>Witaj {username}!</h2>
         <a href="/addCourse"><button className="form-button profile-button">Dodaj kurs</button></a>
       </div>
-      <div className="profile-bttm-container">
-        <h2>Lista Twoich kursów:</h2>
+        <h2 className="pl-10">Lista Twoich kursów:</h2>
         <div className="filters-menu-container flex items-center">
           {courses?.length ? (
                     <ul >
                     {courses.map((value, i) => 
-                    <div className='objects-of-course flex items-start mb-20'> 
-                    <div className='column mt-16'>
+                    <div className='objects-of-course'> 
+                    <div className='column mt-8 mb-8'>
                     <li key={i}>
                         <div className="row ml-8 hover:opacity-70 transition-all">
                             <div className="filters-left-column">
@@ -66,11 +59,10 @@ const Profile = () => {
                     </li></div></div>)}              
                     </ul>
                     
-                ) : <p className='empty-courses flex ml-8 pt-12'>
+                ) : isLoaded ? <p className='empty-courses flex ml-8 pt-12'>
                     Nie posiadasz jeszcze żadnych kursów
-                    </p>
+                    </p> : <Loading />
                 }
-    </div>
     </div>
     </div>
     : <div></div>

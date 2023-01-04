@@ -3,8 +3,10 @@ import '../../styles/Filters.css';
 import axios from '../../config/axios'
 import { Link } from 'react-router-dom';
 import { API } from '../../config/api'
+import Loading from '../../components/loading/Loading';
 
 const AllCourses = () => {
+  const [isLoaded, setIsLoaded] = useState(false)
 
   var subParametr = window.location.search;
   var sub = subParametr.substring(9);  
@@ -26,7 +28,8 @@ const AllCourses = () => {
           'Content-Type': 'application/json'},
       });
       console.log('Success:', response?.data);
-      setValues(response?.data); 
+      setValues(response?.data);
+      setIsLoaded(true)
   }
   
   useEffect(() => {
@@ -61,10 +64,10 @@ const AllCourses = () => {
                     </ul>
                     </div>
             </div>
-                ) : <p className='empty-courses pt-12'>
-                    BRAK KURSÓW Z TEGO WYSZUKIWANIA
+                ) : isLoaded ? <p className='empty-courses pt-12'>
+                    BRAK KURSÓW W TEJ KATEGORII
                     <p className='empty-courses-bottom-text'>Spróbuj później</p>
-                    </p>
+                    </p> : <Loading />
                 }
     </div>
     
