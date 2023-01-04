@@ -1,14 +1,14 @@
 import React, { useState, useEffect }  from "react";
 import '../../styles/Filters.css';
 import axios from '../../config/axios'
-import { TextField } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { Checkbox, Collapse } from 'antd';
-import { API } from '../../config/api'
+import Loading from '../../components/loading/Loading'
 
 const {Panel} = Collapse
 
 const FliterPage = () => {
+    const [isLoaded, setIsLoaded] = useState(false)
     const [values, setValues] = useState([])
     const [CheckedSubject, setCheckedSubject] = useState([])
     const [CheckedClasses, setCheckedClasses] = useState([])
@@ -130,6 +130,7 @@ const FliterPage = () => {
             'Content-Type': 'application/json'},
         });
         setValues(response?.data);
+        setIsLoaded(true)
     }
 
     useEffect(() => {
@@ -248,10 +249,10 @@ const FliterPage = () => {
                     </ul>
                     </div>
             </div>
-                ) : <p className='empty-courses pt-12'>
+                ) : isLoaded ? <p className='empty-courses pt-12'>
                     BRAK KURSÓW Z TEGO WYSZUKIWANIA
                     <p className='empty-courses-bottom-text'>Spróbuj później</p>
-                    </p>
+                    </p> : <Loading />
                 }
         </div>
     );
