@@ -3,10 +3,9 @@ import '../../styles/VideoCourse.css';
 import ReactPlayer from 'react-player';
 
 const VideoCourse = (values) => {
-
   return (
     <div className='video-container'>
-      <div className='video-player'>
+      <div className='video-player' onContextMenu={(e) => {e.preventDefault()}}>
         <ReactPlayer 
           controls
           playing={true}
