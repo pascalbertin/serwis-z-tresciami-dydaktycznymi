@@ -3,10 +3,11 @@ import '../../styles/Filters.css';
 import axios from '../../config/axios'
 import { TextField } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { Checkbox, Collapse } from 'antd';
+import { Checkbox, Collapse} from 'antd';
 import { API } from '../../config/api'
 
 const {Panel} = Collapse
+
 
 const FliterPage = () => {
     const [values, setValues] = useState([])
@@ -18,6 +19,8 @@ const FliterPage = () => {
     var level = ""
     var minPrice = "&priceMin="+priceMin.toString()
     var maxPrice = "&priceMax="+priceMax.toString()
+
+    
 
     const subjects = [
         {
@@ -165,6 +168,17 @@ const FliterPage = () => {
     const handleInputMax = (e)=>{
     setPriceMax( e.target.value );
     }
+
+    // const getBackgroundSizeMin = () => {
+    //     return {
+    //         backgroundSize: `${(priceMin * 100) / priceMax}% 100%`,
+    //     };
+    // };
+    // const getBackgroundSizeMax = () => {
+    //     return {
+    //         backgroundSize: `${(priceMax * 100) / 250}% 100%`,
+    //     };
+    // };
     // useEffect(() => {
     //     submitForm()
     //     madeObjects(values);
@@ -194,23 +208,23 @@ const FliterPage = () => {
     return (
         <div className="filters-menu-container">
             <div className="row">                
-                <input className="price-slider" type="range" onInput={ handleInputMin } min={1} max={priceMax-1} value={priceMin}/>
-                <input className="price-slider" type="range" onInput={ handleInputMax } min={priceMin} max={250} value={priceMax}/>
+                <input className="price-slider" type="range" onInput={ handleInputMin } min={1} max={priceMax-1} value={priceMin} />
+                <input className="price-slider" type="range" onInput={ handleInputMax } min={priceMin} max={250} value={priceMax} />
             </div>
             <div className="row">
                 <label className="price-text">Cena min: {priceMin}zł</label> 
                 <label className="price-text">Cena max: {priceMax}zł</label> 
             </div>
             <div className="row-checkbox">
-                <Collapse defaultActiveKey={['0']}>
-                    <Panel key="1" header="Wybierz przedmioty">
+                <Collapse bordered={false} defaultActiveKey={['0']} >
+                    <Panel key="1" header="Wybierz przedmioty" className="collapse-panel">
                         {renderCheckboxSubjectList()}
                     </Panel>
                 </Collapse>
             </div>
             <div className="row-checkbox">
-                <Collapse defaultActiveKey={['0']} >
-                    <Panel key="1" header="Wybierz klasę">
+                <Collapse bordered={false} defaultActiveKey={['0']} >
+                    <Panel key="1" header="Wybierz klasę" className="collapse-panel">
                        {renderCheckboxClassList()}
                     </Panel>
                 </Collapse>
@@ -238,7 +252,6 @@ const FliterPage = () => {
                                 </Link>
                                 <div className='course-object-subject'>Kategoria: {value?.subject}</div>
                                 <div className='course-object-price'>Cena: {value?.price} zł</div>
-                                <hr />
                             </div>
                         </div>
                     </li>)}              
