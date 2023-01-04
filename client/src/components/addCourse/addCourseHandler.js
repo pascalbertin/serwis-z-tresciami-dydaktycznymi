@@ -9,6 +9,8 @@ const AddCourseHandler = callback => {
         author: localStorage.getItem('username'),
         subject: '',
         level: '',
+        video: '',
+        thumbnail: ''
     })
     const [video, setVideo] = useState(null);
     const [thumbnail, setThumbnail] = useState(null);
@@ -23,22 +25,33 @@ const AddCourseHandler = callback => {
         })
     }
 
+    const getFileExtension = (fileName) => {
+        const splitVideoName = fileName.name.split('.')
+        return splitVideoName[splitVideoName.length-1]
+    }
+
     const videoHandler = event => {
         const generateUuid = crypto.randomUUID();
-        let tempVideo = event.target.files[0];
+        const tempVideo = event.target.files[0];
+        
+        const extension = getFileExtension(tempVideo)
 
-        const blob = tempVideo.slice(0, tempVideo.size, "video/mkv");
-        const newFile = new File([blob], `${generateUuid}_VIDEO.mkv`, { type: "video/mkv" });
+        const blob = tempVideo.slice(0, tempVideo.size, "video/" + extension);
+        const newFile = new File([blob], `${generateUuid}_VIDEO.${extension}`, { type: "video/" + extension });
         setVideo(newFile)
+        setValues({...values, video: 'https://storage.googleapis.com/tutors-alpha-videos/' + newFile.name})
     }
 
     const thumbnailHandler = event => {
         const generateUuid = crypto.randomUUID();
-        let tempThumbnail = event.target.files[0];
+        const tempThumbnail = event.target.files[0];
+        
+        const extension = getFileExtension(tempThumbnail)
 
-        const blob = tempThumbnail.slice(0, tempThumbnail.size, "image/jpeg");
-        const newFile = new File([blob], `${generateUuid}_THUMBNAIL.jpeg`, { type: "image/jpeg" });
+        const blob = tempThumbnail.slice(0, tempThumbnail.size, "image/" + extension);
+        const newFile = new File([blob], `${generateUuid}_THUMBNAIL.${extension}`, { type: "image/" + extension });
         setThumbnail(newFile)
+        setValues({...values, thumbnail: 'https://storage.googleapis.com/tutors-alpha-thumbnails/' + newFile.name})
     }
 
     const submitHandler = event => {
