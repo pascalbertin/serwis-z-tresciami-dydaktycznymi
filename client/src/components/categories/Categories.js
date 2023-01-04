@@ -7,7 +7,7 @@ const Categories = () => {
         <div className="category-menu">            
             <h2 className="category-text text-3xl md:text-4xl">Wybierz przedmiot</h2>
             <div className="category-menu-container flex justify-center text-center items-center">
-                    <div className="row justify-between gap-4">
+                    <div className="row justify-between gap-8 xl:gap-4">
                         <Link to={`/courses?subject=Matematyka`} style={{ textDecoration: 'none' }}>
                             <div className='square-button bg-second h-20 w-20 sm:w-32 sm:h-32 md:h-48 md:w-48 lg:h-64 lg:w-64 text-first text-sm sm:text-md md:text-xl lg:text-3xl hover:opacity-80 hover:rounded-3xl'>Matematyka</div>
                         </Link>
@@ -21,7 +21,7 @@ const Categories = () => {
                             <div className='square-button bg-second h-20 w-20 sm:w-32 sm:h-32 md:h-48 md:w-48 lg:h-64 lg:w-64 text-first text-sm sm:text-md md:text-xl lg:text-3xl hover:opacity-80 hover:rounded-3xl'>Informatyka</div>
                         </Link>
                     </div>
-                    <div className="row gap-4">
+                    <div className="row gap-8 xl:gap-4">
                         <Link to={`/courses?subject=Biologia`} style={{ textDecoration: 'none' }}>
                             <div className='square-button bg-second h-20 w-20 sm:w-32 sm:h-32 md:h-48 md:w-48 lg:h-64 lg:w-64 text-first text-sm sm:text-md md:text-xl lg:text-3xl hover:opacity-80 hover:rounded-3xl'>Biologia</div>
                         </Link>
@@ -35,7 +35,7 @@ const Categories = () => {
                             <div className='square-button bg-second h-20 w-20 sm:w-32 sm:h-32 md:h-48 md:w-48 lg:h-64 lg:w-64 text-first text-sm sm:text-md md:text-xl lg:text-3xl hover:opacity-80 hover:rounded-3xl'>Historia</div>
                         </Link>
                     </div>
-                    <div className="row gap-4">
+                    <div className="row gap-8 xl:gap-4">
                         <Link to={`/courses?subject=Geografia`} style={{ textDecoration: 'none' }}>
                             <div className='square-button bg-second h-20 w-20 sm:w-32 sm:h-32 md:h-48 md:w-48 lg:h-64 lg:w-64 text-first text-sm sm:text-md md:text-xl lg:text-3xl hover:opacity-80 hover:rounded-3xl'>Geografia</div>
                         </Link>

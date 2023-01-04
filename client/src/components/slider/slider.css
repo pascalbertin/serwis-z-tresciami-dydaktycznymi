@@ -1,62 +1,13 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-}
-
-/* :root {
-    --heights: 50vh;
-    --widths: 100%;
-} */
-
 .slider-container {
-    /* height: 3200px; */
     margin-bottom: 30px;
-    width: var(--widths);
-    display: flex;
-    flex-direction: column;
 }
 
 .appbar-container {
-    margin-bottom: 30px;
-    width: var(--widths);
     display: flex;
-    flex-direction: row;
     background-color: #F4EFFA;
-    padding-bottom: 225px;
-}
-
-.appbar-container .left-column {
-    width: 50%;
-    padding-left: 200px;
-    padding-right: 200px;
-}
-
-.appbar-container .right-column {
-    width: 50%;
-    margin-top: 150px;
-}
-
-.appbar-container .left-main-text {
-    width: 100%;
-    color: #2F184B;
-    font-size: 50px;
-    text-align: left;
-    padding-top: 170px;
-}
-
-.appbar-container .left-bottom-text {
-    width: 100%;
-    color: black;
-    font-size: 20px;
-    text-align: left;
-    padding-top: 20px;
-    font-weight: normal;
-    padding-bottom: 50px;
 }
 
 .appbar-container .right-side-image {
-    width: 900px;
-    height: 600px;
     border-radius: 8%;
 }
 
@@ -86,17 +37,11 @@
 }
 
 .slide-image {
-    width: auto;
-    height: 80%;
     border-radius: 40px;
-    max-height: 256px;
-    max-width: 384px;
 }
 
 .main-slide-text {
     width: 100%;
-    color: #2F184B;
-    font-size: 50px;
     text-align: center;
     padding-top: 20px;
 }
@@ -223,21 +168,7 @@
     color: black;
 }
 
-.left-start-button {
-    background-color: #2F184B;
-    border: none;
-    color: white;
-    justify-content: center;
-    padding: 15px 32px;
-    text-align: center;
-    display: flex;
-    font-size: 20px;
-    border-radius: 30px;
-
-}
-
 .slider-row {
-    display: flex;
     width: 100%;
     justify-content: space-around;
     padding-bottom: 20px;
