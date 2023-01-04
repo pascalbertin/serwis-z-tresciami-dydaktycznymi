@@ -1,53 +1,52 @@
 import React from "react";
-import '../../styles/Categories.css';
 import { Link } from 'react-router-dom';
 
 
 const Categories = () => {
     return (  
         <div className="category-menu">            
-            <h2 className="category-text">Wybierz przedmiot</h2>
-            <div className="category-menu-container">
-                    <div className="row">
+            <h2 className="category-text text-3xl md:text-4xl">Wybierz przedmiot</h2>
+            <div className="category-menu-container flex justify-center text-center items-center">
+                    <div className="row justify-between gap-4">
                         <Link to={`/courses?subject=Matematyka`} style={{ textDecoration: 'none' }}>
-                            <div className='square-button'>Matematyka</div>
+                            <div className='square-button bg-second h-28 w-28 sm:w-32 sm:h-32 md:h-48 md:w-48 lg:h-64 lg:w-64 text-first text-sm sm:text-md md:text-xl lg:text-3xl hover:opacity-80 hover:rounded-3xl'>Matematyka</div>
                         </Link>
                         <Link to={`/courses?subject=Polski`} style={{ textDecoration: 'none' }}>
-                            <div className='square-button'>Język polski</div>
+                            <div className='square-button bg-second h-28 w-28 sm:w-32 sm:h-32 md:h-48 md:w-48 lg:h-64 lg:w-64 text-first text-sm sm:text-md md:text-xl lg:text-3xl hover:opacity-80 hover:rounded-3xl'>Język polski</div>
                         </Link>
                         <Link to={`/courses?subject=Angielski`} style={{ textDecoration: 'none' }}>
-                            <div className='square-button'>Język angielski</div>
+                            <div className='square-button bg-second h-28 w-28 sm:w-32 sm:h-32 md:h-48 md:w-48 lg:h-64 lg:w-64 text-first text-sm sm:text-md md:text-xl lg:text-3xl hover:opacity-80 hover:rounded-3xl'>Język angielski</div>
                         </Link>
                         <Link to={`/courses?subject=Informatyka`} style={{ textDecoration: 'none' }}>
-                            <div className='square-button'>Informatyka</div>
+                            <div className='square-button bg-second h-28 w-28 sm:w-32 sm:h-32 md:h-48 md:w-48 lg:h-64 lg:w-64 text-first text-sm sm:text-md md:text-xl lg:text-3xl hover:opacity-80 hover:rounded-3xl'>Informatyka</div>
                         </Link>
                     </div>
-                    <div className="row">
+                    <div className="row gap-4">
                         <Link to={`/courses?subject=Biologia`} style={{ textDecoration: 'none' }}>
-                            <div className='square-button'>Biologia</div>
+                            <div className='square-button bg-second h-28 w-28 sm:w-32 sm:h-32 md:h-48 md:w-48 lg:h-64 lg:w-64 text-first text-sm sm:text-md md:text-xl lg:text-3xl hover:opacity-80 hover:rounded-3xl'>Biologia</div>
                         </Link>
                         <Link to={`/courses?subject=Chemia`} style={{ textDecoration: 'none' }}>
-                            <div className='square-button'>Chemia</div>
+                            <div className='square-button bg-second h-28 w-28 sm:w-32 sm:h-32 md:h-48 md:w-48 lg:h-64 lg:w-64 text-first text-sm sm:text-md md:text-xl lg:text-3xl hover:opacity-80 hover:rounded-3xl'>Chemia</div>
                         </Link>
                         <Link to={`/courses?subject=Fizyka`} style={{ textDecoration: 'none' }}>
-                            <div className='square-button'>Fizyka</div>
+                            <div className='square-button bg-second h-28 w-28 sm:w-32 sm:h-32 md:h-48 md:w-48 lg:h-64 lg:w-64 text-first text-sm sm:text-md md:text-xl lg:text-3xl hover:opacity-80 hover:rounded-3xl'>Fizyka</div>
                         </Link>
                         <Link to={`/courses?subject=Historia`} style={{ textDecoration: 'none' }}>
-                            <div className='square-button'>Historia</div>
+                            <div className='square-button bg-second h-28 w-28 sm:w-32 sm:h-32 md:h-48 md:w-48 lg:h-64 lg:w-64 text-first text-sm sm:text-md md:text-xl lg:text-3xl hover:opacity-80 hover:rounded-3xl'>Historia</div>
                         </Link>
                     </div>
-                    <div className="row">
+                    <div className="row gap-4">
                         <Link to={`/courses?subject=Geografia`} style={{ textDecoration: 'none' }}>
-                            <div className='square-button'>Geografia</div>
+                            <div className='square-button bg-second h-28 w-28 sm:w-32 sm:h-32 md:h-48 md:w-48 lg:h-64 lg:w-64 text-first text-sm sm:text-md md:text-xl lg:text-3xl hover:opacity-80 hover:rounded-3xl'>Geografia</div>
                         </Link>
                         <Link to={`/courses?subject=Muzyka`} style={{ textDecoration: 'none' }}>
-                            <div className='square-button'>Muzyka</div>
+                            <div className='square-button bg-second h-28 w-28 sm:w-32 sm:h-32 md:h-48 md:w-48 lg:h-64 lg:w-64 text-first text-sm sm:text-md md:text-xl lg:text-3xl hover:opacity-80 hover:rounded-3xl'>Muzyka</div>
                         </Link>
                         <Link to={`/courses?subject=Niemiecki`} style={{ textDecoration: 'none' }}>
-                            <div className='square-button'>Język niemiecki</div>
+                            <div className='square-button bg-second h-28 w-28 sm:w-32 sm:h-32 md:h-48 md:w-48 lg:h-64 lg:w-64 text-first text-sm sm:text-md md:text-xl lg:text-3xl hover:opacity-80 hover:rounded-3xl'>Język niemiecki</div>
                         </Link>
                         <Link to={`/courses?subject=PP`} style={{ textDecoration: 'none' }}>
-                            <div className='square-button'>Podstawy przedsiębiorczości</div>
+                            <div className='square-button bg-second h-28 w-28 sm:w-32 sm:h-32 md:h-48 md:w-48 lg:h-64 lg:w-64 text-first text-xs sm:text-sm md:text-lg lg:text-2xl hover:opacity-80 hover:rounded-3xl'>Podstawy przedsiębiorczości</div>
                         </Link>
                     </div>
             </div>

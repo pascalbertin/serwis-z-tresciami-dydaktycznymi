@@ -23,7 +23,7 @@ const Home = () => {
     <nav className="bg-second sticky top-0 z-50 px-4 py-6 rounded-b dark:bg-gray-900 font-cabin">
       <div className="nav-wrapper container flex flex-wrap items-center justify-between mx-auto">
         <div className="logo">
-          <a href="/" className="flex">
+          <a href="/" className="flex transition-all hover:opacity-80">
             <svg viewBox="0 0 87 87" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-10 md:h-14 z-10">
               <ellipse cx="43.3854" cy="43.3856" rx="17.4805" ry="58.0181" transform="rotate(45 43.3854 43.3856)" fill="#2F184B"/>
             </svg>
@@ -43,22 +43,22 @@ const Home = () => {
         <div className="lg:ml-auto">
           <ul className="flex flex-col p-4 mt-4 sm:gap-2 lg:gap-4 xl:gap-6 md:flex-row md:space-x-8 md:mt-0 md:hover:text-fourth md:font-medium dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
-              <a href="/filter_courses" className="block py-2 pl-3 pr-4 text-first bg-blue-700 xl:text-2xl lg:text-lg md:text-md sm:text-md rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Szukaj kursu</a>
+              <a href="/filter_courses" className="block py-2 pl-3 pr-4 text-first xl:text-2xl lg:text-lg md:text-md transition-all hover:opacity-70 sm:text-md rounded md:bg-transparent md:p-0 dark:text-white" aria-current="page">Szukaj kursu</a>
             </li>
             <li>
               {!isLoggedIn ? 
-                <a href="/categories" className="block py-2 pl-3 pr-4 text-first rounded xl:text-2xl lg:text-lg md:text-md sm:text-md hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Kategorie</a>
-                : <a href="/profile" className="block py-2 pl-3 pr-4 text-first rounded xl:text-2xl lg:text-lg md:text-md sm:text-md hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Profil ({username})</a>}
+                <a href="/categories" className="block py-2 pl-3 pr-4 text-first rounded xl:text-2xl lg:text-lg md:text-md sm:text-md hover:bg-gray-100 md:hover:bg-transparent md:border-0 transition-all hover:opacity-70 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Kategorie</a>
+                : <a href="/profile" className="block py-2 pl-3 pr-4 text-first rounded xl:text-2xl lg:text-lg md:text-md sm:text-md hover:bg-gray-100 md:hover:bg-transparent md:border-0 transition-all hover:opacity-70 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Profil ({username})</a>}
             </li>
             <li>
             {!isLoggedIn ? 
-              <a href="/register" className="block py-2 pl-3 pr-4 text-first rounded xl:text-2xl lg:text-lg md:text-md sm:text-md hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Zostań nauczycielem</a>
-              : <a href="/user/logout" className="block py-2 pl-3 pr-4 text-first rounded xl:text-2xl lg:text-lg md:text-md sm:text-md hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Wyloguj się</a>}
+              <a href="/register" className="block py-2 pl-3 pr-4 text-first rounded xl:text-2xl lg:text-lg md:text-md sm:text-md hover:bg-gray-100 md:hover:bg-transparent md:border-0 transition-all hover:opacity-70 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Zostań nauczycielem</a>
+              : <a href="/user/logout" className="block py-2 pl-3 pr-4 text-first rounded xl:text-2xl lg:text-lg md:text-md sm:text-md hover:bg-gray-100 md:hover:bg-transparent md:border-0 transition-all hover:opacity-70 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Wyloguj się</a>}
             </li>
             <li>
             {!isLoggedIn ? 
-              <a href="/categories" className="block py-2 pl-3 pr-4 text-first rounded-lg xl:text-2xl lg:text-lg md:text-md sm:text-md hover:bg-gray-100 md:hover:text-violet-600 md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Zacznij naukę!</a>
-              : <a href="/addCourse" className="block py-2 pl-3 pr-4 text-first rounded-lg xl:text-2xl lg:text-lg md:text-md sm:text-md hover:bg-gray-100 md:hover:text-violet-600 md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Dodaj kurs</a>}
+              <a href="/categories" className="block py-2 pl-3 pr-4 text-first rounded-lg xl:text-2xl lg:text-lg md:text-md sm:text-md hover:bg-gray-100 transition-all hover:opacity-70 md:border-0 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Zacznij naukę!</a>
+              : <a href="/addCourse" className="block py-2 pl-3 pr-4 text-first rounded-lg xl:text-2xl lg:text-lg md:text-md sm:text-md hover:bg-gray-100 transition-all hover:opacity-70 md:border-0 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Dodaj kurs</a>}
             </li>
           </ul>
           </div>
