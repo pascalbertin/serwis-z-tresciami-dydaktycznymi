@@ -131,6 +131,10 @@ const FliterPage = () => {
         });
         setValues(response?.data);
     }
+
+    useEffect(() => {
+        submitForm()
+    }, [])
     
     const handleToggleSubjects = (value) => {
 
