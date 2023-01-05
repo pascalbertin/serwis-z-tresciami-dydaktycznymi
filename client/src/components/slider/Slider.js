@@ -52,7 +52,7 @@ function Slider() {
                     </div>
                 </div>
             </div>
-            <div className="md:hidden flex">
+            <div className="md:hidden flex bg-second">
             <div className='appbar-container flex-col mt-10 pb-24 w-full items-center'>
                     <div className='w-11/12'>
                         <img className="right-side-image h-full w-full" src={study}></img>
