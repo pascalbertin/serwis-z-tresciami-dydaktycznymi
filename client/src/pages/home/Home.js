@@ -20,7 +20,7 @@ const Home = () => {
   }
 
   return ( 
-    <nav className="bg-second sticky top-0 z-50 px-4 py-6 rounded-b dark:bg-gray-900 font-cabin">
+    <nav className="bg-second sticky top-0 z-50 px-4 py-6 dark:bg-gray-900 font-cabin">
       <div className="nav-wrapper container flex flex-wrap items-center justify-between mx-auto">
         <div className="logo">
           <a href="/" className="flex transition-all hover:opacity-80">

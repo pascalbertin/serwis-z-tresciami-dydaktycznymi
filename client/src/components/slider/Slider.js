@@ -36,7 +36,7 @@ function Slider() {
 
     return (
         <div className='slider-container items-center'>
-            <div className="md:flex hidden flex-col mt-24 px-20 pl-12">
+            <div className="md:flex hidden flex-col pt-24 px-20 pl-12 bg-second">
                 <div className='appbar-container flex-row pb-48 justify-around w-full'>
                     <div className='flex flex-col w-6/12 xl:pl-24'>
                         <h2 className='xl:text-5xl md:text-4xl pt-40 text-first'>Obejrzyj i zdaj z Tutors Alpha!</h2>
