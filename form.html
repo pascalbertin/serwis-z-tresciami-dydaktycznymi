@@ -1,4 +1,4 @@
-<form method="POST" action="https://secure.payu.com/api/v2_1/orders">
+<form method="POST" action="https://secure.snd.payu.com/api/v2_1/orders">
   <input type="hidden" name="customerIp" value="123.123.123.123"> 
   <input type="hidden" name="merchantPosId" value="459174"> 
   <input type="hidden" name="description" value="Opis"> 
@@ -9,7 +9,7 @@
   <input type="hidden" name="products[0].quantity" value="1">
   <input type="hidden" name="notifyUrl" value="http://localhost:3001">
   <input type="hidden" name="continueUrl" value="http://localhost:3001">
-  <input type="hidden" name="OpenPayu-Signature" type="hidden" value="sender=459174;algorithm=SHA-256;signature=8890c80b070a32640c71fd4e0cf8daf0812ed51c65751955acc62fbec72b9ade">
+  <input type="hidden" name="OpenPayu-Signature" type="hidden" value="sender=459174;algorithm=SHA-256;signature=f58f4cfa5aa7a14119672b7d24b365159385d46982a23ac7197e94ed14b98237">
   <button type="submit">Płacę z PayU</button>
 </form>
 

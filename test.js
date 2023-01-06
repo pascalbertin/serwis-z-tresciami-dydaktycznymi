@@ -75,33 +75,47 @@ const generateSignature = (form, secondKey, algorithm, posId) => {
 
 console.log(generateSignature(htmlForm, "5fe7962f65760bad1e38d921e34d691a", "SHA-256", "459174"));
 
+
+
+var access_token = ''
+var pos_id = '459174';
+
+var request = require('request');
+
+request({
+  method: 'POST',
+  url: 'https://secure.snd.payu.com/api/v2_1/orders/',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + access_token
+  },
+  body: {
+    "notifyUrl": "https://your.eshop.com/notify/",
+    "customerIp": "127.0.0.1",
+    "merchantPosId": pos_id,
+    "description": "RTV market",
+    "currencyCode": "PLN",
+    "totalAmount": "21000",
+    "products": [
+      {
+        "name": "Wireless mouse",
+        "unitPrice": "15000",
+        "quantity": "1"
+      },
+      {
+        "name": "HDMI cable",
+        "unitPrice": "6000",
+        "quantity": "1"
+      }
+    ]
+  }
+}, function (error, response, body) {
+  console.log('Status:', response.statusCode);
+  console.log('Headers:', JSON.stringify(response.headers));
+  console.log('Response:', body);
+});
+
 const port = 8080;
 app.listen(port, () => {
   console.log(`[server.js]: Server is running at port ${port}`);
 });
-
-
-
-// const { URLSearchParams } = require('url');
-// const fetch = require('node-fetch');
-// const encodedParams = new URLSearchParams();
-// encodedParams.set('key','JP***g');
-// encodedParams.set('amount','10.00');
-// encodedParams.set('txnid','txnid3945908608');
-// encodedParams.set('firstname','PayU User');
-// encodedParams.set('email','test@gmail.com');
-// encodedParams.set('phone','9876543210');
-// encodedParams.set('productinfo','iPhone');
-// encodedParams.set('surl','https://apiplayground-response.herokuapp.com/');
-// encodedParams.set('furl','https://apiplayground-response.herokuapp.com/');
-// encodedParams.set('pg','');
-// encodedParams.set('bankcode','');
-// encodedParams.set('ccnum','');
-// encodedParams.set('ccexpmon','');
-// encodedParams.set('ccexpyr','');
-// encodedParams.set('ccvv','');
-// encodedParams.set('ccname','');
-// encodedParams.set('txn_s2s_flow','');
-// encodedParams.set('hash','b9d096f09fa84219263bafe753418e92e971291450b3e4a603dd975e67af42f405ab14792e75431c1dd0a201341e41681376eec1a13b463ee35e9131cb6d6596');
-// const url = 'https://test.payu.in/merchant/_payment';
-// const options = {method: 'POST',headers: {Accept: 'application/json','Content-Type': 'application/x-www-form-urlencoded'},body: encodedParams};fetch(url, options).then(res => res.json()).then(json => console.log(json)).catch(err => console.error('error:' + err));
