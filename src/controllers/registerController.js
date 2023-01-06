@@ -35,7 +35,7 @@ const handleRegistration = tryCatch(async (req, res) => {
     to: req.body.email,
     subject: 'Tutors Alpha - Potwierdzenie rejestracji',
     text: req.body.username,
-    html: "<b><strong><p>Dziękujemy za rejestrację w naszym serwisie.</p></strong></b> <br/> <p>Kliknij w poniższy link aby aktywować konto: </p><br/><form action='http://localhost:3001/api/users/"+req.body.username+"/verification'><button type='submit'>Aktywuj konto</button></form>"
+    html: "<b><strong><p>Dziękujemy za rejestrację w naszym serwisie.</p></strong></b> <br/> <p>Kliknij w poniższy link aby aktywować konto: </p><br/><form action='https://serwis-z-tresciami.herokuapp.com/api/users/"+req.body.username+"/verification'><button type='submit'>Aktywuj konto</button></form>"
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
