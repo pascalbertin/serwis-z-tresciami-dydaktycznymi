@@ -1,10 +1,12 @@
 import React, { useState, useEffect }  from 'react';
-import '../../styles/AllCourses.css';
+import '../../styles/Filters.css';
 import axios from '../../config/axios'
 import { Link } from 'react-router-dom';
 import { API } from '../../config/api'
+import Loading from '../../components/loading/Loading';
 
 const AllCourses = () => {
+  const [isLoaded, setIsLoaded] = useState(false)
 
   var subParametr = window.location.search;
   var sub = subParametr.substring(9);  
@@ -26,7 +28,8 @@ const AllCourses = () => {
           'Content-Type': 'application/json'},
       });
       console.log('Success:', response?.data);
-      setValues(response?.data); 
+      setValues(response?.data);
+      setIsLoaded(true)
   }
   
   useEffect(() => {
@@ -35,38 +38,37 @@ const AllCourses = () => {
   }, [])
   
   return (
-    <div className='all-courses-container'>
-      <div className='sub-title-text'>{sub}</div>
-      <div className='objects-of-course'>
-        <div className='column'>
-          {values?.length ? (
-            <ul >
-              {values.map((value, i) => 
-              <li key={i}>
-                <div className='row'>
-                  <div className="allCourses-left-column">
-                    <Link to={`/course/?title=${value.title}`}>
-                      <img className='course-object-image' src={value.thumbnail}></img>
-                    </Link>
-                  </div>
-                  <div className='allCourses-right-column'>
-                    <Link to={`/course/?title=${value.title}`} style={{ textDecoration: 'none' }}>
-                      <div className='course-object-title'>{value?.title}</div>
-                    </Link>
-                    <div className='course-object-subject'>Kategoria: {value?.subject}</div>
-                    <div className='course-object-price'>Cena: {value?.price} zł</div>
-                    <hr />
+    <div className="filters-menu-container flex items-center">
+      <div className='text-3xl md:text-4xl text-first text-center pt-20'>{sub}</div>
+      {values?.length ? (
+            <div className='objects-of-course flex items-start mb-20'> 
+                <div className='column mt-16'>
+                    <ul >
+                    {values.map((value, i) => 
+                    <li key={i}>
+                        <div className="row ml-8 hover:opacity-70 transition-all">
+                            <div className="filters-left-column">
+                                <Link to={`/course/?title=${value.title}`}>
+                                    <img className='filters-course-image xl:max-w-sm xl:h-56 w-44 h-28 md:w-56 md:h-36 lg:w-72 lg:h-40 rounded-lg xl:rounded-lg' src={value.thumbnail}></img>
+                                </Link>
+                            </div>
+                            <div className="filters-right-column ml-8 max-w-4 w-full">
+                                <Link to={`/course/?title=${value.title}`} style={{ textDecoration: 'none' }}>
+                                <div className='course-object-title text-first text-xl md:text-2xl lg:text-3xl font-bold'>{value?.title}</div>
+                                </Link>
+                                <div className='course-object-subject text-gray-500'>Kategoria: {value?.subject}</div>
+                                <div className='course-object-price pt-4 text-lg md:text-xl lg:text-2xl'>Cena: {value?.price} zł</div>
+                            </div>
+                        </div>
+                    </li>)}              
+                    </ul>
                     </div>
-                  </div>
-              </li>)}              
-            </ul>
-          ) : <p className='empty-courses'>
-              {process.env.REACT_APP_SUBJECT_NO_COURSES}
-              <p className='empty-courses-bottom-text'>Spróbuj później</p>
-            </p>
-        }
-        </div>
-      </div>
+            </div>
+                ) : isLoaded ? <p className='empty-courses pt-12'>
+                    BRAK KURSÓW W TEJ KATEGORII
+                    <p className='empty-courses-bottom-text'>Spróbuj później</p>
+                    </p> : <Loading />
+                }
     </div>
     
   );

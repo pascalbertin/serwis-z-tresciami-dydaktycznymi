@@ -24,6 +24,8 @@ const { Storage } = require("@google-cloud/storage");
 const Multer = require("multer");
 const GOOGLE_STORAGE_KEY = require('./src/config/googleStorageKey');
 
+const payuRouter = require("./src/routes/payuRouter");
+
 const app = express();
 
 const swaggerOptions = {
@@ -73,6 +75,7 @@ app.use('/', rootRouter);
 app.use('/api/courses', coursesRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/payu', payuRouter);
 
 
 const multer = Multer({
@@ -83,11 +86,10 @@ const multer = Multer({
 });
 
 const projectId = process.env.GOOGLE_STORAGE_PROJECT_ID;
-const googleCredentials = GOOGLE_STORAGE_KEY
 
 const storage = new Storage({
   projectId,
-  googleCredentials
+  credentials: JSON.parse(process.env.GOOGLE_KEY)
 });
 
 const bucketThumbnails = storage.bucket(process.env.GOOGLE_STORAGE_THUMBNAILS_BUCKET);

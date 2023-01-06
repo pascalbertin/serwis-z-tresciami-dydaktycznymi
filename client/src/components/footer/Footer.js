@@ -1,14 +1,30 @@
 import React from "react";
 import "../../styles/Footer.css";
-
+import axios from "../../config/axios";
+import { useState } from "react";
 
 const Footer = () => {
+    const [href, setHref] = useState('')
+
+    const getUserCourses = async () => {
+        try {
+            const response = await axios.post('/api/payu/generateOrder')
+            console.log(response.data.link);
+            setHref(response.data.link)
+        }
+        catch (err) {
+                console.log(err);
+    }
+}
+
     return(
         <div className="main-footer">
-            <div className="container">
+            <div className="footer-container">
                 <div className="row" key={`row${4}`}>
                     <div className="col">
                         <h4>O FIRMIE</h4>
+                        <button className="w-32 h-32 bg-second" onClick={() => getUserCourses()}>blblflfl</button>
+                        <a href={href}><button className="w-32 h-32 bg-second text-black">redirect</button></a>
                         <ul className="list-unstyled">
                             <li>Polityka prywatności</li>
                             <li>Regulamin</li>
@@ -17,7 +33,7 @@ const Footer = () => {
                             <li><a href="/categories">Zakup kursu</a></li>
                         </ul>
                     </div>
-                    <div className="col">
+                    <div className="col hidden sm:block">
                         <h4>NAUCZANIE</h4>
                         <ul className="list-unstyled">
                             <li><a href="/register">Zostań nauczycielem</a></li>
@@ -36,7 +52,7 @@ const Footer = () => {
                             <li><a href="/courses?subject=Fizyka">Fizyka</a></li>
                         </ul>
                     </div>
-                    <div className="col">
+                    <div className="col hidden sm:block">
                         <h4>MAPA STRONY</h4>
                         <ul className="list-unstyled">
                             <li><a href="/">Strona główna</a></li>
@@ -48,9 +64,9 @@ const Footer = () => {
                     </div>
                 </div>
                 <hr />
-                <div className="bottom-row">
-                    <p className="col-sm">
-                        TUTORS ALPHA &copy;   {new Date().getFullYear()}  |   Polityka prywatności  |  Regulamin  |   Konto
+                <div className="bottom-row mt-1 pb-1">
+                    <p className="col-sm text-xs text-center items-center text">
+                        Tutors Alpha &copy;   {new Date().getFullYear()}
                     </p>
                 </div>
             </div>

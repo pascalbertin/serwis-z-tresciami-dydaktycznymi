@@ -27,6 +27,7 @@ const AddCourse = () => {
   }
 
   const addCourse = async (formValues) => {
+    console.log(formValues)
     const response = await axios.post(API.course, {...formValues},
       {
         headers: {
