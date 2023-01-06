@@ -10,7 +10,8 @@ const { transporter } = require('../config/nodemailerConfig');
 
 const courseGenerateCode = tryCatch(async (req, res) => {
   const courseTitle = req.params.title;
-  const link = "https://serwis-z-tresciami.herokuapp.com/course/?title=" + courseTitle;
+  const courseTitleReplaced = courseTitle.replace(/ /g, "%20")
+  const link = "https://serwis-z-tresciami.herokuapp.com/course/?title=" + courseTitleReplaced;
 
   const course = await courseModel.findOne({title: req.params.title});
 
@@ -75,6 +76,9 @@ const courseUseCode = tryCatch(async (req, res) => {
         return res.status(200).json(updatedCourse);
       } else {
         //Out of uses case
+        console.log(course.codes[i])
+        course.codes[i].remove()
+        const updatedCourse = await res.course.save();
         return res.status(204).json({message: COURSE_CODE_OUT_OF_USES});
       }
 
