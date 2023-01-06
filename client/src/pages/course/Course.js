@@ -23,7 +23,9 @@ function Course(){
           'Accept': 'application',
           'Content-Type': 'application/json'},
       }); 
-    setValues(response?.data); 
+    setValues(response?.data);
+    localStorage.removeItem('title')
+    localStorage.setItem('title', response?.data.title)
 }
 
 const submitCodeHandler = async event =>{

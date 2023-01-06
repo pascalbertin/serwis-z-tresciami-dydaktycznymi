@@ -1,13 +1,13 @@
 import React from 'react';
 import editCourseHandler from './editCourseHandler'
-import EditCourseValidator from '../../validators/editCourse';
+import AddCourseValidator from '../../validators/addCourse';
 import '../../styles/Form.css';
 
 
 const EditCourseForm = ({submitForm}) => {
     const title = localStorage.getItem('title')
   
-    const {updateHandler, values, submitHandler, errors} = editCourseHandler(submitForm, EditCourseValidator);
+    const {updateHandler, values, submitHandler, errors, videoHandler, thumbnailHandler, video, thumbnail} = editCourseHandler(submitForm, AddCourseValidator);
 
     return (
       <div className="form-container">
@@ -64,15 +64,15 @@ const EditCourseForm = ({submitForm}) => {
                   {errors.level && <p>{errors.level}</p>}
               </div>
             
-              <div className="form-container-inputs">
+              <div className="form-container-inputs ml-32 lg:ml-16">
                   <label htmlFor="video" className="form-label"></label>
-                  <input id="video" type="text" name="video" className="form-input" placeholder="Link do wideo" value={values.video} onChange={updateHandler}/>
+                  <span className="lg:pr-12 pr-4">Wideo:</span> <input id="video" type="file" name="video" accept="video/*" placeholder="Link do wideo" value={video?.value} onChange={videoHandler}/>
                   {errors.video && <p>{errors.video}</p>}
               </div>
 
-              <div className="form-container-inputs">
+              <div className="form-container-inputs ml-32 lg:ml-16">
                   <label htmlFor="thumbnail" className="form-label"></label>
-                  <input id="thumbnail" type="text" name="thumbnail" className="form-input" placeholder="Link do miniaturki" value={values.thumbnail} onChange={updateHandler}/>
+                  <span className="lg:pr-6 pr-2">Miniaturka:</span> <input id="thumbnail" type="file" name="thumbnail" accept="image/jpeg, image/png, image/svg" placeholder="Link do miniaturki" onChange={thumbnailHandler}/>
                   {errors.thumbnail && <p>{errors.thumbnail}</p>}
               </div>
   

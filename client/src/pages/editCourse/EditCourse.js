@@ -5,28 +5,57 @@ import axios from '../../config/axios'
 import { API } from '../../config/api'
 
 const EditCourse = () => {
-  const idParam = window.location.search;
-  const id = idParam.substring(7);
-
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [values, setValues] = useState({})
+  const [video, setVideo] = useState(null)
+  const [thumbnail, setThumbnail] = useState(null)
 
-  async function submitForm(isValid, values){
+  const uploadThumbnail = async (thumbnail) => {
+    const formData = new FormData();
+    formData.append("file", thumbnail);
+
+    const response = await axios.post('/api/fileUploadThumbnail', formData);
+    console.log('Success:', response?.data);
+  }
+
+  const uploadVideo = async (video) => {
+    const formData = new FormData();
+    formData.append("file", video);
+
+    const response = await axios.post('/api/fileUploadVideo', formData);
+    console.log('Success:', response?.data);
+  }
+
+  const addCourse = async (formValues) => {
+    console.log(formValues)
+    const response = await axios.patch(API.course, {...formValues},
+      {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+          'Accept': 'application',
+          'Content-Type': 'application/json'},
+      });
+      console.log('Success:', response?.data);
+      setValues(response?.data); 
+  }
+
+  const submitForm = async (isValid, values, video, thumbnail) => {
     if (isValid){
       setIsSubmitted(true);
       setValues(values);
-      const response = await axios.patch(API.course + '/' + id, {...values},
-      {
-        headers: { 
-             'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
-             'Content-Type': 'application/json'},
-        });
-     
+      setVideo(video);
+      setThumbnail(thumbnail)
+
+      //calling endpoints
+      uploadThumbnail(thumbnail);
+      uploadVideo(video);
+      addCourse(values);
     }else{
       setIsSubmitted(false);
       setValues({});
+      setVideo(null);
+      setThumbnail(null);
     }
-      
   }
   return (
     <div>
