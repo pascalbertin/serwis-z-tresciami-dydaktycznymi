@@ -48,7 +48,7 @@ const handleLogin = tryCatch(async (req, res) => {
     const result = await foundUser.save();
 
     // Creates Secure Cookie with refresh token
-    res.cookie('jwt', refreshToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
+    res.cookie('jwt', refreshToken, { httpOnly: true, secure: false, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
 
     return res.status(200).json({ roles, accessToken });
   }
