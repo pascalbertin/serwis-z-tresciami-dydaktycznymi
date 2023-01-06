@@ -35,9 +35,10 @@ const userPatchByUsername = tryCatch(async (req, res) => {
   }
 
   res.user = user;
+  const hashedUserPassword = await bcrypt.hash(req.body.password, 10);
   
   if (req.body.password != null) {
-    res.user.password = req.body.password;
+    res.user.password = hashedUserPassword;
   } else {
     throw new AppError(USER_ERROR, USER_MISSING_PASSWORD, 400);
   }

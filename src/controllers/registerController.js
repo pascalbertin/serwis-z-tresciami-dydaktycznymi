@@ -8,10 +8,7 @@ const { USER_CREATED } = require("../helpers/confirmationMessages");
 const { tryCatch } = require("../helpers/tryCatch");
 const { transporter } = require('../config/nodemailerConfig');
 
-
 const handleRegistration = tryCatch(async (req, res) => {
-  //const {teacherName, teacherEmail, teacherPassword} = req.body;
-
   if (!req.body.username || !req.body.email || !req.body.password) {
     throw new AppError(USER_ERROR, USER_MISSING_PARAMETERS, 400);
   }
@@ -22,12 +19,11 @@ const handleRegistration = tryCatch(async (req, res) => {
     throw new AppError(USER_ERROR, USER_DUPLICATE, 409);
   }
 
-  //const hashedTeacherPassword = await bcrypt.hash(teacherPassword, 10);
-
+  const hashedUserPassword = await bcrypt.hash(req.body.password, 10);
   const newUser = TeacherModel({
     userName: req.body.username,
     email: req.body.email,
-    password: req.body.password,
+    password: hashedUserPassword,
     bank_account: req.body.bank_account,
     verification: false
   });
