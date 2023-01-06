@@ -4,6 +4,8 @@ const usersController = require('../controllers/usersController');
 const registerController = require('../controllers/registerController');
 const wrongEndpointHandler = require('../helpers/wrongEndpointHandler');
 const courseController = require('../controllers/courseController');
+const verifyRoles = require('../middleware/verifyRoles');
+const ROLES_LIST = require('../config/roles_list');
 const verifyJWT = require('../middleware/verifyJWT');
 
 /**
@@ -117,7 +119,7 @@ router.route('/:username')
   .get(usersController.userGetByUsername)
   .post(wrongEndpointHandler.errorHandler)
   .patch(verifyJWT, usersController.userPatchByUsername)
-  .delete(verifyJWT, usersController.userDeleteByUsername);
+  .delete(verifyJWT, verifyRoles(ROLES_LIST.Admin), usersController.userDeleteByUsername);
 
 router.route('/:username/verification')
   .get(usersController.userVerifyAfterRegistration)

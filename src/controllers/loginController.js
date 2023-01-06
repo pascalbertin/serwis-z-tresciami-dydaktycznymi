@@ -1,6 +1,7 @@
 require('dotenv').config();
 const TeacherModel = require("../models/teacherModel");
 const jwt = require('jsonwebtoken');
+const bcrypt = require("bcrypt");
 const AppError = require("../helpers/AppError");
 const { tryCatch } = require("../helpers/tryCatch");
 const { USER_MISSING_PARAMETERS, USER_UNAUTHORIZED, USER_NOT_FOUND } = require("../helpers/errorMessages");
@@ -12,16 +13,17 @@ const handleLogin = tryCatch(async (req, res) => {
   }
 
   const foundUser = await TeacherModel.findOne({ userName: req.body.username }).exec();
+  const isPasswordCorrect = await bcrypt.compare(req.body.password, foundUser.password);
 
   if (!foundUser) {
     throw new AppError(USER_ERROR, USER_NOT_FOUND, 404);
   }
 
-  if (req.body.password !== foundUser.password || !foundUser.verification) {
+  if (!isPasswordCorrect || !foundUser.verification) {
     throw new AppError(USER_ERROR, USER_UNAUTHORIZED, 401);
   }
 
-  if (req.body.password === foundUser.password) {
+  if (isPasswordCorrect) {
     const roles = Object.values(foundUser.roles).filter(Boolean);
 
     const accessToken = jwt.sign(

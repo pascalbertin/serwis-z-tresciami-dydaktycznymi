@@ -3,6 +3,7 @@ const router = express.Router();
 const courseController = require('../controllers/courseController');
 const codesController = require('../controllers/codesController');
 const wrongEndpointHandler = require('../helpers/wrongEndpointHandler');
+const verifyRoles = require('../middleware/verifyRoles');
 const verifyJWT = require('../middleware/verifyJWT');
 
 /**
