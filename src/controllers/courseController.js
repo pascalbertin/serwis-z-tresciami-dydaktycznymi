@@ -81,13 +81,6 @@ const courseGetAll = tryCatch(async (req, res) => {
 
 const courseDeleteByTitle = tryCatch(async (req, res) => {
   const course = await courseModel.findOne({title: req.params.title});
-  const cookies = req.cookies;
-  const activeUser = cookies.jwt;
-  const foundUser = await TeacherModel.findOne({ activeUser }).exec();
-
-  if (course.author != foundUser.userName) {
-    throw new AppError(USER_ERROR, USER_UNAUTHORIZED, 401);
-  }
 
   if (course == null) {
     throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
@@ -101,16 +94,9 @@ const courseDeleteByTitle = tryCatch(async (req, res) => {
 
 const coursePatchByTitle = tryCatch(async (req, res) => {
   const course = await courseModel.findOne({title: req.params.title});
-  const cookies = req.cookies;
-  const activeUser = cookies.jwt;
-  const foundUser = await TeacherModel.findOne({ activeUser }).exec();
 
   if (course == null) {
     throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
-  }
-
-  if (course.author != foundUser.userName) {
-    throw new AppError(USER_ERROR, USER_UNAUTHORIZED, 401);
   }
 
   res.course = course;
