@@ -5,6 +5,7 @@ const { COURSE_ERROR, USER_ERROR } = require("../helpers/errorCodes");
 const { COURSE_NOT_FOUND, COURSE_DUPLICATE, COURSE_MISSING_PARAMETERS } = require("../helpers/errorMessages");
 const { COURSE_CREATED } = require("../helpers/confirmationMessages");
 const { tryCatch } = require("../helpers/tryCatch");
+const { transporter } = require('../config/nodemailerConfig');
 
 const courseCreate = tryCatch(async (req, res) => {
   if (!req.body.title || 
@@ -31,14 +32,29 @@ const courseCreate = tryCatch(async (req, res) => {
     subject: req.body.subject,
     level: req.body.level,
     video: req.body.video,
-    thumbnail: req.body.thumbnail
+    thumbnail: req.body.thumbnail,
+    verification: false
   });
-        
-  newCourse.save(error => {
+
+  newCourse.save();
+
+  const foundUser = await TeacherModel.findOne({ userName: newCourse.author });
+  
+  const mailOptions = {
+    from: 'Tutors Alpha <JakubStyszynski@gmail.com>',
+    to: foundUser.email,
+    subject: 'Tutors Alpha - Dodanie kursu',
+    text: req.body.title,
+    html: "<p>Kurs "+req.body.title+" został przesłany i oczekuje na weryfikację przez administratora serwisu. Poinformujemy Cię w osobnej wiadomości e-mail gdy kurs zostanie zweryfikowany.</p>"
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
     if (!error) {
+      console.log("E-mail sent: " + info.response);
       return res.status(200).json({message: COURSE_CREATED});
     }
   });
+
 });
 
 const courseGetByTitle = tryCatch(async (req, res) => {
@@ -195,6 +211,48 @@ const courseGetByAuthor = tryCatch(async (req, res) => {
   return res.status(200).json(res.course);
 });
 
+const courseGetByVerification = tryCatch(async (req, res) => {
+  const course = await courseModel.find({verification: false});
+
+  if (course == null) {
+    throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
+  }
+
+  res.course = course;
+  return res.status(200).json(res.course);
+});
+
+const courseVerifyByAdministrator = tryCatch(async (req, res) => {
+  const course = await courseModel.findOne({title: req.params.title});
+
+  if (course == null) {
+    throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
+  }
+
+  res.course = course;
+
+  course.verification = true;
+
+  const foundUser = await TeacherModel.findOne({ userName: course.author });
+
+  const mailOptions = {
+    from: 'Tutors Alpha <JakubStyszynski@gmail.com>',
+    to: foundUser.email,
+    subject: 'Tutors Alpha - Zweryfikowano Twój kurs',
+    text: req.body.title,
+    html: "<p>Twój kurs "+res.course.title+" został zweryfikowany przez administratora serwisu. Użytkownicy mogą już z niego korzystać.</p>"
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (!error) {
+      console.log("E-mail sent: " + info.response);
+    }
+  });
+
+  const updatedCourse = await res.course.save();
+  return res.status(200).json(updatedCourse);
+});
+
 module.exports = {
     courseCreate,
     courseGetByTitle,
@@ -202,5 +260,7 @@ module.exports = {
     coursePatchByTitle,
     courseGetAll,
     courseGetFiltered,
-    courseGetByAuthor
+    courseGetByAuthor,
+    courseVerifyByAdministrator,
+    courseGetByVerification
 };
