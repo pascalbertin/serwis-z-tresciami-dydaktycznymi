@@ -2,7 +2,8 @@ import React from 'react'
 
 const PaymentResponse = ({id}) => {
 
-    const url = "/course?id="+id
+    const url = "/course/?title="+id
+
   return (
     <div className="form-container">
         <h1>{process.env.REACT_APP_COURSE_BUY_SUCCESS}</h1>

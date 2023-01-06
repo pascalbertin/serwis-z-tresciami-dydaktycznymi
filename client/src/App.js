@@ -8,7 +8,7 @@ import Categories from './components/categories/Categories';
 import Footer from './components/footer/Footer';
 import Slider from './components/slider/Slider';
 import Course from './pages/course/Course';
-import VideoCourse from './pages/videoCourse/videoCourse';
+import VideoCourse from './pages/videoCourse/VideoCourse';
 import Admin from './pages/admin/Admin';
 import Logout from './pages/logout/Logout';
 import AllCourses from './pages/allCoursesWithFilter/AllCourses';
@@ -21,10 +21,10 @@ import FilterCourses from './pages/filterPage/FilterPage';
 function App() {
   return (
     <div className="page-container">
+    <Home />
       <div className="content-wrap">
         <Router>
             <div className="content">
-            <Home />
               <Routes>
                 <Route exact path="/" element={<Slider />} />
                 <Route path="/register" element={<Register />} />

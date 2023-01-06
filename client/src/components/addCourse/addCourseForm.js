@@ -64,13 +64,13 @@ const AddCourseForm = ({submitForm}) => {
             
               <div className="form-container-inputs">
                   <label htmlFor="video" className="form-label"></label>
-                  <input id="video" type="file" name="video" accept="video/mkv" placeholder="Link do wideo" value={video?.value} onChange={videoHandler}/>
+                  <input id="video" type="file" name="video" accept="video/*" placeholder="Link do wideo" value={video?.value} onChange={videoHandler}/>
                   {/* {errors.video && <p>{errors.video}</p>} */}
               </div>
 
               <div className="form-container-inputs">
                   <label htmlFor="thumbnail" className="form-label"></label>
-                  <input id="thumbnail" type="file" name="thumbnail" accept="image/jpeg" placeholder="Link do miniaturki" onChange={thumbnailHandler}/>
+                  <input id="thumbnail" type="file" name="thumbnail" accept="image/jpeg, image/png, image/svg" placeholder="Link do miniaturki" onChange={thumbnailHandler}/>
                   {/* {errors.thumbnail && <p>{errors.thumbnail}</p>} */}
               </div>
   

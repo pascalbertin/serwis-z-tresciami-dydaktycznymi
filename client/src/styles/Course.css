@@ -18,20 +18,20 @@
   margin: 70px 30px 60px;
 }
 
-.course-info .container {
+.course-info .course-container {
   display: flex;
 }
 
-.course-info .container .left-column {
+.course-info .course-container .left-column {
   width: 50%;
 }
 
-.course-info .container .right-column {
+.course-info .course-container .right-column {
   width: 50%;
   padding: 40px 0 0 100px;
 }
 
-.course-info .container .right-column .description {
+.course-info .course-container .right-column .description {
   margin-bottom: 50px;
 }
 
@@ -80,7 +80,7 @@
   max-width: 1800px;
 }
 
-.code-container-inputs {
+.code-course-container-inputs {
   display: flex;
   justify-content: left;
 }

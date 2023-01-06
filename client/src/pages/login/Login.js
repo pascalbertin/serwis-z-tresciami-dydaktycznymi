@@ -28,8 +28,8 @@ const Login = () => {
         {
           console.log(response.data)
           setSuccess(true)
-          navigate(0);
-          navigate('/profile', {state: { from: location}, replace: true})
+          setTimeout(navigate(0), 100)
+          setTimeout(navigate('/profile', {state: { from: location}, replace: true}), 100)
           // setError('Zalogowano poprawnie!')
         }
         const accessToken = response?.data?.accessToken
