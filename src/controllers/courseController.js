@@ -1,6 +1,7 @@
 const {CourseSchema, courseModel} = require("../models/courseModel");
+const TeacherModel = require("../models/teacherModel");
 const AppError = require("../helpers/AppError");
-const { COURSE_ERROR } = require("../helpers/errorCodes");
+const { COURSE_ERROR, USER_ERROR } = require("../helpers/errorCodes");
 const { COURSE_NOT_FOUND, COURSE_DUPLICATE, COURSE_MISSING_PARAMETERS } = require("../helpers/errorMessages");
 const { COURSE_CREATED } = require("../helpers/confirmationMessages");
 const { tryCatch } = require("../helpers/tryCatch");
@@ -77,9 +78,17 @@ const courseDeleteByTitle = tryCatch(async (req, res) => {
 
 const coursePatchByTitle = tryCatch(async (req, res) => {
   const course = await courseModel.findOne({title: req.params.title});
+  
+  const cookies = req.cookies;
+  const activeUser = cookies.jwt;
+  const foundUser = await TeacherModel.findOne({ activeUser }).exec();
 
   if (course == null) {
     throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
+  }
+
+  if (course.author != foundUser.userName) {
+    throw new AppError(USER_ERROR, USER_UNAUTHORIZED, 401);
   }
 
   res.course = course;
