@@ -17,7 +17,7 @@ const handleLogin = tryCatch(async (req, res) => {
     throw new AppError(USER_ERROR, USER_NOT_FOUND, 404);
   }
 
-  if (req.body.password !== foundUser.password) {
+  if (req.body.password !== foundUser.password || !foundUser.verification) {
     throw new AppError(USER_ERROR, USER_UNAUTHORIZED, 401);
   }
 

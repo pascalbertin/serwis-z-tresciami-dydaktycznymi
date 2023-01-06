@@ -46,7 +46,6 @@ const userPatchByUsername = tryCatch(async (req, res) => {
   return res.status(200).json(updatedUser);
 });
 
-
 const userDeleteByUsername = tryCatch(async (req, res) => {
   const user = await TeacherModel.findOne({userName: req.params.username})
   if (user == null) {
@@ -59,9 +58,26 @@ const userDeleteByUsername = tryCatch(async (req, res) => {
   return res.status(200).json({message: USER_DELETED});
 });
 
+const userVerifyAfterRegistration = tryCatch(async (req, res) => {
+  const user = await TeacherModel.findOne({userName: req.params.username});
+  res.user = user;
+
+  if (user == null) {
+    throw new AppError(USER_ERROR, USER_NOT_FOUND, 404);
+  }
+
+  console.log(user)
+  user.verification = true;
+  console.log(user)
+
+  const updatedUser = await res.user.save();
+  return res.status(200).json(updatedUser);
+});
+
 module.exports = { 
   teacherGetAll,
   userGetByUsername,
   userPatchByUsername,
-  userDeleteByUsername
+  userDeleteByUsername,
+  userVerifyAfterRegistration
 };

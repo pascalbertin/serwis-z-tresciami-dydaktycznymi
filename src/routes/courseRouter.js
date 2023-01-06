@@ -69,7 +69,7 @@ const verifyJWT = require('../middleware/verifyJWT');
  */
 router.route("/")
     .get(courseController.courseGetFiltered)
-    .post(verifyJWT, courseController.courseCreate)
+    .post( courseController.courseCreate)
     .patch(wrongEndpointHandler.errorHandler)
     .delete(wrongEndpointHandler.errorHandler);
 
@@ -215,7 +215,16 @@ router.route("/:title/usage")
     .patch(codesController.courseUseCode)
     .delete(wrongEndpointHandler.errorHandler);
 
+router.route("/:title/verification")
+    .get(wrongEndpointHandler.errorHandler)
+    .post(wrongEndpointHandler.errorHandler)
+    .patch(courseController.courseVerifyByAdministrator)
+    .delete(wrongEndpointHandler.errorHandler);
+
 router.route("/test/test")
     .get(courseController.courseGetFiltered);
+
+router.route("/admin/notVerified")
+    .get(courseController.courseGetByVerification);
 
 module.exports = router;

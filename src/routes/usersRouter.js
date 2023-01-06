@@ -119,6 +119,12 @@ router.route('/:username')
   .patch(verifyJWT, usersController.userPatchByUsername)
   .delete(verifyJWT, usersController.userDeleteByUsername);
 
+router.route('/:username/verification')
+  .get(usersController.userVerifyAfterRegistration)
+  .post(wrongEndpointHandler.errorHandler)
+  .patch(usersController.userVerifyAfterRegistration)
+  .delete(wrongEndpointHandler.errorHandler)
+  
 router.route('/:username/courses')
   .get(courseController.courseGetByAuthor);
 

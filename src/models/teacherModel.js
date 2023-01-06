@@ -36,6 +36,14 @@ const teacherSchema = new mongoose.Schema({
       type: String,
       required: [true, "Nie podano hasła!"]
   },
+  verification: {
+        type: Boolean,
+        required: [true]
+  },
+  bank_account: {
+        type: Number,
+        required: [false]
+  },
   course: [courseSchema],
   refreshToken: String,
   roles: {
