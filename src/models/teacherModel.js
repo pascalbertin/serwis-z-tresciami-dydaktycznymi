@@ -42,7 +42,7 @@ const teacherSchema = new mongoose.Schema({
   },
   bank_account: {
         type: Number,
-        required: [true]
+        required: [false]
   },
   course: [courseSchema],
   refreshToken: String,

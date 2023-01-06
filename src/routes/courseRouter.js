@@ -69,7 +69,7 @@ const verifyJWT = require('../middleware/verifyJWT');
  */
 router.route("/")
     .get(courseController.courseGetFiltered)
-    .post(courseController.courseCreate)
+    .post( courseController.courseCreate)
     .patch(wrongEndpointHandler.errorHandler)
     .delete(wrongEndpointHandler.errorHandler);
 

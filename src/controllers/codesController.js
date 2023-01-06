@@ -9,8 +9,8 @@ const { tryCatch } = require("../helpers/tryCatch");
 const { transporter } = require('../config/nodemailerConfig');
 
 const courseGenerateCode = tryCatch(async (req, res) => {
-  const endpoint = req.params.title;
-  const link = "https://serwis-z-tresciami.herokuapp.com/courses/"+endpoint.replace(" ","%20");
+  const courseTitle = req.params.title;
+  const link = "https://serwis-z-tresciami.herokuapp.com/course/?title=" + courseTitle;
 
   const course = await courseModel.findOne({title: req.params.title});
 
@@ -34,7 +34,7 @@ const courseGenerateCode = tryCatch(async (req, res) => {
       to: req.body.email,
       subject: 'Tutors Alpha - Twój Kod',
       text: generatedCode,
-      html: "<b><strong><p>Dziękujemy za zakup</p></strong></b> <br/> <p>Twój kod: </p>"+generatedCode+" <br/> <p>Zakupiony kurs znajdziesz tutaj: </p>"+"<a href="+link+">Link do kursu</a>"
+      html: "<b><strong><p>Dziękujemy za zakup!</p></strong></b> <br/> <p>Twój kod: </p>"+generatedCode+" <br/> <p>Zakupiony kurs znajdziesz tutaj: </p>"+"<a href="+link+">Link do kursu</a>"
     }; 
 
   transporter.sendMail(mailOptions, (error, info) => {
