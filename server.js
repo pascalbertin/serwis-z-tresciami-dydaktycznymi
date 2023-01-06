@@ -1,57 +1,33 @@
 require('dotenv').config();
 
-const mongoose    = require('mongoose');
-const express     = require("express");
-var cors          = require('cors');
-const bodyParser  = require('body-parser');
+const mongoose     = require('mongoose');
+const express      = require("express");
+var cors           = require('cors');
+const bodyParser   = require('body-parser');
+const cookieParser = require('cookie-parser');
+const { Storage }  = require("@google-cloud/storage");
+const Multer       = require("multer");
 
 const swaggerJsDoc  = require('swagger-jsdoc');
 const swaggerUi     = require('swagger-ui-express');
 
-const rootRouter            = require("./src/routes/rootRouter");
-const coursesRouter         = require("./src/routes/courseRouter");
-const usersRouter           = require("./src/routes/usersRouter");
-const authRouter            = require("./src/routes/authRouter");
+const rootRouter    = require("./src/routes/rootRouter");
+const coursesRouter = require("./src/routes/courseRouter");
+const usersRouter   = require("./src/routes/usersRouter");
+const authRouter    = require("./src/routes/authRouter");
+const payuRouter    = require("./src/routes/payuRouter");
 
-const corsOptions        = require('./src/config/corsOptions');
-const dbConnectionLink   = require("./src/config/databaseConfig");
-const credentials        = require('./src/middleware/credentials');
-const cookieParser       = require('cookie-parser');
+const corsOptions      = require('./src/config/corsOptions');
+const dbConnectionLink = require("./src/config/databaseConfig");
+const swaggerOptions   = require('./src/config/swaggerOptions');
 
+const credentials  = require('./src/middleware/credentials');
 const errorHandler = require("./src/middleware/errorHandler");
 
-const { Storage } = require("@google-cloud/storage");
-const Multer = require("multer");
-const GOOGLE_STORAGE_KEY = require('./src/config/googleStorageKey');
-
-const payuRouter = require("./src/routes/payuRouter");
+const AppError     = require("./src/helpers/AppError");
+const { tryCatch } = require("./src/helpers/tryCatch");
 
 const app = express();
-
-const swaggerOptions = {
-  swaggerDefinition: {
-    openapi: '3.0.2',
-    info: {
-      version: "0.0.2",
-      title: "Serwis z treściami dydaktycznymi - API",
-      description: "Dokumentacja całego API dla strony",
-      servers: ["http://localhost:3001","https://serwis-z-tresciami.herokuapp.com/"]
-    },
-    components: {
-      securitySchemes: {
-          bearerAuth: {
-              type: 'http',
-              scheme: 'bearer',
-              bearerFormat: 'JWT',
-          }
-      }
-  },
-  security: [{
-      bearerAuth: []
-  }]
-  },
-  apis: ["./src/routes/*.js", "./src/models/*.js"]
-};
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
@@ -86,7 +62,6 @@ const multer = Multer({
 });
 
 const projectId = process.env.GOOGLE_STORAGE_PROJECT_ID;
-
 const storage = new Storage({
   projectId,
   credentials: JSON.parse(process.env.GOOGLE_KEY)
@@ -95,43 +70,31 @@ const storage = new Storage({
 const bucketThumbnails = storage.bucket(process.env.GOOGLE_STORAGE_THUMBNAILS_BUCKET);
 const bucketVideos = storage.bucket(process.env.GOOGLE_STORAGE_VIDEOS_BUCKET);
 
-app.post('/api/fileUploadThumbnail', multer.single("file"), (req, res) => {
-  console.log("Made it /upload");
-  try {
-    if (req.file) {
-      console.log("File found, trying to upload a Thumbnail...");
-      const blob = bucketThumbnails.file(req.file.originalname);
-      const blobStream = blob.createWriteStream();
+app.post('/api/fileUploadThumbnail', multer.single("file"), tryCatch((req, res) => {
+  if (req.file) {
+    const blob = bucketThumbnails.file(req.file.originalname);
+    const blobStream = blob.createWriteStream();
 
-      blobStream.on("finish", () => {
-        res.status(200).send("Success");
-        console.log("Success");
-      });
-      blobStream.end(req.file.buffer);
-    } else throw "error with img";
-  } catch (error) {
-    res.status(500).send(error);
+    blobStream.on("finish", () => {
+      res.status(200).send("Success");
+      console.log("Thumbnail uploaded successfully");
+    });
+    blobStream.end(req.file.buffer);
   }
-});
+}));
 
-app.post('/api/fileUploadVideo', multer.single("file"), (req, res) => {
-  console.log("Made it /upload");
-  try {
-    if (req.file) {
-      console.log("File found, trying to upload a Video...");
-      const blob = bucketVideos.file(req.file.originalname);
-      const blobStream = blob.createWriteStream();
+app.post('/api/fileUploadVideo', multer.single("file"), tryCatch((req, res) => {
+  if (req.file) {
+    const blob = bucketVideos.file(req.file.originalname);
+    const blobStream = blob.createWriteStream();
 
-      blobStream.on("finish", () => {
-        res.status(200).send("Success");
-        console.log("Success");
-      });
-      blobStream.end(req.file.buffer);
-    } else throw "error with img";
-  } catch (error) {
-    res.status(500).send(error);
+    blobStream.on("finish", () => {
+      res.status(200).send("Success");
+      console.log("Thumbnail uploaded successfully");
+    });
+    blobStream.end(req.file.buffer);
   }
-});
+}));
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));

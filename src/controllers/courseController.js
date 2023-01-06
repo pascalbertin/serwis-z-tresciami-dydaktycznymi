@@ -81,6 +81,13 @@ const courseGetAll = tryCatch(async (req, res) => {
 
 const courseDeleteByTitle = tryCatch(async (req, res) => {
   const course = await courseModel.findOne({title: req.params.title});
+  const cookies = req.cookies;
+  const activeUser = cookies.jwt;
+  const foundUser = await TeacherModel.findOne({ activeUser }).exec();
+
+  if (course.author != foundUser.userName) {
+    throw new AppError(USER_ERROR, USER_UNAUTHORIZED, 401);
+  }
 
   if (course == null) {
     throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
@@ -94,7 +101,6 @@ const courseDeleteByTitle = tryCatch(async (req, res) => {
 
 const coursePatchByTitle = tryCatch(async (req, res) => {
   const course = await courseModel.findOne({title: req.params.title});
-  
   const cookies = req.cookies;
   const activeUser = cookies.jwt;
   const foundUser = await TeacherModel.findOne({ activeUser }).exec();
@@ -144,7 +150,7 @@ const courseGetFiltered = async (req, res) => {
 
   let course
   try{
-    course = await courseModel.find()
+    course = await courseModel.find({verification: true});
     //console.log(course)
     if(req.query.subject != null){
       subject = req.query.subject.split(",")
@@ -211,7 +217,7 @@ const courseGetByAuthor = tryCatch(async (req, res) => {
   return res.status(200).json(res.course);
 });
 
-const courseGetByVerification = tryCatch(async (req, res) => {
+const courseGetByToVerification = tryCatch(async (req, res) => {
   const course = await courseModel.find({verification: false});
 
   if (course == null) {
@@ -262,5 +268,5 @@ module.exports = {
     courseGetFiltered,
     courseGetByAuthor,
     courseVerifyByAdministrator,
-    courseGetByVerification
+    courseGetByToVerification
 };

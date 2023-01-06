@@ -29,6 +29,13 @@ const userGetByUsername = tryCatch(async (req, res) => {
 
 const userPatchByUsername = tryCatch(async (req, res) => {
   const user = await TeacherModel.findOne({userName: req.params.username});
+  const cookies = req.cookies;
+  const activeUser = cookies.jwt;
+  const foundUser = await TeacherModel.findOne({ activeUser }).exec();
+
+  if (req.params.username != foundUser.userName) {
+    throw new AppError(USER_ERROR, USER_UNAUTHORIZED, 401);
+  }
 
   if (user == null) {
     throw new AppError(USER_ERROR, USER_NOT_FOUND, 404);

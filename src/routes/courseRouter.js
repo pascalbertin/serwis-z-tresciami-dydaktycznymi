@@ -4,6 +4,7 @@ const courseController = require('../controllers/courseController');
 const codesController = require('../controllers/codesController');
 const wrongEndpointHandler = require('../helpers/wrongEndpointHandler');
 const verifyRoles = require('../middleware/verifyRoles');
+const ROLES_LIST = require('../config/roles_list');
 const verifyJWT = require('../middleware/verifyJWT');
 
 /**
@@ -70,7 +71,7 @@ const verifyJWT = require('../middleware/verifyJWT');
  */
 router.route("/")
     .get(courseController.courseGetFiltered)
-    .post( courseController.courseCreate)
+    .post(verifyJWT, courseController.courseCreate)
     .patch(wrongEndpointHandler.errorHandler)
     .delete(wrongEndpointHandler.errorHandler);
 
@@ -219,13 +220,13 @@ router.route("/:title/usage")
 router.route("/:title/verification")
     .get(wrongEndpointHandler.errorHandler)
     .post(wrongEndpointHandler.errorHandler)
-    .patch(courseController.courseVerifyByAdministrator)
+    .patch(verifyJWT, verifyRoles(ROLES_LIST.Admin), courseController.courseVerifyByAdministrator)
     .delete(wrongEndpointHandler.errorHandler);
 
 router.route("/test/test")
     .get(courseController.courseGetFiltered);
 
 router.route("/admin/notVerified")
-    .get(courseController.courseGetByVerification);
+    .get(verifyJWT, verifyRoles(ROLES_LIST.Admin), courseController.courseGetByToVerification);
 
 module.exports = router;
