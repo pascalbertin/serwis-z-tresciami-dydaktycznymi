@@ -122,3 +122,16 @@
     color: black;
   }
 
+.form-container-inputs .add-course-text1 {
+  padding-left: 64px;
+  padding-top: 2px;
+  padding-right: 10px;
+  color: #2F184B;
+  font-size: 18px;
+}
+.form-container-inputs .add-course-text {
+  padding-top: 2px;
+  padding-right: 10px;
+  color: #2F184B;
+  font-size: 18px;
+}

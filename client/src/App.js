@@ -17,6 +17,7 @@ import Profile from './pages/profile/Profile';
 import EditCourse from './pages/editCourse/EditCourse';
 import DeleteCourse from './pages/deleteCourse/deleteCourse';
 import FilterCourses from './pages/filterPage/FilterPage';
+import MoneyPayout from './pages/moneyPayout/moneyPayout';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
                 <Route path="/courses" element={ <AllCourses />} />
                 <Route path="/payment_method" element={ <PaymentMethod />} />
                 <Route path="/filter_courses" element={ <FilterCourses />} />
+                <Route path="/payout" element={ <MoneyPayout />} />
               </Routes>
             </div>          
         </Router>
