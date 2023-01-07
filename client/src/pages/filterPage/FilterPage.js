@@ -13,8 +13,8 @@ const FliterPage = () => {
     const [values, setValues] = useState([])
     const [CheckedSubject, setCheckedSubject] = useState([])
     const [CheckedClasses, setCheckedClasses] = useState([])
-    const [priceMin, setPriceMin] = useState(5)
-    const [priceMax, setPriceMax] = useState(20)
+    const [priceMin, setPriceMin] = useState(1)
+    const [priceMax, setPriceMax] = useState(250)
     var sub = ""
     var level = ""
     var minPrice = "&priceMin="+priceMin.toString()
@@ -174,20 +174,6 @@ const FliterPage = () => {
     setPriceMax( e.target.value );
     }
 
-    // const getBackgroundSizeMin = () => {
-    //     return {
-    //         backgroundSize: `${(priceMin * 100) / priceMax}% 100%`,
-    //     };
-    // };
-    // const getBackgroundSizeMax = () => {
-    //     return {
-    //         backgroundSize: `${(priceMax * 100) / 250}% 100%`,
-    //     };
-    // };
-    // useEffect(() => {
-    //     submitForm()
-    //     madeObjects(values);
-    // }, [])
     const renderCheckboxSubjectList = () => subjects.map((value, index) => (
         <React.Fragment key={index}>
             <Checkbox

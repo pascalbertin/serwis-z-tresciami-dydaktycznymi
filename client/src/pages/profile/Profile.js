@@ -32,7 +32,9 @@ const Profile = () => {
         <div className="profile-container">
       <div className="profile-top-container">
         <h2>Witaj {username}!</h2>
-        <a href="/addCourse"><button className="form-button profile-button">Dodaj kurs</button></a>
+        <a href="/addCourse" ><button className="form-button profile-button">Dodaj kurs</button></a>
+        <h2>Twoje saldo: {}</h2>
+        <a href="/payout"><button className="form-button profile-button">Wypłać</button></a>
       </div>
         <h2 className="pl-10">Lista Twoich kursów:</h2>
         <div className="filters-menu-container flex items-center">
@@ -54,6 +56,7 @@ const Profile = () => {
                                 </Link>
                                 <div className='course-object-subject text-gray-500'>Kategoria: {value?.subject}</div>
                                 <div className='course-object-price pt-4 text-lg md:text-xl lg:text-2xl'>Cena: {value?.price} zł</div>
+                                <div className='course-sales-amount text-lg md:text-xl lg:text-2xl text-purple-900'>Sprzedano: {}</div>
                             </div>
                         </div>
                     </li></div></div>)}              
