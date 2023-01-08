@@ -69,6 +69,7 @@ const storage = new Storage({
 
 const bucketThumbnails = storage.bucket(process.env.GOOGLE_STORAGE_THUMBNAILS_BUCKET);
 const bucketVideos = storage.bucket(process.env.GOOGLE_STORAGE_VIDEOS_BUCKET);
+const bucketAvatars = storage.bucket(process.env.GOOGLE_STORAGE_AVATARS_BUCKET);
 
 app.post('/api/fileUploadThumbnail', multer.single("file"), tryCatch((req, res) => {
   if (req.file) {
@@ -91,6 +92,19 @@ app.post('/api/fileUploadVideo', multer.single("file"), tryCatch((req, res) => {
     blobStream.on("finish", () => {
       res.status(200).send("Success");
       console.log("Video uploaded successfully");
+    });
+    blobStream.end(req.file.buffer);
+  }
+}));
+
+app.post('/api/avatarUpload', multer.single("file"), tryCatch((req, res) => {
+  if (req.file) {
+    const blob = bucketAvatars.file(req.file.originalname);
+    const blobStream = blob.createWriteStream();
+
+    blobStream.on("finish", () => {
+      res.status(200).send("Success");
+      console.log("Avatar uploaded successfully");
     });
     blobStream.end(req.file.buffer);
   }
