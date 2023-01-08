@@ -3,7 +3,7 @@ const AppError = require("../helpers/AppError");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const { USER_ERROR } = require("../helpers/errorCodes");
-const { USER_NOT_FOUND, USER_MISSING_PASSWORD, USER_UNAUTHORIZED, USER_FORBIDDEN } = require("../helpers/errorMessages");
+const { USER_NOT_FOUND, USER_MISSING_PASSWORD, USER_UNAUTHORIZED, USER_FORBIDDEN, USER_NOT_ENOUGH_MONEY } = require("../helpers/errorMessages");
 const { USER_DELETED, USER_ACCOUNT_VERIFIED, USER_MODIFY, USER_RESET_PASSWORD, USER_MONEY_WITHDRAWED } = require("../helpers/confirmationMessages");
 const { tryCatch } = require("../helpers/tryCatch");
 const { transporter } = require('../config/nodemailerConfig');
@@ -151,6 +151,9 @@ const userWithdrawMoney = tryCatch(async (req, res) => {
   }
 
   res.user = user;
+  if (res.user.accountBalance < req.body.moneyAmount) {
+    throw new AppError(USER_ERROR, USER_NOT_ENOUGH_MONEY, 406);
+  }
 
   const moneyAmountToBeWithdrawed = req.body.moneyAmount
   const currentBalance = res.user.accountBalance
