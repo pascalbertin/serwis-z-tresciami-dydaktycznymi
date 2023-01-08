@@ -38,11 +38,17 @@ const teacherSchema = new mongoose.Schema({
   },
   verification: {
         type: Boolean,
+        default: false,
         required: [true]
   },
   bank_account: {
         type: Number,
         required: [false]
+  },
+  accountBalance: {
+    type: Number,
+    default: 0,
+    required: [true]
   },
   course: [courseSchema],
   refreshToken: String,
@@ -51,7 +57,6 @@ const teacherSchema = new mongoose.Schema({
         type: Number,
         default: 2001
     },
-    Editor: Number,
     Admin: Number
     }
 });

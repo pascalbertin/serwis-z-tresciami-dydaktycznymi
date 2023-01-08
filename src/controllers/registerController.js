@@ -23,9 +23,7 @@ const handleRegistration = tryCatch(async (req, res) => {
   const newUser = TeacherModel({
     userName: req.body.username,
     email: req.body.email,
-    password: hashedUserPassword,
-    bank_account: req.body.bank_account,
-    verification: false
+    password: hashedUserPassword
   });
 
   newUser.save();
