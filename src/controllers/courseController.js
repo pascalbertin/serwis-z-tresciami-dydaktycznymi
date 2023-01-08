@@ -32,8 +32,7 @@ const courseCreate = tryCatch(async (req, res) => {
     subject: req.body.subject,
     level: req.body.level,
     video: req.body.video,
-    thumbnail: req.body.thumbnail,
-    verification: false
+    thumbnail: req.body.thumbnail
   });
 
   newCourse.save();

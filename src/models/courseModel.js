@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { lectureSchema, lectureModel } = require('./lectureModel');
 
 /**
  * @swagger
@@ -40,8 +39,6 @@ const { lectureSchema, lectureModel } = require('./lectureModel');
  *              type: string
  *            uses:
  *              type: number
- *        lectures:
- *          $ref: '#/components/schemas/Lectures'
  */
 const courseSchema = new mongoose.Schema({
     title: {
@@ -78,10 +75,15 @@ const courseSchema = new mongoose.Schema({
     },
     verification: {
       type: Boolean,
+      default: false,
       required: [true]
     },
-    codes: [{code: String, uses: Number}],
-    lectures: [lectureSchema]
+    copiesSold: {
+      type: Number,
+      default: 0,
+      required: [true]
+    },
+    codes: [{code: String, uses: Number}]
   });
 
 const courseModel = mongoose.model('Course', courseSchema);
