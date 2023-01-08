@@ -54,7 +54,7 @@ const verifyJWT = require('../middleware/verifyJWT');
 router.route('/')
   .get(usersController.teacherGetAll)
   .post(registerController.handleRegistration)
-  .patch(wrongEndpointHandler.errorHandler)
+  .patch(usersController.userPasswordReset)
   .delete(wrongEndpointHandler.errorHandler);
 
 /**

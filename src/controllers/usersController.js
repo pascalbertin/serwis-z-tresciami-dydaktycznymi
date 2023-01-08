@@ -1,10 +1,12 @@
 const TeacherModel = require("../models/teacherModel");
 const AppError = require("../helpers/AppError");
 const bcrypt = require("bcrypt");
+const crypto = require("crypto");
 const { USER_ERROR } = require("../helpers/errorCodes");
 const { USER_NOT_FOUND, USER_MISSING_PASSWORD, USER_UNAUTHORIZED, USER_FORBIDDEN } = require("../helpers/errorMessages");
-const { USER_DELETED, USER_ACCOUNT_VERIFIED, USER_PASSWORD_MODIFY } = require("../helpers/confirmationMessages");
+const { USER_DELETED, USER_ACCOUNT_VERIFIED, USER_PASSWORD_MODIFY, USER_RESET_PASSWORD } = require("../helpers/confirmationMessages");
 const { tryCatch } = require("../helpers/tryCatch");
+const { transporter } = require('../config/nodemailerConfig');
 
 const teacherGetAll = tryCatch(async (req, res) => {
   const user = await TeacherModel.find();
@@ -88,10 +90,43 @@ const userVerifyAfterRegistration = tryCatch(async (req, res) => {
   return res.status(200).json({message: USER_ACCOUNT_VERIFIED});
 });
 
+const userPasswordReset = tryCatch(async (req, res) => {
+  const newPassword = crypto.randomBytes(16).toString('hex');
+
+  const user = await TeacherModel.findOne({email: req.body.email});
+  if (user == null) {
+    throw new AppError(USER_ERROR, USER_NOT_FOUND, 404);
+  }
+
+  res.user = user;
+
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+  res.user.set({password: hashedPassword});
+
+  const mailOptions = {
+    from: 'Tutors Alpha <JakubStyszynski@gmail.com>',
+    to: req.body.email,
+    subject: 'Tutors Alpha - Resetowanie hasła',
+    text: newPassword,
+    html: "<p>Twoje hasło zostało zresetowane. Aby się zalogować użyj nowo wygenerowanego hasła: " + newPassword + "</p>"
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (!error) {
+      console.log("E-mail sent: " + info.response);
+    }
+  });
+
+  await res.user.save();
+  return res.status(200).json({message: USER_RESET_PASSWORD});
+});
+
 module.exports = { 
   teacherGetAll,
   userGetByUsername,
   userPatchByUsername,
   userDeleteByUsername,
-  userVerifyAfterRegistration
+  userVerifyAfterRegistration,
+  userPasswordReset
 };
