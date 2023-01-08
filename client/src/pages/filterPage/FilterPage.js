@@ -242,6 +242,7 @@ const FliterPage = () => {
                                 <div className='course-object-title text-first text-xl md:text-2xl lg:text-3xl font-bold'>{value?.title}</div>
                                 </Link>
                                 <div className='course-object-subject text-gray-500'>Kategoria: {value?.subject}</div>
+                                <div className='course-object-subject text-gray-500'>Autor: {value?.author}</div>
                                 <div className='course-object-price pt-4 text-lg md:text-xl lg:text-2xl'>Cena: {value?.price} zł</div>
                             </div>
                         </div>
