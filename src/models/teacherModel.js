@@ -50,6 +50,11 @@ const teacherSchema = new mongoose.Schema({
     default: 0,
     required: [true]
   },
+  avatar: {
+    type: String,
+    default: "https://storage.googleapis.com/tutorsalpha-user-avatar/tutorsalpha_default_avatar.jpg",
+    required: [true]
+  },
   course: [courseSchema],
   refreshToken: String,
   roles: {
