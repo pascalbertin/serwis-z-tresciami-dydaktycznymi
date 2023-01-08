@@ -2,10 +2,11 @@ const {CourseSchema, courseModel} = require("../models/courseModel");
 const TeacherModel = require("../models/teacherModel");
 const AppError = require("../helpers/AppError");
 const { COURSE_ERROR, USER_ERROR } = require("../helpers/errorCodes");
-const { COURSE_NOT_FOUND, COURSE_DUPLICATE, COURSE_MISSING_PARAMETERS } = require("../helpers/errorMessages");
-const { COURSE_CREATED } = require("../helpers/confirmationMessages");
+const { COURSE_NOT_FOUND, COURSE_DUPLICATE, COURSE_MISSING_PARAMETERS, USER_FORBIDDEN, USER_UNAUTHORIZED } = require("../helpers/errorMessages");
+const { COURSE_CREATED, COURSE_DELETED } = require("../helpers/confirmationMessages");
 const { tryCatch } = require("../helpers/tryCatch");
 const { transporter } = require('../config/nodemailerConfig');
+const { boolean } = require("webidl-conversions");
 
 const courseCreate = tryCatch(async (req, res) => {
   if (!req.body.title || 
@@ -79,10 +80,25 @@ const courseGetAll = tryCatch(async (req, res) => {
 });
 
 const courseDeleteByTitle = tryCatch(async (req, res) => {
-  const course = await courseModel.findOne({title: req.params.title});
+  const cookies = req.cookies;
+  if (!cookies?.jwt){
+    throw new AppError(USER_ERROR, USER_UNAUTHORIZED, 401);
+  }
 
+  const refreshToken = cookies.jwt;
+
+  const foundUser = await TeacherModel.findOne({ refreshToken }).exec();
+  if (!foundUser) {
+    throw new AppError(USER_ERROR, USER_FORBIDDEN, 403);
+  }
+
+  const course = await courseModel.findOne({title: req.params.title});
   if (course == null) {
     throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
+  }
+
+  if (course.author != foundUser.userName) {
+    throw new AppError(USER_ERROR, USER_FORBIDDEN, 403);
   }
 
   res.course = course;
@@ -92,37 +108,79 @@ const courseDeleteByTitle = tryCatch(async (req, res) => {
 });
 
 const coursePatchByTitle = tryCatch(async (req, res) => {
-  const course = await courseModel.findOne({title: req.params.title});
+  const cookies = req.cookies;
+  if (!cookies?.jwt){
+    throw new AppError(USER_ERROR, USER_UNAUTHORIZED, 401);
+  }
 
+  const refreshToken = cookies.jwt;
+
+  const foundUser = await TeacherModel.findOne({ refreshToken }).exec();
+  if (!foundUser) {
+    throw new AppError(USER_ERROR, USER_FORBIDDEN, 403);
+  }
+
+  const course = await courseModel.findOne({title: req.params.title});
   if (course == null) {
     throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
   }
 
+  if (course.author != foundUser.userName) {
+    throw new AppError(USER_ERROR, USER_FORBIDDEN, 403);
+  }
+
   res.course = course;
+
+  let ifChanged = false; 
 
   if (req.body.title != null) {
     res.course.title = req.body.title;
+    ifChanged = true;
   }
   if (req.body.description != null) {
     res.course.description = req.body.description;
+    ifChanged = true;
   }
   if (req.body.price != null) {
     res.course.price = req.body.price;
+    ifChanged = true;
   }
   if (req.body.author != null) {
     res.course.author = req.body.author;
+    ifChanged = true;
   }
   if (req.body.subject != null) {
     res.course.subject = req.body.subject;
+    ifChanged = true;
   }
   if (req.body.level != null) {
     res.course.level = req.body.level;
+    ifChanged = true;
   }
   if (req.body.video != null) {
     res.course.video = req.body.video;
+    ifChanged = true;
   }
   if (req.body.thumbnail != null) {
     res.course.thumbnail = req.body.thumbnail;
+    ifChanged = true;
+  }
+
+  if (ifChanged) {
+    res.course.set({verification: false});
+    const mailOptions = {
+      from: 'Tutors Alpha <JakubStyszynski@gmail.com>',
+      to: foundUser.email,
+      subject: 'Tutors Alpha - Modyfikacja kursu',
+      text: res.course.title,
+      html: "<p>Kurs "+res.course.title+" został zmodyfikowany i oczekuje na ponowną weryfikację przez administratora serwisu. Poinformujemy Cię w osobnej wiadomości e-mail gdy kurs zostanie ponownie zweryfikowany.</p>"
+    };
+  
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (!error) {
+        console.log("E-mail sent: " + info.response);
+      }
+    });
   }
 
   const updatedCourse = await res.course.save();

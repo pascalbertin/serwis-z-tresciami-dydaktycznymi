@@ -8,20 +8,22 @@ const { USER_MISSING_PARAMETERS, USER_UNAUTHORIZED, USER_NOT_FOUND } = require("
 const { USER_ERROR } = require("../helpers/errorCodes");
 
 const handleLogin = tryCatch(async (req, res) => {
+  
   if (!req.body.username || !req.body.email || !req.body.password) {
     throw new AppError(USER_ERROR, USER_MISSING_PARAMETERS, 400);
   }
 
   const foundUser = await TeacherModel.findOne({ userName: req.body.username }).exec();
-  const isPasswordCorrect = await bcrypt.compare(req.body.password, foundUser.password);
-
   if (!foundUser) {
     throw new AppError(USER_ERROR, USER_NOT_FOUND, 404);
   }
 
+  const isPasswordCorrect = await bcrypt.compare(req.body.password, foundUser.password);
   if (!isPasswordCorrect || !foundUser.verification) {
     throw new AppError(USER_ERROR, USER_UNAUTHORIZED, 401);
   }
+
+
 
   if (isPasswordCorrect) {
     const roles = Object.values(foundUser.roles).filter(Boolean);
