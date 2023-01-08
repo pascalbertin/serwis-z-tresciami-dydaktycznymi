@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const { USER_ERROR } = require("../helpers/errorCodes");
 const { USER_NOT_FOUND, USER_MISSING_PASSWORD, USER_UNAUTHORIZED, USER_FORBIDDEN } = require("../helpers/errorMessages");
-const { USER_DELETED, USER_ACCOUNT_VERIFIED, USER_PASSWORD_MODIFY, USER_RESET_PASSWORD, USER_MONEY_WITHDRAWED } = require("../helpers/confirmationMessages");
+const { USER_DELETED, USER_ACCOUNT_VERIFIED, USER_MODIFY, USER_RESET_PASSWORD, USER_MONEY_WITHDRAWED } = require("../helpers/confirmationMessages");
 const { tryCatch } = require("../helpers/tryCatch");
 const { transporter } = require('../config/nodemailerConfig');
 
@@ -56,12 +56,18 @@ const userPatchByUsername = tryCatch(async (req, res) => {
   
   if (req.body.password != null) {
     res.user.password = hashedUserPassword;
-  } else {
-    throw new AppError(USER_ERROR, USER_MISSING_PASSWORD, 400);
+  }
+
+  if (req.body.avatar != null) {
+    res.user.avatar = req.body.avatar;
+  }
+
+  if (req.body.bank_account != null) {
+    res.user.bank_account = req.body.bank_account;
   }
   
   await res.user.save();
-  return res.status(200).json({message: USER_PASSWORD_MODIFY});
+  return res.status(200).json({message: USER_MODIFY});
 });
 
 const userDeleteByUsername = tryCatch(async (req, res) => {
