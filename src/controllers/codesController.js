@@ -1,4 +1,5 @@
 const {CourseSchema, courseModel} = require("../models/courseModel");
+const TeacherModel = require("../models/teacherModel");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto")
 const AppError = require("../helpers/AppError");
@@ -14,6 +15,7 @@ const courseGenerateCode = tryCatch(async (req, res) => {
   const link = "https://serwis-z-tresciami.herokuapp.com/course/?title=" + courseTitleReplaced;
 
   const course = await courseModel.findOne({title: req.params.title});
+  const courseAuthor = await TeacherModel.findOne({ userName: course.author }).exec();
 
   if (course == null) {
     throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
@@ -24,19 +26,28 @@ const courseGenerateCode = tryCatch(async (req, res) => {
   }
 
   res.course = course;
+  res.user = courseAuthor;
 
   const generatedCode = crypto.randomBytes(16).toString('hex');
   const hashedCode = await bcrypt.hash(generatedCode, 10);
-  res.course.codes.push({code: hashedCode, uses: 3});
 
-  const updatedCourse = await res.course.save();
-    const mailOptions = {
-      from: 'Tutors Alpha <JakubStyszynski@gmail.com>',
-      to: req.body.email,
-      subject: 'Tutors Alpha - Twój Kod',
-      text: generatedCode,
-      html: "<b><strong><p>Dziękujemy za zakup!</p></strong></b> <br/> <p>Twój kod: </p>"+generatedCode+" <br/> <p>Zakupiony kurs znajdziesz tutaj: </p>"+"<a href="+link+">Link do kursu</a>"
-    }; 
+  let numberOfCopiesSold = res.course.copiesSold + 1;
+  let authorAccountBalance = res.user.accountBalance + res.course.price;
+
+  res.course.codes.push({code: hashedCode, uses: 3});
+  res.course.set({copiesSold: numberOfCopiesSold});
+  res.user.set({accountBalance: authorAccountBalance});
+
+  await res.course.save();
+  await res.user.save();
+
+  const mailOptions = {
+    from: 'Tutors Alpha <JakubStyszynski@gmail.com>',
+    to: req.body.email,
+    subject: 'Tutors Alpha - Twój Kod',
+    text: generatedCode,
+    html: "<b><strong><p>Dziękujemy za zakup!</p></strong></b> <br/> <p>Twój kod: </p>"+generatedCode+" <br/> <p>Zakupiony kurs znajdziesz tutaj: </p>"+"<a href="+link+">Link do kursu</a>"
+  }; 
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (!error) {
