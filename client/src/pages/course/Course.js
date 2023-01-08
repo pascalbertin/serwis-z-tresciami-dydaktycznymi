@@ -104,8 +104,7 @@ const updateCodeHandler = event => {
             <input id="username" type="text" name="code" className='form-input' placeholder="Kod dostępu" value={code.code} onChange={updateCodeHandler} />
               <button className='form-button' type="submit">
                 Aktywuj 
-              </button>
-              
+              </button>              
           </form>
         </div>
         {error.length > 0 ? <h6 className="text-red-500">{error}</h6> : ""}
