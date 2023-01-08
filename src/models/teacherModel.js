@@ -12,6 +12,7 @@ const { courseSchema, courseModel } = require('./courseModel');
  *      - email
  *      - password
  *      - verification
+ *      - bank_account
  *      - accountBalance
  *      - avatar
  *      properties:
@@ -27,7 +28,8 @@ const { courseSchema, courseModel } = require('./courseModel');
  *          type: boolean
  *          default: false
  *        bank_account:
- *          type: number
+ *          type: string
+ *          default: "00 0000 0000 0000 0000 0000 0000"
  *        accountBalance:
  *          type: number
  *          format: double
@@ -67,8 +69,9 @@ const teacherSchema = new mongoose.Schema({
         required: [true]
   },
   bank_account: {
-        type: Number,
-        required: [false]
+        type: String,
+        default: "00 0000 0000 0000 0000 0000 0000",
+        required: [true]
   },
   accountBalance: {
     type: Number,
