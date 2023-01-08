@@ -259,6 +259,27 @@ const courseGetFiltered = async (req, res) => {
 };
 
 const courseGetByAuthor = tryCatch(async (req, res) => {
+  const cookies = req.cookies;
+  if (!cookies?.jwt){
+    throw new AppError(USER_ERROR, USER_UNAUTHORIZED, 401);
+  }
+
+  const refreshToken = cookies.jwt;
+
+  const foundUser = await TeacherModel.findOne({ refreshToken }).exec();
+  if (!foundUser) {
+    throw new AppError(USER_ERROR, USER_FORBIDDEN, 403);
+  }
+
+  const user = await TeacherModel.findOne({userName: req.params.username});
+  if (user == null) {
+    throw new AppError(USER_ERROR, USER_NOT_FOUND, 404);
+  }
+
+  if (req.params.username != foundUser.userName) {
+    throw new AppError(USER_ERROR, USER_UNAUTHORIZED, 401);
+  }
+
   const course = await courseModel.find({author: req.params.username});
 
   if (course == null) {

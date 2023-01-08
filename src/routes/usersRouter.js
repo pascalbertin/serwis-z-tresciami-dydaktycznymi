@@ -180,7 +180,7 @@ router.route('/:username/verification')
   .delete(wrongEndpointHandler.errorHandler)
   
 router.route('/:username/courses')
-  .get(courseController.courseGetByAuthor)
+  .get(verifyJWT, courseController.courseGetByAuthor)
   .post(wrongEndpointHandler.errorHandler)
   .patch(wrongEndpointHandler.errorHandler)
   .delete(wrongEndpointHandler.errorHandler);
