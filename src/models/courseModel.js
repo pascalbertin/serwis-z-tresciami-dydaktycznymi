@@ -15,6 +15,9 @@ const mongoose = require("mongoose");
  *      - level
  *      - video
  *      - thumbnail
+ *      - toBeDeleted
+ *      - verification
+ *      - copiesSold
  *      properties:
  *        title:
  *          type: string
@@ -22,16 +25,31 @@ const mongoose = require("mongoose");
  *          type: string
  *        price:
  *          type: number
+ *          format: double
  *        author:
  *          type: string
  *        subject:
  *          type: string
+ *          enum: [Matematyka,Polski,Angielski,Niemiecki,Informatyka,Biologia,Chemia,Fizyka,Historia,Geografia,Muzyka,PP]
  *        level:
  *          type: number
+ *          format: integer
+ *          minimum: 1
+ *          maximum: 5
  *        video:
  *          type: string
  *        thumbnail:
  *          type: string
+ *        toBeDeleted:
+ *          type: boolean
+ *          default: false
+ *        verification:
+ *          type: boolean
+ *          default: false
+ *        copiesSold:
+ *          type: number
+ *          format: integer
+ *          default: 0
  *        codes:
  *          type: object
  *          properties:
@@ -39,6 +57,9 @@ const mongoose = require("mongoose");
  *              type: string
  *            uses:
  *              type: number
+ *              format: integer
+ *              minimum: 0
+ *              maximum: 3
  */
 const courseSchema = new mongoose.Schema({
     title: {
