@@ -90,7 +90,7 @@ app.post('/api/fileUploadVideo', multer.single("file"), tryCatch((req, res) => {
 
     blobStream.on("finish", () => {
       res.status(200).send("Success");
-      console.log("Thumbnail uploaded successfully");
+      console.log("Video uploaded successfully");
     });
     blobStream.end(req.file.buffer);
   }
