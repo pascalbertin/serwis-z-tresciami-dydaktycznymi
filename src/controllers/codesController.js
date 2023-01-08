@@ -1,7 +1,7 @@
 const {CourseSchema, courseModel} = require("../models/courseModel");
 const TeacherModel = require("../models/teacherModel");
 const bcrypt = require("bcrypt");
-const crypto = require("crypto")
+const crypto = require("crypto");
 const AppError = require("../helpers/AppError");
 const { COURSE_ERROR } = require("../helpers/errorCodes");
 const { COURSE_NOT_FOUND, COURSE_MISSING_EMAIL, COURSE_CODE_MISSING } = require("../helpers/errorMessages");
