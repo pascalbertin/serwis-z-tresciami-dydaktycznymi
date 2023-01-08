@@ -52,9 +52,9 @@ const userPatchByUsername = tryCatch(async (req, res) => {
   }
 
   res.user = user;
-  const hashedUserPassword = await bcrypt.hash(req.body.password, 10);
   
   if (req.body.password != null) {
+    const hashedUserPassword = await bcrypt.hash(req.body.password, 10);
     res.user.password = hashedUserPassword;
   }
 
