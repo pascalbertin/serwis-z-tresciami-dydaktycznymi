@@ -10,6 +10,7 @@ exports.COURSE_MISSING_EMAIL = "Nie podano adresu e-mail";
 exports.COURSE_MISSING_PARAMETERS = "Nie podano uzupełniono wszystkich informacji";
 exports.COURSE_DUPLICATE = "Kurs o podanej nazwie już istnieje";
 exports.COURSE_CODE_MISSING = "Nie podano kodu dostępowego";
+exports.COURSE_ALREADY_DELETED = "Kurs został już usunięty";
 
 exports.INVALID_TOKEN = "Podano błędny token JWT";
 

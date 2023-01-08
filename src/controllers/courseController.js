@@ -2,11 +2,10 @@ const {CourseSchema, courseModel} = require("../models/courseModel");
 const TeacherModel = require("../models/teacherModel");
 const AppError = require("../helpers/AppError");
 const { COURSE_ERROR, USER_ERROR } = require("../helpers/errorCodes");
-const { COURSE_NOT_FOUND, COURSE_DUPLICATE, COURSE_MISSING_PARAMETERS, USER_FORBIDDEN, USER_UNAUTHORIZED } = require("../helpers/errorMessages");
-const { COURSE_CREATED, COURSE_DELETED } = require("../helpers/confirmationMessages");
+const { COURSE_NOT_FOUND, COURSE_DUPLICATE, COURSE_MISSING_PARAMETERS, USER_FORBIDDEN, USER_UNAUTHORIZED, COURSE_ALREADY_DELETED } = require("../helpers/errorMessages");
+const { COURSE_CREATED, COURSE_DELETED, COURSE_TO_BE_DELETED } = require("../helpers/confirmationMessages");
 const { tryCatch } = require("../helpers/tryCatch");
 const { transporter } = require('../config/nodemailerConfig');
-const { boolean } = require("webidl-conversions");
 
 const courseCreate = tryCatch(async (req, res) => {
   if (!req.body.title || 
@@ -97,14 +96,24 @@ const courseDeleteByTitle = tryCatch(async (req, res) => {
     throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
   }
 
+  if (course.toBeDeleted) {
+    throw new AppError(COURSE_ERROR, COURSE_ALREADY_DELETED, 404);
+  }
+
   if (course.author != foundUser.userName) {
     throw new AppError(USER_ERROR, USER_FORBIDDEN, 403);
   }
 
   res.course = course;
 
-  await courseModel.deleteOne({_id: res.course._id});
-  return res.status(200).json({message: COURSE_DELETED});
+  if (!res.course.codes.length) {
+    await courseModel.deleteOne({_id: res.course._id});
+    return res.status(200).json({message: COURSE_DELETED});
+  } else {
+    res.course.set({toBeDeleted: true});
+    await res.course.save();
+    return res.status(200).json({message: COURSE_TO_BE_DELETED});
+  }
 });
 
 const coursePatchByTitle = tryCatch(async (req, res) => {

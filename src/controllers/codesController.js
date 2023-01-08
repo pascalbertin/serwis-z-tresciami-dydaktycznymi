@@ -5,7 +5,7 @@ const crypto = require("crypto");
 const AppError = require("../helpers/AppError");
 const { COURSE_ERROR } = require("../helpers/errorCodes");
 const { COURSE_NOT_FOUND, COURSE_MISSING_EMAIL, COURSE_CODE_MISSING } = require("../helpers/errorMessages");
-const { EMAIL_SENT, COURSE_CODE_OUT_OF_USES, COURSE_INCORRECT_CODE } = require("../helpers/confirmationMessages");
+const { EMAIL_SENT, COURSE_CODE_OUT_OF_USES, COURSE_INCORRECT_CODE, COURSE_DELETED } = require("../helpers/confirmationMessages");
 const { tryCatch } = require("../helpers/tryCatch");
 const { transporter } = require('../config/nodemailerConfig');
 
@@ -65,11 +65,16 @@ const courseUseCode = tryCatch(async (req, res) => {
     throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
   }
 
+  res.course = course;
+
   if (!req.body.code) {
     throw new AppError(COURSE_ERROR, COURSE_CODE_MISSING, 400);
   }
 
-  res.course = course;
+  if (course.toBeDeleted && !course.codes.length) {
+    await res.course.deleteOne({_id: res.course._id});
+    return res.status(200).json({message: COURSE_DELETED});
+  }
 
   let i = 0;
   let shouldContinue = true;

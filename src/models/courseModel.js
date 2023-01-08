@@ -73,6 +73,11 @@ const courseSchema = new mongoose.Schema({
         type: String,
         required: [true, "Nie podano miniaturki"]
     },
+    toBeDeleted: {
+      type: Boolean,
+      default: false,
+      required: [true]
+    },
     verification: {
       type: Boolean,
       default: false,
