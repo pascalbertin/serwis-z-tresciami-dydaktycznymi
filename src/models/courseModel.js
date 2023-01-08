@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { lectureSchema, lectureModel } = require('./lectureModel');
 
 /**
  * @swagger
@@ -16,6 +15,9 @@ const { lectureSchema, lectureModel } = require('./lectureModel');
  *      - level
  *      - video
  *      - thumbnail
+ *      - toBeDeleted
+ *      - verification
+ *      - copiesSold
  *      properties:
  *        title:
  *          type: string
@@ -23,16 +25,31 @@ const { lectureSchema, lectureModel } = require('./lectureModel');
  *          type: string
  *        price:
  *          type: number
+ *          format: double
  *        author:
  *          type: string
  *        subject:
  *          type: string
+ *          enum: [Matematyka,Polski,Angielski,Niemiecki,Informatyka,Biologia,Chemia,Fizyka,Historia,Geografia,Muzyka,PP]
  *        level:
  *          type: number
+ *          format: integer
+ *          minimum: 1
+ *          maximum: 5
  *        video:
  *          type: string
  *        thumbnail:
  *          type: string
+ *        toBeDeleted:
+ *          type: boolean
+ *          default: false
+ *        verification:
+ *          type: boolean
+ *          default: false
+ *        copiesSold:
+ *          type: number
+ *          format: integer
+ *          default: 0
  *        codes:
  *          type: object
  *          properties:
@@ -40,8 +57,9 @@ const { lectureSchema, lectureModel } = require('./lectureModel');
  *              type: string
  *            uses:
  *              type: number
- *        lectures:
- *          $ref: '#/components/schemas/Lectures'
+ *              format: integer
+ *              minimum: 0
+ *              maximum: 3
  */
 const courseSchema = new mongoose.Schema({
     title: {
@@ -76,8 +94,22 @@ const courseSchema = new mongoose.Schema({
         type: String,
         required: [true, "Nie podano miniaturki"]
     },
-    codes: [{code: String, uses: Number}],
-    lectures: [lectureSchema]
+    toBeDeleted: {
+      type: Boolean,
+      default: false,
+      required: [true]
+    },
+    verification: {
+      type: Boolean,
+      default: false,
+      required: [true]
+    },
+    copiesSold: {
+      type: Number,
+      default: 0,
+      required: [true]
+    },
+    codes: [{code: String, uses: Number}]
   });
 
 const courseModel = mongoose.model('Course', courseSchema);

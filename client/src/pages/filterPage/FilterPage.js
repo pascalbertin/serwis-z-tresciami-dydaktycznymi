@@ -13,8 +13,8 @@ const FliterPage = () => {
     const [values, setValues] = useState([])
     const [CheckedSubject, setCheckedSubject] = useState([])
     const [CheckedClasses, setCheckedClasses] = useState([])
-    const [priceMin, setPriceMin] = useState(5)
-    const [priceMax, setPriceMax] = useState(20)
+    const [priceMin, setPriceMin] = useState(1)
+    const [priceMax, setPriceMax] = useState(250)
     var sub = ""
     var level = ""
     var minPrice = "&priceMin="+priceMin.toString()
@@ -174,20 +174,6 @@ const FliterPage = () => {
     setPriceMax( e.target.value );
     }
 
-    // const getBackgroundSizeMin = () => {
-    //     return {
-    //         backgroundSize: `${(priceMin * 100) / priceMax}% 100%`,
-    //     };
-    // };
-    // const getBackgroundSizeMax = () => {
-    //     return {
-    //         backgroundSize: `${(priceMax * 100) / 250}% 100%`,
-    //     };
-    // };
-    // useEffect(() => {
-    //     submitForm()
-    //     madeObjects(values);
-    // }, [])
     const renderCheckboxSubjectList = () => subjects.map((value, index) => (
         <React.Fragment key={index}>
             <Checkbox
@@ -256,6 +242,7 @@ const FliterPage = () => {
                                 <div className='course-object-title text-first text-xl md:text-2xl lg:text-3xl font-bold'>{value?.title}</div>
                                 </Link>
                                 <div className='course-object-subject text-gray-500'>Kategoria: {value?.subject}</div>
+                                <div className='course-object-subject text-gray-500'>Autor: {value?.author}</div>
                                 <div className='course-object-price pt-4 text-lg md:text-xl lg:text-2xl'>Cena: {value?.price} zł</div>
                             </div>
                         </div>

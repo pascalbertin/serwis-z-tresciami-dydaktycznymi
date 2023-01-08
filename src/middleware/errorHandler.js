@@ -10,7 +10,6 @@ const errorHandler = (error, req, res, next) => {
       httpStatusCode: error.statusCode
     });
   }
-
   return res.status(500).send(SERVER_ERROR);
 };
 

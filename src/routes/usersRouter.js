@@ -4,6 +4,8 @@ const usersController = require('../controllers/usersController');
 const registerController = require('../controllers/registerController');
 const wrongEndpointHandler = require('../helpers/wrongEndpointHandler');
 const courseController = require('../controllers/courseController');
+const verifyRoles = require('../middleware/verifyRoles');
+const ROLES_LIST = require('../config/roles_list');
 const verifyJWT = require('../middleware/verifyJWT');
 
 /**
@@ -15,9 +17,14 @@ const verifyJWT = require('../middleware/verifyJWT');
  *    summary: Zwraca wszystkich użytkowników z bazy
  *    responses:
  *      200:
- *        description: Zwraca wszystkich użytkowników z bazy 
- *      500:
- *        description: Błąd po stronie serwera
+ *        description: Zwraca wszystkich użytkowników z bazy
+ *        content:
+ *          application/json:
+ *            $ref: '#/components/schemas/Teachers'
+ *      404:
+ *        description: USER_NOT_FOUND - Nie znaleziono użytkowników
+ *      5XX:
+ *        description: SERVER_ERROR - Błąd po stronie serwera
  *  post:
  *    tags:
  *    - Użytkownicy
@@ -28,50 +35,83 @@ const verifyJWT = require('../middleware/verifyJWT');
  *        application/json:
  *          schema:
  *            type: object
+ *            required:
+ *              - username
+ *              - email
+ *              - password
+ *              - verification
+ *              - accountBalance
+ *              - avatar
  *            properties:
  *              username:
  *                type: string
  *              email:
  *                type: string
+ *                format: email
  *              password:
  *                type: string
+ *                format: password
+ *              verification:
+ *                type: boolean
+ *                default: false
+ *              accountBalance:
+ *                type: number
+ *                format: double
+ *                default: 0
+ *              avatar:
+ *                type: string
+ *                default: https://storage.googleapis.com/tutorsalpha-user-avatar/tutorsalpha_default_avatar.jpg
  *            example:
  *              username: nazwausera
  *              email: test@test.pl
  *              password: zaq12WSX
  *    responses:
  *      200:
- *        description: Pomyślnie dodano użytkownika do bazy danych
+ *        description: USER_CREATED - Pomyślnie dodano użytkownika do bazy danych
  *      400:
- *        description: Bad request, nie podano wszystkich parametrów
+ *        description: USER_MISSING_PARAMETERS - Bad request, nie podano wszystkich parametrów
  *      409:
- *        description: Konflikt, użytkownik o podanej nazwie użytkownika już istnieje
- *      500:
- *        description: Błąd po stronie serwera
+ *        description: USER_DUPLICATE - Konflikt, użytkownik o podanej nazwie użytkownika już istnieje
+ *      5XX:
+ *        description: SERVER_ERROR - Błąd po stronie serwera
  */
 router.route('/')
   .get(usersController.teacherGetAll)
   .post(registerController.handleRegistration)
-  .patch(wrongEndpointHandler.errorHandler)
+  .patch(usersController.userPasswordReset)
   .delete(wrongEndpointHandler.errorHandler);
 
 /**
  * @swagger
  * /api/users/{username}:
  *  get:
+ *    parameters:
+ *      - in: path
+ *        name: username
+ *        required: true
+ *        schema:
+ *          type: string
+ *        description: Nazwa użytkownika
  *    tags:
  *    - Użytkownicy
- *    summary: Zwraca danego użytkownika
+ *    summary: Zwraca użytkownika o zadanej nazwie podanej w parametrach
  *    requestBody:
  *      description: "Zwraca użytkownika po jego nazwie wziętej z linku {username}"
  *    responses:
  *      200:
  *        description: Zwraca użytkownika
  *      404:
- *        description: Użytkownik o takiej nazwie nie istnieje w bazie danych
- *      500:
- *        description: Błąd po stronie serwera
+ *        description: USER_NOT_FOUND - Użytkownik o takiej nazwie nie istnieje w bazie danych
+ *      5XX:
+ *        description: SERVER_ERROR - Błąd po stronie serwera
  *  patch:
+ *    parameters:
+ *      - in: path
+ *        name: username
+ *        required: true
+ *        schema:
+ *          type: string
+ *        description: Nazwa użytkownika
  *    security:
  *      - bearerAuth: []
  *    tags:
@@ -86,18 +126,30 @@ router.route('/')
  *            properties:
  *              password:
  *                type: string
+ *                format: password
  *            example:
  *              password: zaq12WSX
  *    responses:
  *      200:
  *        description: Pomyślnie zaktualizowano dane użytkownika
  *      400:
- *        description: Bad request, nie podano wszystkich parametrów (hasła)
+ *        description: USER_MISSING_PASSWORD - Bad request, nie podano wszystkich parametrów (hasła)
+ *      401:
+ *        description: USER_UNAUTHORIZED - Niepoprawne dane logowania
+ *      403:
+ *        description: USER_FORBIDDEN - Brak dostępu
  *      404:
- *        description: Użytkownik z taką nazwą użytkownika nie istnieje
- *      500:
- *        description: Błąd po stronie serwera
+ *        description: USER_NOT_FOUND - Użytkownik z taką nazwą użytkownika nie istnieje
+ *      5XX:
+ *        description: SERVER_ERROR - Błąd po stronie serwera
  *  delete:
+ *    parameters:
+ *      - in: path
+ *        name: username
+ *        required: true
+ *        schema:
+ *          type: string
+ *        description: Nazwa użytkownika
  *    security:
  *      - bearerAuth: []
  *    tags:
@@ -107,19 +159,37 @@ router.route('/')
  *      description: "Usuwa użytkownika z bazy po jego nazwie użytkownika wziętej z linka"
  *    responses:
  *      200:
- *        description: Pomyślnie usunięto użytkownika
+ *        description: USER_DELETED - Pomyślnie usunięto użytkownika
+ *      401:
+ *        description: USER_UNAUTHORIZED - Brak dostępu
  *      404:
- *        description: Użytkownik z taką nazwą użytkownika nie istnieje
- *      500:
- *        description: Błąd po stronie serwera
+ *        description: USER_NOT_FOUND - Użytkownik z taką nazwą użytkownika nie istnieje
+ *      5XX:
+ *        description: SERVER_ERROR - Błąd po stronie serwera
  */
 router.route('/:username')
   .get(usersController.userGetByUsername)
   .post(wrongEndpointHandler.errorHandler)
   .patch(verifyJWT, usersController.userPatchByUsername)
-  .delete(verifyJWT, usersController.userDeleteByUsername);
+  .delete(verifyJWT, verifyRoles(ROLES_LIST.Admin), usersController.userDeleteByUsername);
 
+router.route('/:username/verification')
+  .get(usersController.userVerifyAfterRegistration)
+  .post(wrongEndpointHandler.errorHandler)
+  .patch(usersController.userVerifyAfterRegistration)
+  .delete(wrongEndpointHandler.errorHandler)
+  
 router.route('/:username/courses')
-  .get(courseController.courseGetByAuthor);
+  .get(verifyJWT, courseController.courseGetByAuthor)
+  .post(wrongEndpointHandler.errorHandler)
+  .patch(wrongEndpointHandler.errorHandler)
+  .delete(wrongEndpointHandler.errorHandler);
+
+router.route('/:username/withdrawMoney')
+  .get(wrongEndpointHandler.errorHandler)
+  .post(wrongEndpointHandler.errorHandler)
+  .patch(verifyJWT, usersController.userWithdrawMoney)
+  .delete(wrongEndpointHandler.errorHandler);
+
 
 module.exports = router;

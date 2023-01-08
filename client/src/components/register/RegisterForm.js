@@ -5,7 +5,7 @@ import '../../styles/Form.css'
 
 const RegisterForm = ({submitForm}) => {
   
-  const {updateHandler, values, submitHandler, errors, isChecked, checkHandler} = RegisterHandler(submitForm, RegisterValidator);
+  const {updateHandler, values, submitHandler, errors, isChecked, checkHandler, avatarHandler, avatar} = RegisterHandler(submitForm, RegisterValidator);
 
   return (
     <div className="form-container">
@@ -34,7 +34,11 @@ const RegisterForm = ({submitForm}) => {
                 <input id="passwordRepeat" type="password" name="passwordRepeat" className="form-input" placeholder="Powtórz hasło" value={values.passwordRepeat} onChange={updateHandler} />
                 {errors.passwordRepeat && <p>{errors.passwordRepeat}</p>}
             </div>
-
+            <div className="form-container-inputs">
+                  <p className='add-avatar-text'>TWÓJ AWATAR:</p>
+                  <label htmlFor="thumbnail" className="form-label"></label>
+                  <input className='avatar-input' id="thumbnail" type="file" name="thumbnail" accept="image/jpeg, image/png, image/svg" placeholder="Link do awatara" onChange={avatarHandler}/>
+              </div>
             <div className="form-checkbox">
                 <input id="rules" type="checkbox" name="rules" className="form-checkbox-input" value={isChecked} onChange={checkHandler} />
                 <label htmlFor="rules" className="form-checkbox-label"><span>Rejestrując się akceptujesz Regulamin oraz Warunki korzystania z serwisu</span></label>

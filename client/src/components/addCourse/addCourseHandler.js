@@ -39,7 +39,7 @@ const AddCourseHandler = callback => {
         const blob = tempVideo.slice(0, tempVideo.size, "video/" + extension);
         const newFile = new File([blob], `${generateUuid}_VIDEO.${extension}`, { type: "video/" + extension });
         setVideo(newFile)
-        setValues({...values, video: 'https://storage.googleapis.com/tutors-alpha-videos/' + newFile.name})
+        setValues({...values, video: 'https://storage.googleapis.com/tutorsalpha-videos/' + newFile.name})
     }
 
     const thumbnailHandler = event => {
@@ -51,7 +51,7 @@ const AddCourseHandler = callback => {
         const blob = tempThumbnail.slice(0, tempThumbnail.size, "image/" + extension);
         const newFile = new File([blob], `${generateUuid}_THUMBNAIL.${extension}`, { type: "image/" + extension });
         setThumbnail(newFile)
-        setValues({...values, thumbnail: 'https://storage.googleapis.com/tutors-alpha-thumbnails/' + newFile.name})
+        setValues({...values, thumbnail: 'https://storage.googleapis.com/tutorsalpha-thumbnails/' + newFile.name})
     }
 
     const submitHandler = event => {

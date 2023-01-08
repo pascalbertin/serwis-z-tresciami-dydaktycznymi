@@ -1,0 +1,40 @@
+.payment-main-text {
+    color: #2F184B;
+    font-size: 45px;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.payment-bottom-text {
+    color: black;
+    font-size: 20px;
+    text-align: left;
+    padding-bottom: 10px;
+}
+
+.number-payout-input {
+    text-align: center;
+    font-size: 35px;
+    width: 175px;
+    border: solid grey;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    opacity: 1;
+    padding-right: 5px;
+}
+
+.payment-container .row{
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.payment-price-text {
+    color: #2F184B;
+    font-size: 35px;
+    text-align: center;
+    padding-left: 10px;
+    padding-top: 10px;
+}

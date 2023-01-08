@@ -2,5 +2,6 @@ export const API = {
     auth: '/api/auth',
     course: '/api/courses',
     code: '/api/courses',
-    user: '/api/users'
+    user: '/api/users',
+    payu: '/api/payu/generateOrder'
 }
