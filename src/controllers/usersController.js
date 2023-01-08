@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const { USER_ERROR } = require("../helpers/errorCodes");
 const { USER_NOT_FOUND, USER_MISSING_PASSWORD, USER_UNAUTHORIZED, USER_FORBIDDEN } = require("../helpers/errorMessages");
-const { USER_DELETED, USER_ACCOUNT_VERIFIED, USER_PASSWORD_MODIFY, USER_RESET_PASSWORD } = require("../helpers/confirmationMessages");
+const { USER_DELETED, USER_ACCOUNT_VERIFIED, USER_MODIFY, USER_RESET_PASSWORD, USER_MONEY_WITHDRAWED } = require("../helpers/confirmationMessages");
 const { tryCatch } = require("../helpers/tryCatch");
 const { transporter } = require('../config/nodemailerConfig');
 
@@ -52,16 +52,22 @@ const userPatchByUsername = tryCatch(async (req, res) => {
   }
 
   res.user = user;
-  const hashedUserPassword = await bcrypt.hash(req.body.password, 10);
   
   if (req.body.password != null) {
+    const hashedUserPassword = await bcrypt.hash(req.body.password, 10);
     res.user.password = hashedUserPassword;
-  } else {
-    throw new AppError(USER_ERROR, USER_MISSING_PASSWORD, 400);
+  }
+
+  if (req.body.avatar != null) {
+    res.user.avatar = req.body.avatar;
+  }
+
+  if (req.body.bank_account != null) {
+    res.user.bank_account = req.body.bank_account;
   }
   
   await res.user.save();
-  return res.status(200).json({message: USER_PASSWORD_MODIFY});
+  return res.status(200).json({message: USER_MODIFY});
 });
 
 const userDeleteByUsername = tryCatch(async (req, res) => {
@@ -122,11 +128,60 @@ const userPasswordReset = tryCatch(async (req, res) => {
   return res.status(200).json({message: USER_RESET_PASSWORD});
 });
 
+
+const userWithdrawMoney = tryCatch(async (req, res) => {
+  const cookies = req.cookies;
+  if (!cookies?.jwt){
+    throw new AppError(USER_ERROR, USER_UNAUTHORIZED, 401);
+  }
+
+  const refreshToken = cookies.jwt;
+  const foundUser = await TeacherModel.findOne({ refreshToken }).exec();
+  if (!foundUser) {
+    throw new AppError(USER_ERROR, USER_FORBIDDEN, 403);
+  }
+
+  const user = await TeacherModel.findOne({userName: req.params.username});
+  if (user == null) {
+    throw new AppError(USER_ERROR, USER_NOT_FOUND, 404);
+  }
+
+  if (req.params.username != foundUser.userName) {
+    throw new AppError(USER_ERROR, USER_UNAUTHORIZED, 401);
+  }
+
+  res.user = user;
+
+  const moneyAmountToBeWithdrawed = req.body.moneyAmount
+  const currentBalance = res.user.accountBalance
+  const balanceAfterWithdraw = currentBalance - moneyAmountToBeWithdrawed
+  res.user.set({accountBalance: balanceAfterWithdraw})
+  
+  const mailOptions = {
+    from: 'Tutors Alpha <JakubStyszynski@gmail.com>',
+    to:'TutorsAlphaKontakt@gmail.com',
+    subject: 'Tutors Alpha - Wypłata środków',
+    text: moneyAmountToBeWithdrawed,
+    html: "<p>Użytkownik: " + res.user.userName + "<br/>zażądał wypłatę środków w wysokości: " + moneyAmountToBeWithdrawed +"<br/>na konto bankowe: "+res.user.bank_account+"</p>"
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (!error) {
+      console.log("E-mail sent: " + info.response);
+    }
+  });
+  
+  
+  await res.user.save();
+  return res.status(200).json({message: USER_MONEY_WITHDRAWED});
+});
+
 module.exports = { 
   teacherGetAll,
   userGetByUsername,
   userPatchByUsername,
   userDeleteByUsername,
   userVerifyAfterRegistration,
-  userPasswordReset
+  userPasswordReset,
+  userWithdrawMoney
 };
