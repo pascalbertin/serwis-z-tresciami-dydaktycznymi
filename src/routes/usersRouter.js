@@ -180,6 +180,16 @@ router.route('/:username/verification')
   .delete(wrongEndpointHandler.errorHandler)
   
 router.route('/:username/courses')
-  .get(courseController.courseGetByAuthor);
+  .get(courseController.courseGetByAuthor)
+  .post(wrongEndpointHandler.errorHandler)
+  .patch(wrongEndpointHandler.errorHandler)
+  .delete(wrongEndpointHandler.errorHandler);
+
+router.route('/:username/withdrawMoney')
+  .get(wrongEndpointHandler.errorHandler)
+  .post(wrongEndpointHandler.errorHandler)
+  .patch(verifyJWT, usersController.userWithdrawMoney)
+  .delete(wrongEndpointHandler.errorHandler);
+
 
 module.exports = router;
