@@ -3,6 +3,7 @@ exports.USER_CREATED = "Utworzono użytkownika poprawnie";
 exports.USER_ACCOUNT_VERIFIED = "Konto użytkownika zostało zweryfikowane";
 exports.USER_PASSWORD_MODIFY = "Hasło zostało zmienione";
 exports.USER_RESET_PASSWORD = "Wygenerowano nowe hasło i zaktualizowano bazę";
+exports.USER_MONEY_WITHDRAWED = "Wypłacono środki";
 
 exports.COURSE_CREATED = "Kurs został dodany poprawnie";
 exports.COURSE_DELETED = "Kurs został usunięty poprawnie";
