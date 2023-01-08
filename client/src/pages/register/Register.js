@@ -9,10 +9,20 @@ const Register = () => {
   const [values, setValues] = useState({})
   const [msg, setMsg] = useState('')
   const [success, setIsSuccess] = useState(false);
+  const [avatar, setAvatar] = useState(null)
 
-  async function submitForm(isValid, values){
+  const uploadAvatar = async (avatar) => {
+    const formData = new FormData();
+    formData.append("file", avatar);
+
+    const response = await axios.post('/api/avatarUpload', formData);
+    console.log('Success:', response?.data);
+  }
+
+  async function submitForm(isValid, values, avatar){
     if (isValid){
       setValues(values)
+      setAvatar(avatar)
       try{
         const response = await axios.post(API.user, JSON.stringify(values),
         {
@@ -33,10 +43,12 @@ const Register = () => {
       }
       setIsSubmitted(true);
       setValues(values);
+      uploadAvatar(avatar);
     }
     else{
       setIsSubmitted(false);
       setValues({});
+      setAvatar(null);
     }  
   }
   return (

@@ -28,7 +28,10 @@ const Logout = () => {
     }
 
     useEffect(() => {
-        handleLogout()
+        handleLogout();
+        window.setTimeout(function(){
+            window.location.href = "/";
+        }, 100);
     }, [])
 
 

@@ -5,11 +5,26 @@ import { Link } from 'react-router-dom'
 import '../../components/slider/slider.css'
 import { API } from '../../config/api'
 import Loading from '../../components/loading/Loading'
+import '../../styles/Form.css'
+
 
 const Profile = () => {
     const [isLoaded, setIsLoaded] = useState(false)
     const [courses, setCourses] = useState({})
+    const [user, setUser] = useState({})
     const username = localStorage.getItem('username')
+
+    const getUser = async () => {
+        try {
+            const response = await axios.get(API.user + '/' + username , {
+                headers: { 
+                    'Content-Type': 'application/json'}
+                });
+                 setUser(response.data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
 
     useEffect(() => {
     const getUserCourses = async () => {
@@ -25,17 +40,26 @@ const Profile = () => {
         }
     }
     getUserCourses();
+    getUser();
     }, [])
 
   return (
     courses ?  
         <div className="profile-container">
-      <div className="profile-top-container">
-        <h2>Witaj {username}!</h2>
-        <a href="/addCourse" ><button className="form-button profile-button">Dodaj kurs</button></a>
-        <h2>Twoje saldo: {}</h2>
-        <a href="/payout"><button className="form-button profile-button">Wypłać</button></a>
-      </div>
+            <div className="profile-top-container">
+                <div className='profile-row'>
+                    <div className='row-avatar'>
+                        <h2 className='avatar-nickname'>Witaj {username}!</h2>
+                        <img className='avatar-image' src={user.avatar}></img>
+                    </div>
+                </div>
+                <div className='profile-row-buttons'>
+                    <a href="/addCourse" ><button className="form-button-profile-button">Dodaj kurs</button></a>
+                    <a href="" ><button className="form-button-profile-button">Edytuj profil</button></a>
+                </div>
+                <h2>Twoje saldo: {user?.accountBalance}</h2>
+                <a href="/payout"><button className="form-button profile-button">Wypłać</button></a>
+            </div>
         <h2 className="pl-10">Lista Twoich kursów:</h2>
         <div className="filters-menu-container flex items-center">
           {courses?.length ? (
@@ -56,7 +80,7 @@ const Profile = () => {
                                 </Link>
                                 <div className='course-object-subject text-gray-500'>Kategoria: {value?.subject}</div>
                                 <div className='course-object-price pt-4 text-lg md:text-xl lg:text-2xl'>Cena: {value?.price} zł</div>
-                                <div className='course-sales-amount text-lg md:text-xl lg:text-2xl text-purple-900'>Sprzedano: {}</div>
+                                <div className='course-sales-amount text-lg md:text-xl lg:text-2xl text-purple-900'>Sprzedano: {value?.copiesSold}</div>
                             </div>
                         </div>
                     </li></div></div>)}              

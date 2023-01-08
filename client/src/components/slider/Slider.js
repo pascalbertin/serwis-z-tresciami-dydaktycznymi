@@ -12,6 +12,7 @@ import Categories from '../categories/Categories';
 
 const len = SliderImage.length - 1;
 let sliderData = [];
+var time = 25;
 
 function Slider() {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -23,14 +24,17 @@ function Slider() {
                 'Content-Type': 'application/json'},
             });
         sliderData = response?.data;
+        time = 5000;
     }
 
+    window.onload = checkUser();
+
     useEffect(() => {
-        checkUser();
+       // checkUser();
         // auto changing slides
          const interval = setInterval(() => {
              setActiveIndex(activeIndex === len ? 0 : activeIndex + 1);
-         }, 5000);
+         }, time);
         return () => clearInterval(interval);
     }, [activeIndex]);
 
