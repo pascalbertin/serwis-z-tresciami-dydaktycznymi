@@ -18,11 +18,14 @@ const handleLogin = tryCatch(async (req, res) => {
     throw new AppError(USER_ERROR, USER_NOT_FOUND, 404);
   }
 
+  if (req.body.email != foundUser.email) {
+    throw new AppError(USER_ERROR, USER_UNAUTHORIZED, 401);
+  }
+
   const isPasswordCorrect = await bcrypt.compare(req.body.password, foundUser.password);
   if (!isPasswordCorrect || !foundUser.verification) {
     throw new AppError(USER_ERROR, USER_UNAUTHORIZED, 401);
   }
-
 
 
   if (isPasswordCorrect) {
