@@ -11,17 +11,42 @@ const { courseSchema, courseModel } = require('./courseModel');
  *      - userName
  *      - email
  *      - password
+ *      - verification
+ *      - accountBalance
+ *      - avatar
  *      properties:
  *        title:
  *          type: string
  *        email:
  *          type: string
+ *          format: email
  *        password:
  *          type: string
+ *          format: password
+ *        verification:
+ *          type: boolean
+ *          default: false
+ *        bank_account:
+ *          type: number
+ *        accountBalance:
+ *          type: number
+ *          format: double
+ *          default: 0
+ *        avatar:
+ *          type: string
+ *          default: https://storage.googleapis.com/tutorsalpha-user-avatar/tutorsalpha_default_avatar.jpg
  *        course:
  *          $ref: '#/components/schemas/Courses'
  *        refreshToken:
  *          type: string
+ *        roles:
+ *          type: object
+ *          properties:
+ *            User:
+ *              type: number
+ *              format: integer
+ *              default: 2001
+ *              enum: [2001, 5150]
  */
 const teacherSchema = new mongoose.Schema({
   userName: {
