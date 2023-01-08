@@ -20,6 +20,16 @@ const generatePayuOrder = async (req, res) => {
 
   const accessToken = data.access_token;
 
+  const courseTitleReplaced = req.body.title.replace(/ /g, "%20");
+  const link = "https://serwis-z-tresciami.herokuapp.com/course/?title=" + courseTitleReplaced;
+
+  const fixedPrice = req.body.price * 100;
+  const courseTitle = req.body.title;
+  const courseDescription = req.body.description.replace(/"/g, "'");
+  const buyerEmail = req.body.email;
+
+  const visibleDescription = courseTitle.slice(0, 80);
+
   const generateOrderRequest = await fetch(process.env.PAYU_ORDER_LINK, {
     method: 'POST',
     headers: {
@@ -27,20 +37,20 @@ const generatePayuOrder = async (req, res) => {
       'Authorization': `Bearer ${accessToken}`
     },
     body: `{
-      "continueUrl": "https://serwis-z-tresciami.herokuapp.com/course/?title=Kurs%20z%20matematyki%202",
+      "notifyUrl": "http://localhost:3001/api/payu/notifyMe",
+      "continueUrl": "${link}",
       "customerIp": "127.0.0.1",
       "merchantPosId": "${posId}",
-      "description": "Dzięki temu kursowi będziesz w stanie bez problemu wykonywać wszytkie obliczenia!",
-      "visibleDescription": "Widzialny opis na stronie PayU(80zzs)",
-      "additionalDescription": "Dodatkowy Opis",
+      "description": "${courseDescription}",
+      "visibleDescription": "${visibleDescription}",
       "statementDescription": "Tutors Alpha",
-      "buyer.email": "email@kupujacego.com",
+      "buyer.email": "${buyerEmail}",
       "currencyCode": "PLN",
-      "totalAmount": "1000",
+      "totalAmount": ${fixedPrice},
       "products": [
         {
-          "name": "Kurs z matematyki 2",
-          "unitPrice": "1000",
+          "name": "${courseTitle}",
+          "unitPrice": ${fixedPrice},
           "quantity": "1",
           "virtual": "true"
         }
@@ -49,7 +59,6 @@ const generatePayuOrder = async (req, res) => {
   });
 
   data = await generateOrderRequest.url;
-
   return res.status(200).json({"link": data});
 }
 

@@ -16,7 +16,19 @@ const PaymentMethod = () => {
       if (isValid){
         setIsSubmitted(true);
         setValues(values);
-        const response = await axios.patch(API.code + '/' + id + '/order', {...values},
+        const courseObj = await axios.get(API.code + '/' + id, {
+          headers: { 
+               'Content-Type': 'application/json'
+          },
+        });
+
+        values.title = courseObj.data.title;
+        values.description = courseObj.data.description;
+        values.price = courseObj.data.price;
+        values.author = courseObj.data.author;
+        values.subject = courseObj.data.subject;
+
+        const response = await axios.post(API.payu, {...values},
         {
           headers: { 
                'Content-Type': 'application/json'},
