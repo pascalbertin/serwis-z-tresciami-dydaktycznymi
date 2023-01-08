@@ -5,6 +5,7 @@ exports.USER_DUPLICATE = "Użytkownik o podanej nazwie użytkownika już istniej
 exports.USER_UNAUTHORIZED = "Niepoprawne dane logowania";
 exports.USER_FORBIDDEN = "Brak dostępu";
 exports.USER_NOT_ENOUGH_MONEY = "Za mało środków na koncie";
+exports.USER_BANK_ACCOUNT_MISSING = "Nie podano konta bankowego"
 
 exports.COURSE_NOT_FOUND = "Nie znaleziono kursów";
 exports.COURSE_MISSING_EMAIL = "Nie podano adresu e-mail";
