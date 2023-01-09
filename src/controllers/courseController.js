@@ -275,9 +275,11 @@ const courseGetByAuthor = tryCatch(async (req, res) => {
   if (course == null) {
     throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
   }
-
-  if (course[0].author != foundUser.userName) {
-    throw new AppError(USER_ERROR, USER_FORBIDDEN, 403);
+  
+  if (!course) {
+    if (course[0].author != foundUser.userName) {
+      throw new AppError(USER_ERROR, USER_FORBIDDEN, 403);
+    }
   }
 
   res.course = course;

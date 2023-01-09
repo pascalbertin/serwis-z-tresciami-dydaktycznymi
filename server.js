@@ -98,7 +98,6 @@ app.post('/api/fileUploadVideo', multer.single("file"), tryCatch((req, res) => {
 }));
 
 app.post('/api/avatarUpload', multer.single("file"), tryCatch((req, res) => {
-  console.log("AAAAAAAAAAAAA");
   if (req.file) {
     const blob = bucketAvatars.file(req.file.originalname);
     const blobStream = blob.createWriteStream();
