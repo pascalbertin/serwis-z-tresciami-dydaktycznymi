@@ -275,9 +275,9 @@ router.route("/:title/usage")
  *        description: SEVER_ERROR - Błąd po stronie serwera
  */
 router.route("/:title/verification")
-    .get(wrongEndpointHandler.errorHandler)
+    .get(verifyJWT, verifyRoles(ROLES_LIST.Admin), courseController.courseVerifyByAdministrator)
     .post(wrongEndpointHandler.errorHandler)
-    .patch(verifyJWT, verifyRoles(ROLES_LIST.Admin), courseController.courseVerifyByAdministrator)
+    .patch(wrongEndpointHandler.errorHandler)
     .delete(wrongEndpointHandler.errorHandler);
 
 router.route("/test/test")

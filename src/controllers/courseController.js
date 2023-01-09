@@ -142,35 +142,35 @@ const coursePatchByTitle = tryCatch(async (req, res) => {
 
   let ifChanged = false; 
 
-  if (req.body.title != null) {
+  if (req.body.title != null && req.body.title != "") {
     res.course.title = req.body.title;
     ifChanged = true;
   }
-  if (req.body.description != null) {
+  if (req.body.description != null && req.body.description != "") {
     res.course.description = req.body.description;
     ifChanged = true;
   }
-  if (req.body.price != null) {
+  if (req.body.price != null && req.body.price != "") {
     res.course.price = req.body.price;
     ifChanged = true;
   }
-  if (req.body.author != null) {
+  if (req.body.author != null && req.body.author != "") {
     res.course.author = req.body.author;
     ifChanged = true;
   }
-  if (req.body.subject != null) {
+  if (req.body.subject != null && req.body.subject != "") {
     res.course.subject = req.body.subject;
     ifChanged = true;
   }
-  if (req.body.level != null) {
+  if (req.body.level != null && req.body.level != "") {
     res.course.level = req.body.level;
     ifChanged = true;
   }
-  if (req.body.video != null) {
+  if (req.body.video != null && req.body.video != "") {
     res.course.video = req.body.video;
     ifChanged = true;
   }
-  if (req.body.thumbnail != null) {
+  if (req.body.thumbnail != null && req.body.thumbnail != "") {
     res.course.thumbnail = req.body.thumbnail;
     ifChanged = true;
   }
@@ -271,19 +271,13 @@ const courseGetByAuthor = tryCatch(async (req, res) => {
     throw new AppError(USER_ERROR, USER_FORBIDDEN, 403);
   }
 
-  const user = await TeacherModel.findOne({userName: req.params.username});
-  if (user == null) {
-    throw new AppError(USER_ERROR, USER_NOT_FOUND, 404);
-  }
-
-  if (req.params.username != foundUser.userName) {
-    throw new AppError(USER_ERROR, USER_UNAUTHORIZED, 401);
-  }
-
   const course = await courseModel.find({author: req.params.username});
-
   if (course == null) {
     throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
+  }
+
+  if (course[0].author != foundUser.userName) {
+    throw new AppError(USER_ERROR, USER_FORBIDDEN, 403);
   }
 
   res.course = course;
