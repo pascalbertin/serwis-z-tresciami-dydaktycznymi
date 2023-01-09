@@ -62,18 +62,16 @@ const AddCourseForm = ({submitForm}) => {
                   {errors.level && <p>{errors.level}</p>}
               </div>
             
-              <div className="form-container-inputs">
-                  <p className='add-course-text1'>FILM:</p>
+              <div className="form-container-inputs ml-32 lg:ml-16">
                   <label htmlFor="video" className="form-label"></label>
-                  <input id="video" type="file" name="video" accept="video/*" placeholder="Link do wideo" value={video?.value} onChange={videoHandler}/>
-                  {/* {errors.video && <p>{errors.video}</p>} */}
+                  <span className="lg:pr-12 pr-4">Wideo:</span> <input id="video" type="file" name="video" accept="video/*" placeholder="Link do wideo" value={video?.value} onChange={videoHandler}/>
+                  {errors.video && <p>{errors.video}</p>}
               </div>
 
-              <div className="form-container-inputs">
-                  <p className='add-course-text'>MINIATURKA:</p>
+              <div className="form-container-inputs ml-32 lg:ml-16">
                   <label htmlFor="thumbnail" className="form-label"></label>
-                  <input id="thumbnail" type="file" name="thumbnail" accept="image/jpeg, image/png, image/svg" placeholder="Link do miniaturki" onChange={thumbnailHandler}/>
-                  {/* {errors.thumbnail && <p>{errors.thumbnail}</p>} */}
+                  <span className="lg:pr-6 pr-2">Miniaturka:</span> <input id="thumbnail" type="file" name="thumbnail" accept="image/jpeg, image/png, image/svg" placeholder="Link do miniaturki" onChange={thumbnailHandler}/>
+                  {errors.thumbnail && <p>{errors.thumbnail}</p>}
               </div>
   
               <button className="form-button" type="submit">Dodaj kurs</button>
