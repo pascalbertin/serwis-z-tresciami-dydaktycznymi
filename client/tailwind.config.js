@@ -15,7 +15,8 @@ module.exports = {
           'second': '#F4EFFA',
           'third': '#532B88',
           'fourth': '#C8B1E4',
-          'fifth': '#2F094A'
+          'fifth': '#2F094A',
+          'sixth': '#C8B1E4'
         },
       },
     },
