@@ -19,10 +19,11 @@ const DeleteCourse = () => {
                 const response = await axios.delete(API.course + '/' + id, {
                    headers: { 
                         'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
-                        'Content-Type': 'application/json'}
+                        'Content-Type': 'application/json'},
+                   withCredentials: true
                    });
-                navigate(0);
                 navigate('/profile', {state: { from: location}, replace: true})
+                navigate(0);
            } catch (err) {
                console.log(err);
            }

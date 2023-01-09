@@ -1,13 +1,13 @@
 import React from 'react';
 import editCourseHandler from './editCourseHandler'
-import AddCourseValidator from '../../validators/addCourse';
+import EditCourseValidator from '../../validators/editCourse';
 import '../../styles/Form.css';
 
 
 const EditCourseForm = ({submitForm}) => {
     const title = localStorage.getItem('title')
   
-    const {updateHandler, values, submitHandler, errors, videoHandler, thumbnailHandler, video, thumbnail} = editCourseHandler(submitForm, AddCourseValidator);
+    const {updateHandler, values, submitHandler, errors, videoHandler, thumbnailHandler, video, thumbnail} = editCourseHandler(submitForm, EditCourseValidator);
 
     return (
       <div className="form-container">
@@ -15,25 +15,25 @@ const EditCourseForm = ({submitForm}) => {
               <h1>Edytujesz kurs {title}</h1>
               <div className="form-container-inputs">
                   <label htmlFor="title" className="form-label"></label>
-                  <input id="title" type="text" name="title" className="form-input" placeholder="Tytuł" value={values.title} onChange={updateHandler}/>
+                  <input id="title" type="text" name="title" className="form-input" placeholder="Tytuł" value={values?.title} onChange={updateHandler}/>
                   {errors.title && <p>{errors.title}</p>}
               </div>
   
               <div className="form-container-inputs">
                   <label htmlFor="description" className="form-label"></label>
-                  <input id="description" type="text" name="description" className="form-input" placeholder="Opis" value={values.description} onChange={updateHandler}/>
+                  <input id="description" type="text" name="description" className="form-input" placeholder="Opis" value={values?.description} onChange={updateHandler}/>
                   {errors.description && <p>{errors.description}</p>}
               </div>
   
               <div className="form-container-inputs">
                   <label htmlFor="price" className="form-label"></label>
-                  <input id="price" type="text" name="price" className="form-input" placeholder="Cena" value={values.price} onChange={updateHandler}/>
+                  <input id="price" type="text" name="price" className="form-input" placeholder="Cena" value={values?.price} onChange={updateHandler}/>
                   {errors.price && <p>{errors.price}</p>}
               </div>
 
               <div className="form-container-inputs">
                   <label htmlFor="subject" className="form-label"></label>
-                  <select id="subject" name="subject" className="form-input select-input" value={values.category} onChange={updateHandler}>
+                  <select id="subject" name="subject" className="form-input select-input" value={values?.category} onChange={updateHandler}>
                     <option disabled selected="selected" className="default">Kategoria</option>
                     <option value="Matematyka">Matematyka</option>
                     <option value="Polski">Język polski</option>
@@ -53,7 +53,7 @@ const EditCourseForm = ({submitForm}) => {
 
               <div className="form-container-inputs">
                   <label htmlFor="level" className="form-label"></label>
-                  <select id="level" name="level" className="form-input select-input" value={values.difficulty} onChange={updateHandler}>
+                  <select id="level" name="level" className="form-input select-input" value={values?.difficulty} onChange={updateHandler}>
                     <option disabled selected="selected" className="default">Stopień trudności</option>
                     <option value="1">Szkoła podstawowa: klasy 1-3</option>
                     <option value="2">Szkoła podstawowa: klasy 4-6</option>
@@ -76,7 +76,8 @@ const EditCourseForm = ({submitForm}) => {
                   {errors.thumbnail && <p>{errors.thumbnail}</p>}
               </div>
   
-              <button className="form-button" type="submit">Dodaj kurs</button>
+              <button className="form-button" type="submit">Edytuj kurs</button>
+              <span className='text-xs text-gray-500'>Wszystkie pola są opcjonalne</span>
           </form>
       </div>
     );

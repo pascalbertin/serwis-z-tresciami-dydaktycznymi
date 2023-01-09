@@ -13,11 +13,13 @@ const Profile = () => {
     const [courses, setCourses] = useState({})
     const [user, setUser] = useState({})
     const username = localStorage.getItem('username')
+    const isAdmin = localStorage.getItem('roles') ? true : false
 
     const getUser = async () => {
         try {
             const response = await axios.get(API.user + '/' + username , {
                 headers: { 
+
                     'Content-Type': 'application/json'}
                 });
                  setUser(response.data);
@@ -26,21 +28,24 @@ const Profile = () => {
             }
         }
 
-    useEffect(() => {
     const getUserCourses = async () => {
         try {
             const response = await axios.get(API.user + '/' + username + '/courses', {
                 headers: { 
-                    'Content-Type': 'application/json'}
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+                },
+                withCredentials: true
                 });
-                 setCourses(response.data);
-                 setIsLoaded(true)
-            } catch (err) {
-                console.log(err);
+                    setCourses(response.data);
+                    setIsLoaded(true)
+                } catch (err) {
+                    console.log(err);
+            }
         }
-    }
-    getUserCourses();
-    getUser();
+
+    useEffect(() => {
+        getUser();
+        getUserCourses();
     }, [])
 
   return (
@@ -54,7 +59,8 @@ const Profile = () => {
                     </div>
                 </div>
                 <div className='profile-row-buttons'>
-                    <a href="/addCourse" ><button className="form-button-profile-button">Dodaj kurs</button></a>
+                    {!isAdmin ? <a href="/addCourse" ><button className="form-button-profile-button">Dodaj kurs</button></a> 
+                    : <a href="/admin" ><button className="form-button-profile-button">Panel admina</button></a>}
                     <a href="" ><button className="form-button-profile-button">Edytuj profil</button></a>
                 </div>
                 <h2>Twoje saldo: {user?.accountBalance}</h2>

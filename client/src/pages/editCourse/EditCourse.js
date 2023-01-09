@@ -28,12 +28,13 @@ const EditCourse = () => {
 
   const addCourse = async (formValues) => {
     console.log(formValues)
-    const response = await axios.patch(API.course, {...formValues},
+    const response = await axios.patch(API.course + '/' + localStorage.getItem('title'), {...formValues},
       {
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
           'Accept': 'application',
           'Content-Type': 'application/json'},
+        withCredentials: true
       });
       console.log('Success:', response?.data);
       setValues(response?.data); 
