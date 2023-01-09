@@ -1,6 +1,6 @@
 
 <div align="center">
-  <a href="https://serwis-z-tresciami.herokuapp.com/">
+  <a href="https://tutorsalpha.herokuapp.com/">
     <img src="client\public\TutorsAlphaLogo.png" alt="Logo">
   </a>
 
@@ -45,7 +45,7 @@
 
 ## Trochę informacji o projekcie
 <div align="center">
-  <a href="https://serwis-z-tresciami.herokuapp.com/">
+  <a href="https://tutorsalpha.herokuapp.com/">
     <img src="client\public\homePageScreenshot.png" alt="Home Page">
   </a>
 </div>
