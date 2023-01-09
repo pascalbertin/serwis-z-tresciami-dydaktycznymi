@@ -20,12 +20,23 @@ const handleRegistration = tryCatch(async (req, res) => {
   }
 
   const hashedUserPassword = await bcrypt.hash(req.body.password, 10);
-  const newUser = TeacherModel({
-    userName: req.body.username,
-    email: req.body.email,
-    password: hashedUserPassword,
-    avatar: req.body.avatar
-  });
+
+  let newUser;
+  
+  if (req.body.avatar != '') {
+    newUser = TeacherModel({
+      userName: req.body.username,
+      email: req.body.email,
+      password: hashedUserPassword,
+      avatar: req.body.avatar
+    });
+  } else {
+    newUser = TeacherModel({
+      userName: req.body.username,
+      email: req.body.email,
+      password: hashedUserPassword
+    });
+  }
 
   newUser.save();
 
