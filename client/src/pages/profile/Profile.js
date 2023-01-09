@@ -63,7 +63,7 @@ const Profile = () => {
                     : <a href="/admin" ><button className="form-button-profile-button">Panel admina</button></a>}
                     <a href="" ><button className="form-button-profile-button">Edytuj profil</button></a>
                 </div>
-                <h2>Twoje saldo: {user?.accountBalance}</h2>
+                <h2>Twoje saldo: {user?.accountBalance} zł</h2>
                 <a href="/payout"><button className="form-button profile-button">Wypłać</button></a>
             </div>
         <h2 className="pl-10">Lista Twoich kursów:</h2>
@@ -86,7 +86,7 @@ const Profile = () => {
                                 </Link>
                                 <div className='course-object-subject text-gray-500'>Kategoria: {value?.subject}</div>
                                 <div className='course-object-price pt-4 text-lg md:text-xl lg:text-2xl'>Cena: {value?.price} zł</div>
-                                <div className='course-sales-amount text-lg md:text-xl lg:text-2xl text-purple-900'>Sprzedano: {value?.copiesSold}</div>
+                                <div className='course-sales-amount text-lg md:text-xl lg:text-2xl text-purple-900'>Sprzedano: {value?.copiesSold} sztuk</div>
                             </div>
                         </div>
                     </li></div></div>)}              

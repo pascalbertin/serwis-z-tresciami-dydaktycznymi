@@ -117,7 +117,7 @@ const updateCodeHandler = event => {
       </div>
     </div>
   </div>) : 
-<div></div>) : <VideoCourse title={value?.title} subject={value?.subject} info={value?.description} link={value?.video} />
+<div></div>) : <div><a href={`/course/?title=${value.title}`}><svg className="w-6 h-6 lg:w-8 lg:h-8 m-4" width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_iconCarrier"> <g id="style=linear"> <g id="arrow-long-left"> <path id="vector" d="M21.2858 12L2.78577 12" stroke="#2F184B" stroke-width="1.5" stroke-linecap="round"></path> <path id="vector_2" d="M9.28577 19L2.99287 12.7071C2.60235 12.3166 2.60235 11.6834 2.99287 11.2929L9.28577 5" stroke="#2F184B" stroke-width="1.5" stroke-linecap="round"></path> </g> </g> </g></svg></a> <VideoCourse title={value?.title} subject={value?.subject} info={value?.description} link={value?.video} /></div>
   );
 }
 

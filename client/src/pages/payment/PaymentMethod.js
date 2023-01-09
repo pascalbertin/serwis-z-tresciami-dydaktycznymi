@@ -16,6 +16,7 @@ const PaymentMethod = () => {
       if (isValid){
         setIsSubmitted(true);
         setValues(values);
+        localStorage.setItem('email', values.email)
         const courseObj = await axios.get(API.code + '/' + id, {
           headers: { 
                'Content-Type': 'application/json'
@@ -33,8 +34,7 @@ const PaymentMethod = () => {
           headers: { 
                'Content-Type': 'application/json'},
           });
-        console.log(response);
-       
+          setTimeout(window.location.replace(response.data['link']), 2000)
       }else{
         setIsSubmitted(false);
         setValues({});
@@ -43,7 +43,7 @@ const PaymentMethod = () => {
     }
     return (
       <div>
-          {!isSubmitted ? <PaymentForm submitForm={submitForm} /> : <PaymentResponse id={id} />}
+          {!isSubmitted ? <PaymentForm submitForm={submitForm} /> : <PaymentResponse />}
       </div>
     )
 }

@@ -21,7 +21,7 @@ const generatePayuOrder = async (req, res) => {
   const accessToken = data.access_token;
 
   const courseTitleReplaced = req.body.title.replace(/ /g, "%20");
-  const link = "https://serwis-z-tresciami.herokuapp.com/course/?title=" + courseTitleReplaced;
+  const link = "https://serwis-z-tresciami.herokuapp.com/payment_final/?title=" + courseTitleReplaced;
 
   const fixedPrice = req.body.price * 100;
   const courseTitle = req.body.title;
