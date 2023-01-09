@@ -13,7 +13,7 @@ const Profile = () => {
     const [courses, setCourses] = useState({})
     const [user, setUser] = useState({})
     const username = localStorage.getItem('username')
-    const isAdmin = localStorage.getItem('roles') ? true : false
+    const roles = localStorage.getItem('roles')
 
     const getUser = async () => {
         try {
@@ -59,11 +59,11 @@ const Profile = () => {
                     </div>
                 </div>
                 <div className='profile-row-buttons'>
-                    {!isAdmin ? <a href="/addCourse" ><button className="form-button-profile-button">Dodaj kurs</button></a> 
+                    {roles !== '5150' ? <a href="/addCourse" ><button className="form-button-profile-button">Dodaj kurs</button></a> 
                     : <a href="/admin" ><button className="form-button-profile-button">Panel admina</button></a>}
                     <a href="" ><button className="form-button-profile-button">Edytuj profil</button></a>
                 </div>
-                <h2>Twoje saldo: {user?.accountBalance}</h2>
+                <h2>Twoje saldo: {user?.accountBalance} zł</h2>
                 <a href="/payout"><button className="form-button profile-button">Wypłać</button></a>
             </div>
         <h2 className="pl-10">Lista Twoich kursów:</h2>
@@ -86,7 +86,7 @@ const Profile = () => {
                                 </Link>
                                 <div className='course-object-subject text-gray-500'>Kategoria: {value?.subject}</div>
                                 <div className='course-object-price pt-4 text-lg md:text-xl lg:text-2xl'>Cena: {value?.price} zł</div>
-                                <div className='course-sales-amount text-lg md:text-xl lg:text-2xl text-purple-900'>Sprzedano: {value?.copiesSold}</div>
+                                <div className='course-sales-amount text-lg md:text-xl lg:text-2xl text-purple-900'>Sprzedano: {value?.copiesSold} sztuk</div>
                             </div>
                         </div>
                     </li></div></div>)}              
