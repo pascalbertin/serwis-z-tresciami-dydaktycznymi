@@ -12,7 +12,7 @@ const { transporter } = require('../config/nodemailerConfig');
 const courseGenerateCode = tryCatch(async (req, res) => {
   const courseTitle = req.params.title;
   const courseTitleReplaced = courseTitle.replace(/ /g, "%20")
-  const link = "https://serwis-z-tresciami.herokuapp.com/course/?title=" + courseTitleReplaced;
+  const link = "https://tutorsalpha.herokuapp.com/course/?title=" + courseTitleReplaced;
 
   const course = await courseModel.findOne({title: req.params.title});
   const courseAuthor = await TeacherModel.findOne({ userName: course.author }).exec();
