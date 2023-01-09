@@ -13,6 +13,7 @@ const FliterPage = () => {
     const [values, setValues] = useState([])
     const [CheckedSubject, setCheckedSubject] = useState([])
     const [CheckedClasses, setCheckedClasses] = useState([])
+    const [CheckedSort, setCheckedSort] = useState([])
     const [priceMin, setPriceMin] = useState(1)
     const [priceMax, setPriceMax] = useState(250)
     var sub = ""
@@ -70,11 +71,16 @@ const FliterPage = () => {
         },
         {
             "_id": 10,
+            "name": "Muzyka",
+            "search": "Muzyka"
+        },
+        {
+            "_id": 11,
             "name": "Język niemiecki",
             "search": "Niemiecki"
         },
         {
-            "_id": 11,
+            "_id": 12,
             "name": "Podstawy przedsiębiorczości",
             "search": "PP"
         }
@@ -108,6 +114,29 @@ const FliterPage = () => {
         }
     ]
 
+    const sorting = [
+        // {
+        //     "_id": 1,
+        //     "name": "Nazwa (A -> Z)",
+        //     "search": "NameUp"
+        // },
+        // {
+        //     "_id": 2,
+        //     "name": "Nazwa (Z -> A)",
+        //     "search": "NameDown"
+        // },
+        {
+            "_id": 3,
+            "name": "Cena rosnąco",
+            "search": "PriceUp"
+        },
+        {
+            "_id": 4,
+            "name": "Cena malejąco",
+            "search": "PriceDown"
+        },
+    ]
+
     const madeObjects = (data) => {
         data.forEach(course => {
         // const objectCourse = JSON.parse(course);
@@ -133,11 +162,19 @@ const FliterPage = () => {
             'Content-Type': 'application/json'},
         });
         setValues(response?.data);
-        setIsLoaded(true)
+        setIsLoaded(true);
+    }
+    
+    const submitSort = async (values) => {
+        if(CheckedSort == 4){ values.sort((a,b) => b.price - a.price); return values;}
+        else if(CheckedSort == 3) { values.sort((a,b) => a.price - b.price); return values;}
+        else if(CheckedSort == 2) { values.sort((a,b) => b.title.toLowerCase() > a.title.toLowerCase()); return values;}
+        else { values.sort((a,b) => a.title.toLowerCase() > b.title.toLowerCase()); return values;}
     }
 
     useEffect(() => {
-        submitForm()
+        submitForm();
+       // submitSort(values);
     }, [])
     
     const handleToggleSubjects = (value) => {
@@ -166,6 +203,20 @@ const FliterPage = () => {
         }
 
         setCheckedClasses(newChecked)
+    }
+    const handleToggleSorting = (value) => {
+
+        const currentIndex = CheckedSort.indexOf(value);
+        const newChecked = [...CheckedSort];
+
+        if (currentIndex === -1) {
+            newChecked.splice(0,newChecked.length)
+            newChecked.push(value)
+        } else {
+            newChecked.splice(0,newChecked.length)
+        }
+
+        setCheckedSort(newChecked)
     }
     const handleInputMin = (e)=>{
         setPriceMin( e.target.value );
@@ -196,6 +247,17 @@ const FliterPage = () => {
         </React.Fragment>
     ))    
 
+    const renderCheckboxSortingList = () => sorting.map((value, index) => (
+        <React.Fragment key={index}>
+            <Checkbox
+                onChange={() => handleToggleSorting(value._id)}
+                type="checkbox"
+                checked={CheckedSort.indexOf(value._id) === -1 ? false : true}
+            />
+            <span>{" " +value.name+" "}</span>
+        </React.Fragment>
+    ))  
+
     return (
         <div className="filters-menu-container flex items-center">
             <div className="row">                
@@ -225,6 +287,19 @@ const FliterPage = () => {
                     Filtruj 
                 </button>
             </div>
+            <div className="row">
+                <button type="submit" onClick={submitSort(values)}>
+                    Sortuj:
+                </button>
+            </div>
+            <div className="row-checkbox">
+                <Collapse bordered={false} defaultActiveKey={['0']} >
+                    <Panel key="1" header="Sortuj" className="collapse-panel">
+                       {renderCheckboxSortingList()}
+                    </Panel>
+                </Collapse>
+            </div>
+            
             {values?.length ? (
             <div className='objects-of-course flex items-start mb-20'> 
                 <div className='column mt-16'>

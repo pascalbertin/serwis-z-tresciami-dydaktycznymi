@@ -19,6 +19,8 @@ import DeleteCourse from './pages/deleteCourse/deleteCourse';
 import FilterCourses from './pages/filterPage/FilterPage';
 import MoneyPayout from './pages/moneyPayout/moneyPayout';
 import PaymentFinal from './components/paymentMethod/PaymentFinal';
+import EditUserData from './pages/editUserData/EditUserData';
+import ResetPassword from './pages/resetPassword/ResetPassword';
 
 function App() {
   return (
@@ -44,6 +46,8 @@ function App() {
                 <Route path="/payment_method" element={ <PaymentMethod />} />
                 <Route path="/filter_courses" element={ <FilterCourses />} />
                 <Route path="/payout" element={ <MoneyPayout />} />
+                <Route path="/editYourData" element={ <EditUserData/>} />
+                <Route path="/resetPassword" element={ <ResetPassword/>}/>
                 <Route path="/payment_final" element={<PaymentFinal />} />
               </Routes>
             </div>          

@@ -6,6 +6,7 @@ import '../../components/slider/slider.css'
 import { API } from '../../config/api'
 import Loading from '../../components/loading/Loading'
 import '../../styles/Form.css'
+import Login from '../login/Login'
 
 
 const Profile = () => {
@@ -13,6 +14,8 @@ const Profile = () => {
     const [courses, setCourses] = useState({})
     const [user, setUser] = useState({})
     const username = localStorage.getItem('username')
+    const accessToken = localStorage.getItem('accessToken')
+
     const roles = localStorage.getItem('roles')
 
     const getUser = async () => {
@@ -22,7 +25,11 @@ const Profile = () => {
 
                     'Content-Type': 'application/json'}
                 });
-                 setUser(response.data);
+                setUser(response.data);
+                //  const accessToken = response?.data?.accessToken
+                //  const roles = response?.data?.roles
+                //  localStorage.setItem('accessToken', accessToken)
+                //  localStorage.setItem('roles', roles)
             } catch (err) {
                 console.log(err);
             }
@@ -49,7 +56,7 @@ const Profile = () => {
     }, [])
 
   return (
-    courses ?  
+    courses && username != null ?
         <div className="profile-container">
             <div className="profile-top-container">
                 <div className='profile-row'>
@@ -61,7 +68,7 @@ const Profile = () => {
                 <div className='profile-row-buttons'>
                     {roles !== '5150' ? <a href="/addCourse" ><button className="form-button-profile-button">Dodaj kurs</button></a> 
                     : <a href="/admin" ><button className="form-button-profile-button">Panel admina</button></a>}
-                    <a href="" ><button className="form-button-profile-button">Edytuj profil</button></a>
+                    <a href="/editYourData" ><button className="form-button-profile-button">Edytuj profil</button></a>
                 </div>
                 <h2>Twoje saldo: {user?.accountBalance} zł</h2>
                 <a href="/payout"><button className="form-button profile-button">Wypłać</button></a>
@@ -98,7 +105,7 @@ const Profile = () => {
                 }
     </div>
     </div>
-    : <div></div>
+    : <Login></Login>
   )
 }
 
