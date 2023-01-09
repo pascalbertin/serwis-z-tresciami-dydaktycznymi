@@ -78,8 +78,8 @@ const Profile = () => {
           {courses?.length ? (
                     <ul >
                     {courses.map((value, i) => 
-                    <div className='objects-of-course'> 
-                    <div className='column mt-8 mb-8'>
+                    <div className='objects-of-course flex items-start'> 
+                    <div className='column mt-4 mb-4'>
                     <li key={i}>
                         <div className="row ml-8 hover:opacity-70 transition-all">
                             <div className="filters-left-column">

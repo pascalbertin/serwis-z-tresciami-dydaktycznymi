@@ -10,12 +10,12 @@ function SliderContent({ activeIndex, sliderImage }) {
                 key={index}
                 className={index === activeIndex ? "slides active" : "inactive"}
                 >
+                    <Link to={`/course/?title=${slide.title}`}>
                     <div className="slider-image-container">
-                        <Link to={`/course/?title=${slide.title}`}>
                             <img className="slide-image w-64 h-64 lg:w-80 lg:h-72 xl:w-96 xl:h-80" src={slide.thumbnail} alt={slide.title} />
-                        </Link>
                     </div>
-                    <h2 className="slide-title">{slide.title}</h2>
+                    <h2 className="slide-title">{slide.title.length >= 24 ? slide.title.substring(0,24) + '...' : slide.title}</h2>
+                    </Link>
                     <h3 className="slide-text">{slide.subject}</h3>
 
                 </div>
