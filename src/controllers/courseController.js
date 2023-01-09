@@ -276,15 +276,15 @@ const courseGetByAuthor = tryCatch(async (req, res) => {
     throw new AppError(USER_ERROR, USER_NOT_FOUND, 404);
   }
 
-  if (req.params.username != foundUser.userName) {
-    throw new AppError(USER_ERROR, USER_UNAUTHORIZED, 401);
-  }
+  // if (req.params.username != foundUser.userName) {
+  //   throw new AppError(USER_ERROR, USER_UNAUTHORIZED, 401);
+  // }
 
-  const course = await courseModel.find({author: req.params.username});
+  // const course = await courseModel.find({author: req.params.username});
 
-  if (course == null) {
-    throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
-  }
+  // if (course == null) {
+  //   throw new AppError(COURSE_ERROR, COURSE_NOT_FOUND, 404);
+  // }
 
   res.course = course;
   return res.status(200).json(res.course);
