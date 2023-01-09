@@ -28,8 +28,8 @@ const LoginForm = ({submitForm}) => {
                     <input id="password" type="password" name="password" className="form-input" placeholder="Hasło" value={values.password} onChange={updateHandler}/>
                     {errors.password && <p>{errors.password}</p>}
                 </div>
-                <p className="form-forgot-password"> <a href=''>Nie pamiętam hasła</a></p>
-                <button className="form-button" type="submit">Zaloguj się</button>
+                <p className="form-forgot-password"> <a href='/resetPassword'>Nie pamiętam hasła</a></p>
+                <button href='/profile' className="form-button" type="submit">Zaloguj się</button>
             </form>
         </div>
   );
