@@ -157,8 +157,10 @@
     background-color: white; 
     border: none;
     text-align: center;
-    padding: 15px 30px 15px 30px;
+    padding: 12px 15px 12px 15px;
     transition-duration: 0.4s;
+    margin-left: 8px;
+    margin-right: 8px;
 }
 
 .category-column-text-button:hover {
