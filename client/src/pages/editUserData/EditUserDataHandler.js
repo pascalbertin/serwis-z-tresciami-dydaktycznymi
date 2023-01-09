@@ -46,7 +46,8 @@ const EditUserDataHandler = callback => {
 
     useEffect(() => {
         if(Object.keys(errors).length === 0 && isPositive) {
-            callback(true, values)
+            callback(true, values, avatar)
+            setIsPositive(false)
         }
     })
 

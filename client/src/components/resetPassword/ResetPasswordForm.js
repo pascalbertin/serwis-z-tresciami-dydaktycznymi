@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import ResetPasswordValidator from '../../validators/ResetPassword'
 import ResetPasswordHandler from './ResetPasswordHandler'
 import '../../styles/Form.css';
@@ -10,9 +10,6 @@ const ResetPasswordForm = ({submitForm}) => {
   
      const {updateHandler, values, submitHandler, errors} = ResetPasswordHandler(submitForm, ResetPasswordValidator);
 
-    const handleOnChange = () => {
-        setIsChecked(!isChecked);
-    };
 
 
      return(

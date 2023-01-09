@@ -31,8 +31,8 @@ const EditUserDataForm = ({submitForm}) => {
             </div>
             <div className="form-container-inputs">
                 <p className='add-avatar-text'>ZMIEŃ SWÓJ AWATAR:</p>
-                <label htmlFor="avatar" className="form-label"></label>
-                <input className='avatar-input' id="avatar" type="file" name="avatar" accept="image/jpeg, image/png, image/svg" placeholder="Link do awatara" onChange={avatarHandler}/>
+                <label htmlFor="thumbnail" className="form-label"></label>
+                <input className='avatar-input' id="thumbnail" type="file" name="thumbnail" accept="image/jpeg, image/png, image/svg" placeholder="Link do awatara" onChange={avatarHandler}/>
             </div>
             <button className="form-button" type="submit">Zapisz zmiany</button>
         </form>
