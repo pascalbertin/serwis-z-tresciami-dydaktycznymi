@@ -15,6 +15,8 @@ function Course(){
   const [code, setCode] = useState({ code: ''})
   const [value, setValues] = useState([])
   const username = localStorage.getItem('username')
+  const roles = localStorage.getItem('roles')
+
   
   const getCourse = async () => {
     const response = await axios.get(API.course + '/' + id,
@@ -23,7 +25,9 @@ function Course(){
           'Accept': 'application',
           'Content-Type': 'application/json'},
       }); 
-    setValues(response?.data); 
+    setValues(response?.data);
+    localStorage.removeItem('title')
+    localStorage.setItem('title', response?.data.title)
 }
 
 const submitCodeHandler = async event =>{
@@ -75,20 +79,20 @@ const updateCodeHandler = event => {
           <h2 className='bottom-course-text'>Kategoria: {value.subject}</h2>
           <p className='course-text'>{value.description}</p>
         </div>
-        {username === value.author ?
+        {username === value.author || roles === '5150' ?
         (<div>
           <div className='row'>
             <h3 className='main-course-text'>Cena kursu: {value.price} zł</h3>
-            </div>
-            <div className='row first-row'>
-            <Link to={`/editcourse?title=${value.title}`} style={{ textDecoration: 'none' }}>
-            <button className='form-button' type="submit"> Edytuj kurs</button>
-            </Link>
+          </div>
+          <div className='row first-row'>
+            {roles === '5150' && username === value.author ? <Link to={`/editcourse?title=${value.title}`} style={{ textDecoration: 'none' }}>
+              <button className='form-button' type="submit"> Edytuj kurs</button>
+            </Link> : <div></div>}
           </div>
           <div className='row second-row'>
-          <Link to={`/deletecourse?title=${value.title}`} style={{ textDecoration: 'none' }}>
-            <button className='form-button' type="submit"> Usuń kurs</button>
-            </Link>
+            {roles === '5150' && username === value.author ? <Link to={`/deletecourse?title=${value.title}`} style={{ textDecoration: 'none' }}>
+              <button className='form-button' type="submit"> Usuń kurs</button>
+            </Link> : <div></div>}
           </div>
         </div>)
          : (<div>

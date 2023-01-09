@@ -20,6 +20,14 @@ export default function AddCourseValidator(values){
     if(!values.level){
         errors.level = "Wybierz stopień trudności"
     }
+    
+    if(!values.video){
+        errors.video = "Plik wideo jest wymagany"
+    }
+
+    if(!values.thumbnail){
+        errors.thumbnail = "Miniaturka jest wymagana"
+    }
 
     return errors;
 }

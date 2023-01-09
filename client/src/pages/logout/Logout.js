@@ -18,7 +18,6 @@ const Logout = () => {
             setMsg(process.env.REACT_APP_LOGOUT_SUCCESS)
     
             const response = await axios.get(API.user + '/logout')
-            console.log(response.status)
             navigate('/', {state: { from: location}, replace: true})
             navigate(0)
         }
