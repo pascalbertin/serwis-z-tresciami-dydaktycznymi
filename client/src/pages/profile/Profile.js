@@ -13,7 +13,7 @@ const Profile = () => {
     const [courses, setCourses] = useState({})
     const [user, setUser] = useState({})
     const username = localStorage.getItem('username')
-    const isAdmin = localStorage.getItem('roles') ? true : false
+    const roles = localStorage.getItem('roles')
 
     const getUser = async () => {
         try {
@@ -59,7 +59,7 @@ const Profile = () => {
                     </div>
                 </div>
                 <div className='profile-row-buttons'>
-                    {!isAdmin ? <a href="/addCourse" ><button className="form-button-profile-button">Dodaj kurs</button></a> 
+                    {roles !== '5150' ? <a href="/addCourse" ><button className="form-button-profile-button">Dodaj kurs</button></a> 
                     : <a href="/admin" ><button className="form-button-profile-button">Panel admina</button></a>}
                     <a href="" ><button className="form-button-profile-button">Edytuj profil</button></a>
                 </div>
