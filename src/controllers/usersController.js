@@ -53,16 +53,16 @@ const userPatchByUsername = tryCatch(async (req, res) => {
 
   res.user = user;
   
-  if (req.body.password != null) {
+  if (req.body.password != null && req.body.password != "") {
     const hashedUserPassword = await bcrypt.hash(req.body.password, 10);
     res.user.password = hashedUserPassword;
   }
 
-  if (req.body.avatar != null) {
+  if (req.body.avatar != null && req.body.avatar != "") {
     res.user.avatar = req.body.avatar;
   }
 
-  if (req.body.bank_account != null) {
+  if (req.body.bank_account != null && req.body.bank_account != "") {
     res.user.bank_account = req.body.bank_account;
   }
   
