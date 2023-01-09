@@ -26,6 +26,7 @@ const ResetPasswordHandler = callback => {
     useEffect(() => {
         if(Object.keys(errors).length === 0 && isPositive) {
             callback(true, values)
+            setIsPositive(false)
         }
     })
 

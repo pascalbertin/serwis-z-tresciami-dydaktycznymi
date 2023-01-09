@@ -1,5 +1,5 @@
 const allowedOrigins = [
-  'https://serwis-z-tresciami.herokuapp.com',
+  'https://tutorsalpha.herokuapp.com/',
   'http://127.0.0.1:3001',
   'http://localhost:3001',
   'http://localhost:3000'

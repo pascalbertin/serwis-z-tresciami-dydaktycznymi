@@ -12,7 +12,7 @@ const { transporter } = require('../config/nodemailerConfig');
 const courseGenerateCode = tryCatch(async (req, res) => {
   const courseTitle = req.params.title;
   const courseTitleReplaced = courseTitle.replace(/ /g, "%20")
-  const link = "https://serwis-z-tresciami.herokuapp.com/course/?title=" + courseTitleReplaced;
+  const link = "https://tutorsalpha.herokuapp.com/course/?title=" + courseTitleReplaced;
 
   const course = await courseModel.findOne({title: req.params.title});
   const courseAuthor = await TeacherModel.findOne({ userName: course.author }).exec();
@@ -74,6 +74,10 @@ const courseUseCode = tryCatch(async (req, res) => {
   if (course.toBeDeleted && !course.codes.length) {
     await res.course.deleteOne({_id: res.course._id});
     return res.status(200).json({message: COURSE_DELETED});
+  }
+
+  if (!course.codes.length) {
+    return res.status(406).json({message: COURSE_INCORRECT_CODE});
   }
 
   let i = 0;
