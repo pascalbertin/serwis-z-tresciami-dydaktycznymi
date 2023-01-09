@@ -76,6 +76,10 @@ const courseUseCode = tryCatch(async (req, res) => {
     return res.status(200).json({message: COURSE_DELETED});
   }
 
+  if (!course.codes.length) {
+    return res.status(406).json({message: COURSE_INCORRECT_CODE});
+  }
+
   let i = 0;
   let shouldContinue = true;
 

@@ -65,6 +65,8 @@ const userPatchByUsername = tryCatch(async (req, res) => {
   if (req.body.bank_account != null && req.body.bank_account != "") {
     res.user.bank_account = req.body.bank_account;
   }
+
+  console.log(res.user)
   
   await res.user.save();
   return res.status(200).json({message: USER_MODIFY});
