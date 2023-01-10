@@ -21,6 +21,12 @@ import MoneyPayout from './pages/moneyPayout/moneyPayout';
 import PaymentFinal from './components/paymentMethod/PaymentFinal';
 import EditUserData from './pages/editUserData/EditUserData';
 import ResetPassword from './pages/resetPassword/ResetPassword';
+import PrivatePolicy from './components/footerPages/privatePolicy';
+import ShopRegulation from './components/footerPages/shopRegulations';
+import Contacts from './components/footerPages/Contacts';
+import AddingIns from './components/footerPages/addingIns';
+import ModifingIns from './components/footerPages/modifingIns';
+import DeletingIns from './components/footerPages/deletingIns';
 
 function App() {
   return (
@@ -49,6 +55,12 @@ function App() {
                 <Route path="/editYourData" element={ <EditUserData/>} />
                 <Route path="/resetPassword" element={ <ResetPassword/>}/>
                 <Route path="/payment_final" element={<PaymentFinal />} />
+                <Route path="/privatePolicy" element={<PrivatePolicy/>}/>
+                <Route path="/shopRegulations" element={<ShopRegulation/>}/>
+                <Route path="/contacts" element={<Contacts/>}/>
+                <Route path="/addingInstruction" element={<AddingIns/>}/>
+                <Route path="/modyfingInstruction" element={<ModifingIns/>}/>
+                <Route path="/deletingInstruction" element={<DeletingIns/>}/>
               </Routes>
             </div>          
         </Router>
