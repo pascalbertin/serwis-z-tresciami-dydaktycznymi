@@ -6,45 +6,63 @@ import { API } from '../../config/api';
 
 const AddCourse = () => {
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [values, setValues] = useState({})
-  const [video, setVideo] = useState(null)
-  const [thumbnail, setThumbnail] = useState(null)
+  const [isThumbnailLoaded, setIsThumbnailLoaded] = useState(false)
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false)
+  const [error, setError] = useState('')
 
   const uploadThumbnail = async (thumbnail) => {
     const formData = new FormData();
     formData.append("file", thumbnail);
 
-    const response = await axios.post('/api/fileUploadThumbnail', formData);
-    console.log('Success:', response?.data);
+    try {
+      await axios.post('/api/fileUploadThumbnail', formData);
+      setIsThumbnailLoaded(true)
+    }
+    catch(err){
+      if(!err?.response) setError(process.env.REACT_APP_SERVER_CONN_ERROR)
+      else setError(process.env.REACT_APP_FILE_ERROR)
+      setIsThumbnailLoaded(true)
+    }
   }
 
   const uploadVideo = async (video) => {
     const formData = new FormData();
     formData.append("file", video);
 
-    const response = await axios.post('/api/fileUploadVideo', formData);
-    console.log('Success:', response?.data);
+    try{
+      await axios.post('/api/fileUploadVideo', formData);
+      setIsVideoLoaded(true)
+    }
+    catch(err){
+      if(!err?.response) setError(process.env.REACT_APP_SERVER_CONN_ERROR)
+      else setError(process.env.REACT_APP_FILE_ERROR)
+      setIsVideoLoaded(true)
+    }
   }
 
   const addCourse = async (formValues) => {
-    console.log(formValues)
+    try{
     const response = await axios.post(API.course, {...formValues},
       {
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
           'Accept': 'application',
           'Content-Type': 'application/json'},
+        withCredentials: true
       });
-      console.log('Success:', response?.data);
-      setValues(response?.data); 
+      if(response.status === 200 || response.status === 304) setError(process.env.REACT_APP_COURSE_ADD_SUCCESS)
+  }
+  catch(err) {
+    if(!err?.response) setError(process.env.REACT_APP_SERVER_CONN_ERROR)
+    else if(err.response?.status === 400) setError(process.env.REACT_APP_COURSE_ADD_ERROR)
+    else if(err.response?.status === 409) setError(process.env.REACT_APP_COURSE_ALREADY_EXISTS)
+    else setError(process.env.REACT_APP_SERVER_CONN_ERROR)
+  }
   }
 
   const submitForm = async (isValid, values, video, thumbnail) => {
     if (isValid){
       setIsSubmitted(true);
-      setValues(values);
-      setVideo(video);
-      setThumbnail(thumbnail)
 
       //calling endpoints
       uploadThumbnail(thumbnail);
@@ -52,16 +70,13 @@ const AddCourse = () => {
       addCourse(values);
     }else{
       setIsSubmitted(false);
-      setValues({});
-      setVideo(null);
-      setThumbnail(null);
     }
 
   }
   return (
     <div>
       <div>
-          {!isSubmitted ? <AddCourseForm submitForm={submitForm} /> : <AddCourseResponse values={values} />}
+          {!isSubmitted ? <AddCourseForm submitForm={submitForm} /> : <AddCourseResponse error={error} isVideoLoaded={isVideoLoaded} isThumbnailLoaded={isThumbnailLoaded} />}
       </div>
     </div>
   )
