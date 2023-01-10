@@ -29,6 +29,7 @@ const DeleteCourse = () => {
            } 
            catch(err){
                 if(!err?.response) setError(process.env.REACT_APP_SERVER_CONN_ERROR)
+                else if(err.response?.status === 401 || err.response?.status === 403) setError(process.env.REACT_APP_FORBIDDEN)
                 else if(err.response?.status === 404) setError(process.env.REACT_APP_COURSE_ALREADY_DELETED)
            }
        }

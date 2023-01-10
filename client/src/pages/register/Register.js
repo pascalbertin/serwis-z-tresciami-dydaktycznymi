@@ -1,14 +1,17 @@
-import React, {useState} from 'react'
+import React, { useState} from 'react'
 import axios from '../../config/axios'
 import RegisterForm from '../../components/register/RegisterForm'
 import RegisterResponse from '../../components/register/RegisterResponse'
 import { API } from '../../config/api'
+import ErrorHandler from '../../components/errorhandler/ErrorHandler'
 
 const Register = () => {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [error, setError] = useState('')
   const [success, setIsSuccess] = useState(false);
   const [isAvatarLoaded, setIsAvatarLoaded] = useState(false)
+  const accessToken = localStorage.getItem('accessToken')
+  const username = localStorage.getItem('accessToken')
 
   const uploadAvatar = async (avatar) => {
     const formData = new FormData();
@@ -57,7 +60,7 @@ const Register = () => {
   }
   return (
     <div>
-        {!isSubmitted ? <RegisterForm submitForm={submitForm} /> : <RegisterResponse msg={error} success={success} isAvatarLoaded={isAvatarLoaded} />}
+      {username == null && accessToken == null ? !isSubmitted ? <RegisterForm submitForm={submitForm} /> : <RegisterResponse msg={error} success={success} isAvatarLoaded={isAvatarLoaded} /> : <ErrorHandler msg={"Jesteś już zarejestrowany"} />}
     </div>
   )
 }

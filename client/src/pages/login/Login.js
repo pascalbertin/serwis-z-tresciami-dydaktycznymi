@@ -4,12 +4,15 @@ import LoginResponse from '../../components/login/LoginResponse'
 import axios from '../../config/axios'
 import {useNavigate, useLocation} from 'react-router-dom'
 import { API } from '../../config/api'
+import ErrorHandler from '../../components/errorhandler/ErrorHandler'
 
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [error, setError] = useState('')
+  const accessToken = localStorage.getItem('accessToken')
+  const username = localStorage.getItem('accessToken')
 
   async function submitForm(isValid, values){
     if (isValid){
@@ -45,7 +48,7 @@ const Login = () => {
   }
   return (
     <div>
-      {isSubmitted ? <LoginResponse msg={error}/> : <LoginForm submitForm={submitForm} />}
+      {username == null && accessToken == null ? isSubmitted ? <LoginResponse msg={error}/> : <LoginForm submitForm={submitForm} /> : <ErrorHandler msg={"Jesteś już zalogowany"}/>}
     </div>
   )
 }

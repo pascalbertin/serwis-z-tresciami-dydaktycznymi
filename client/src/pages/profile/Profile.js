@@ -9,7 +9,6 @@ import '../../styles/Form.css'
 import Login from '../login/Login'
 import ErrorHandler from '../../components/errorhandler/ErrorHandler'
 
-
 const Profile = () => {
     const [isLoaded, setIsLoaded] = useState(false)
     const [courses, setCourses] = useState({})
@@ -58,7 +57,7 @@ const Profile = () => {
     }, [])
 
   return (
-    courses && username != null ?
+    username != null && accessToken != null ?
         <div className="profile-container">
             <div className="profile-top-container">
                 <div className='profile-row'>

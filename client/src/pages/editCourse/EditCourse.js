@@ -3,12 +3,15 @@ import EditCourseForm from '../../components/editCourse/editCourseForm'
 import EditCourseResponse from '../../components/editCourse/editCourseResponse'
 import axios from '../../config/axios'
 import { API } from '../../config/api'
+import ErrorHandler from '../../components/errorhandler/ErrorHandler';
 
 const EditCourse = () => {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isThumbnailLoaded, setIsThumbnailLoaded] = useState(false)
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
   const [error, setError] = useState('')
+  const accessToken = localStorage.getItem('accessToken')
+  const username = localStorage.getItem('accessToken')
 
   const uploadThumbnail = async (thumbnail) => {
     const formData = new FormData();
@@ -85,7 +88,7 @@ const EditCourse = () => {
   }
   return (
     <div>
-        {!isSubmitted ? <EditCourseForm submitForm={submitForm} /> : <EditCourseResponse error={error} isThumbnailLoaded={isThumbnailLoaded} isVideoLoaded={isVideoLoaded} />}
+        {username != null && accessToken != null ? !isSubmitted ? <EditCourseForm submitForm={submitForm} /> : <EditCourseResponse error={error} isThumbnailLoaded={isThumbnailLoaded} isVideoLoaded={isVideoLoaded} /> : <ErrorHandler msg={process.env.REACT_APP_FORBIDDEN}/>}
     </div>
   )
 }
