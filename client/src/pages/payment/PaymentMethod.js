@@ -8,14 +8,13 @@ import { API } from '../../config/api'
 const PaymentMethod = () => {
     const idParam = window.location.search;
     const id = idParam.substring(7);
+    const [error, setError] = useState('')
   
     const [isSubmitted, setIsSubmitted] = useState(false)
-    const [values, setValues] = useState({})
   
     async function submitForm(isValid, values){
       if (isValid){
         setIsSubmitted(true);
-        setValues(values);
         localStorage.setItem('email', values.email)
         const courseObj = await axios.get(API.code + '/' + id, {
           headers: { 
@@ -29,21 +28,26 @@ const PaymentMethod = () => {
         values.author = courseObj.data.author;
         values.subject = courseObj.data.subject;
 
-        const response = await axios.post(API.payu, {...values},
-        {
-          headers: { 
-               'Content-Type': 'application/json'},
-          });
-          setTimeout(window.location.replace(response.data['link']), 2000)
+        try{
+          const response = await axios.post(API.payu, {...values},
+          {
+            headers: { 
+                'Content-Type': 'application/json'},
+            });
+            window.location.replace(response.data['link'])
+            setError(process.env.REACT_APP_PAYU_REDIRECT)
+        }
+        catch(err){
+          if(!err?.response) setError(process.env.REACT_APP_SERVER_CONN_ERROR)
+        }
       }else{
         setIsSubmitted(false);
-        setValues({});
       }
         
     }
     return (
       <div>
-          {!isSubmitted ? <PaymentForm submitForm={submitForm} /> : <PaymentResponse />}
+          {!isSubmitted ? <PaymentForm submitForm={submitForm} /> : <PaymentResponse msg={error}/>}
       </div>
     )
 }

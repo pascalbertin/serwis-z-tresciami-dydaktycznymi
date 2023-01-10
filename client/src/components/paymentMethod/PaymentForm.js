@@ -1,19 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PaymentValidator from '../../validators/Payment'
 import PaymentHandler from './PaymentHandler'
 import '../../styles/Form.css';
 
 const PaymentForm = ({submitForm}) => {
-    const idParam = window.location.search;
-    const id = idParam.substring(7);
-    const [isChecked, setIsChecked] = useState(false);
   
     const {updateHandler, values, submitHandler, errors} = PaymentHandler(submitForm, PaymentValidator);
-
-    const handleOnChange = () => {
-        setIsChecked(!isChecked);
-    };
-
 
     return(
         <div className='payment-container'>

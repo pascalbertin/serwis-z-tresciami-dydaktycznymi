@@ -7,7 +7,7 @@ import { API } from '../../config/api'
 import Loading from '../../components/loading/Loading'
 import '../../styles/Form.css'
 import Login from '../login/Login'
-
+import ErrorHandler from '../../components/errorhandler/ErrorHandler'
 
 const Profile = () => {
     const [isLoaded, setIsLoaded] = useState(false)
@@ -15,23 +15,20 @@ const Profile = () => {
     const [user, setUser] = useState({})
     const username = localStorage.getItem('username')
     const accessToken = localStorage.getItem('accessToken')
+    const [error, setError] = useState('Nie posiadasz jeszcze żadnych kursów')
 
     const roles = localStorage.getItem('roles')
 
     const getUser = async () => {
         try {
             const response = await axios.get(API.user + '/' + username , {
-                headers: { 
-
+                headers: {
                     'Content-Type': 'application/json'}
                 });
                 setUser(response.data);
-                //  const accessToken = response?.data?.accessToken
-                //  const roles = response?.data?.roles
-                //  localStorage.setItem('accessToken', accessToken)
-                //  localStorage.setItem('roles', roles)
             } catch (err) {
-                console.log(err);
+                setIsLoaded(true)
+                if(!err?.response) setError(process.env.REACT_APP_SERVER_CONN_ERROR)
             }
         }
 
@@ -39,14 +36,18 @@ const Profile = () => {
         try {
             const response = await axios.get(API.user + '/' + username + '/courses', {
                 headers: { 
-                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+                    'Authorization': 'Bearer ' + accessToken,
                 },
                 withCredentials: true
-                });
-                    setCourses(response.data);
-                    setIsLoaded(true)
-                } catch (err) {
-                    console.log(err);
+            });
+            setCourses(response.data);
+            setIsLoaded(true)
+        } 
+        catch (err) {
+                setIsLoaded(true)
+                if(!err?.response) setError(process.env.REACT_APP_SERVER_CONN_ERROR)
+                else if(err.response?.status === 401) setError(process.env.REACT_APP_UNAUTHORIZED)
+                else if(err.response?.status === 403) setError(process.env.REACT_APP_FORBIDDEN)
             }
         }
 
@@ -56,7 +57,7 @@ const Profile = () => {
     }, [])
 
   return (
-    courses && username != null ?
+    username != null && accessToken != null ?
         <div className="profile-container">
             <div className="profile-top-container">
                 <div className='profile-row'>
@@ -92,6 +93,7 @@ const Profile = () => {
                                 <div className='course-object-title text-first text-xl md:text-2xl lg:text-3xl font-bold'>{value?.title}</div>
                                 </Link>
                                 <div className='course-object-subject text-gray-500'>Kategoria: {value?.subject}</div>
+                                {!value.verification ? <div className='course-object-subject text-red-500 text-xs'>Kurs niezweryfikowany przez administratora</div> : <></>}
                                 <div className='course-object-price pt-4 text-lg md:text-xl lg:text-2xl'>Cena: {value?.price} zł</div>
                                 <div className='course-sales-amount text-lg md:text-xl lg:text-2xl text-purple-900'>Sprzedano: {value?.copiesSold} sztuk</div>
                             </div>
@@ -99,9 +101,8 @@ const Profile = () => {
                     </li></div></div>)}              
                     </ul>
                     
-                ) : isLoaded ? <p className='empty-courses flex ml-8 pt-12'>
-                    Nie posiadasz jeszcze żadnych kursów
-                    </p> : <Loading />
+                ) : isLoaded ? 
+                        <ErrorHandler msg={error} /> : <Loading />
                 }
     </div>
     </div>

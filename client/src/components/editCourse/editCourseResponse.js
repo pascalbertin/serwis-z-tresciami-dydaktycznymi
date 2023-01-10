@@ -1,10 +1,10 @@
-const EditCourseResponse = () => {
+import Loading from "../loading/Loading";
+import ErrorHandler from '../../components/errorhandler/ErrorHandler';
+
+const EditCourseResponse = ({isThumbnailLoaded, isVideoLoaded, error}) => {
   return (
-    <div className="form-container">
-      <h1>
-        {process.env.REACT_APP_COURSE_EDIT_SUCCESS}
-      </h1>
-    </div>
+    isThumbnailLoaded && isVideoLoaded ?
+      <ErrorHandler msg={error} /> : <Loading msg="Ładowanie plików. Nie opuszczaj strony"/>
   )
 }
 
