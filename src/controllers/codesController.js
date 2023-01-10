@@ -33,7 +33,7 @@ const courseGenerateCode = tryCatch(async (req, res) => {
 
   let numberOfCopiesSold = res.course.copiesSold + 1;
   let authorAccountBalance = res.user.accountBalance + res.course.price * 0.7;
-
+  authorAccountBalance = authorAccountBalance.toFixed(2);
   res.course.codes.push({code: hashedCode, uses: 3});
   res.course.set({copiesSold: numberOfCopiesSold});
   res.user.set({accountBalance: authorAccountBalance});
