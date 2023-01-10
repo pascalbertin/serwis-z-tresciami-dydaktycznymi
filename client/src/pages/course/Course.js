@@ -18,8 +18,25 @@ function Course(){
   const username = localStorage.getItem('username')
   const roles = localStorage.getItem('roles')
 
+  const [isAdmin, setIsAdmin] = useState(false)
+
   const [isLoaded, setIsLoaded] = useState(false)
 
+  useEffect(() => {
+    const checkAdmin = async () => {
+        try {
+            await axios.get(API.course + '/admin/notVerified', {
+                headers: { 
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken"),
+                    'Content-Type': 'application/json'}
+              });
+              setIsAdmin(true)
+        } catch (err) {
+          setIsAdmin(false)
+        }
+      }
+      checkAdmin();
+  }, [])
   
   const getCourse = async () => {
     const response = await axios.get(API.course + '/' + id,
@@ -97,6 +114,7 @@ const updateCodeHandler = event => {
             {username === value.author ? <Link to={`/deletecourse?title=${value.title}`} style={{ textDecoration: 'none' }}>
               <button className='form-button' type="submit"> Usuń kurs</button>
             </Link> : <div></div>}
+            {isAdmin && username != value.author ? <VideoCourse link={value?.video} /> : <></>}
           </div>
         </div>)
          : (<div>
