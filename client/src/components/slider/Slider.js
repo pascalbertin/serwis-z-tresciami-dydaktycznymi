@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import SliderContent from './SliderContent';
 import Dots from './Dots';
 import Arrows from './Arrows';
