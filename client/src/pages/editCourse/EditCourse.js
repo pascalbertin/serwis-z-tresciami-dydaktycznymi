@@ -69,7 +69,11 @@ const EditCourse = () => {
       setIsSubmitted(true);
 
       //calling endpoints
-      if(video == null && thumbnail != null) {
+      if(video == null && thumbnail == null){
+        setIsThumbnailLoaded(true)
+        setIsVideoLoaded(true)
+      }
+      else if(video == null && thumbnail != null) {
         uploadThumbnail(thumbnail);
         setIsVideoLoaded(true)
       }

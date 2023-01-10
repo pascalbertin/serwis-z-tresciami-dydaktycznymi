@@ -93,6 +93,7 @@ const Profile = () => {
                                 <div className='course-object-title text-first text-xl md:text-2xl lg:text-3xl font-bold'>{value?.title}</div>
                                 </Link>
                                 <div className='course-object-subject text-gray-500'>Kategoria: {value?.subject}</div>
+                                {!value.verification ? <div className='course-object-subject text-red-500 text-xs'>Kurs niezweryfikowany przez administratora</div> : <></>}
                                 <div className='course-object-price pt-4 text-lg md:text-xl lg:text-2xl'>Cena: {value?.price} zł</div>
                                 <div className='course-sales-amount text-lg md:text-xl lg:text-2xl text-purple-900'>Sprzedano: {value?.copiesSold} sztuk</div>
                             </div>
