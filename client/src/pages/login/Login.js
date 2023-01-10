@@ -27,13 +27,13 @@ const Login = () => {
         setTimeout(navigate('/profile', {state: { from: location}, replace: true}), 100)
         navigate(0)
         if(response.status === 200 || response.status === 304) setError(process.env.REACT_APP_LOGIN_SUCCESS)
-        else if(response.status === 204) setError(process.env.REACT_APP_EMAIL_NOT_VERIFIED)
         }
 
       catch (err){
         if(!err?.response) setError(process.env.REACT_APP_SERVER_CONN_ERROR)
         else if(err.response?.status === 400) setError(process.env.REACT_APP_REGISTER_DATA_REQUIRED)
         else if(err.response?.status === 401) setError(process.env.REACT_APP_UNAUTHORIZED)
+        else if(err.response?.status === 204) setError(process.env.REACT_APP_EMAIL_NOT_VERIFIED)
         else setError(process.env.REACT_APP_LOGIN_GENERAL_ERROR)
       }
 
