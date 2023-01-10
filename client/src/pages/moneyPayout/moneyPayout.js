@@ -1,47 +1,47 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import { API } from '../../config/api'
 import '../../styles/moneyPayout.css';
 import axios from '../../config/axios'
-
+import MoneyPayoutForm from './moneyPayoutForm'
+import MoneyPayoutResponse from './MoneyPayoutResponse';
 
 const MoneyPayout = () => {
+    const [isSubmitted, setIsSubmitted] = useState(false)
     const [priceAmount, setPriceAmount] = useState()
-    const [user, setUser] = useState({})
+    const [values, setValues] = useState({})
     const username = localStorage.getItem('username')
 
-    const getUser = async () => {
-        try {
-            const response = await axios.get(API.user + '/' + username , {
-                headers: { 
-                    'Content-Type': 'application/json'}
+
+    async function submitForm(isValid, values) {
+        console.log(values);
+        if(isValid) {
+            setIsSubmitted(true);
+            setValues(values);
+            const response = await axios.patch(API.user + '/' + username + '/withdrawMoney' , {...values},            
+                {
+                    headers:{
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+                    'Content-Type': 'application/json'},   
+                    withCredentials: true,
+                 
                 });
-                 setUser(response.data);
-            } catch (err) {
-                console.log(err);
+            setIsSubmitted(true);
+            setValues(values);
+            } else {
+                setIsSubmitted(false);
+                setValues({});
             }
         }
 
-    const handleInputPrice = (e)=>{
-        setPriceAmount( e.target.value );
+        // const handleInputPrice = (e)=>{
+        //     setPriceAmount( e.target.value );
+        //}  
+
+        return(
+            <div>
+                {!isSubmitted ? <MoneyPayoutForm submitForm={submitForm} /> : <MoneyPayoutResponse />}
+            </div>        
+            )
     }
-
-    useEffect(() => {
-        getUser();
-    }, [])
-
-    return(
-        <div className='payment-container'>
-            <div className='payment-main-text'> Stan konta: {user?.accountBalance}</div>
-            <div className='payment-bottom-text'>Wpisz ile chciałbyś wypłacić z konta</div>
-            <div className='row'>
-                <input type="number" className='number-payout-input' value={priceAmount} step={1} min={10} onChange={handleInputPrice}></input>
-                <div className='payment-price-text'>zł</div>
-            </div>
-            <button className='payment-button' type="submit">
-                Wypłać
-            </button>
-        </div>
-        );
-  }
   
   export default MoneyPayout;
