@@ -26,7 +26,8 @@ const Login = () => {
         localStorage.setItem('roles', response?.data?.roles)
         setTimeout(navigate('/profile', {state: { from: location}, replace: true}), 100)
         navigate(0)
-        setError(process.env.REACT_APP_LOGIN_SUCCESS)
+        if(response.status === 200 || response.status === 304) setError(process.env.REACT_APP_LOGIN_SUCCESS)
+        else if(response.status === 204) setError(process.env.REACT_APP_EMAIL_NOT_VERIFIED)
         }
 
       catch (err){
