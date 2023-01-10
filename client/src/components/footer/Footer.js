@@ -11,7 +11,7 @@ const Footer = () => {
                     <div className="col">
                         <h4>O FIRMIE</h4>
                         <ul className="list-unstyled">
-                            <li><a href="/privatePolicy">Polityka prywatności</a></li>
+                            <li><a href="/privacy_policy">Polityka prywatności</a></li>
                             <li><a href="/shopRegulations">Regulamin</a></li>
                             <li><a href="/login">Moje konto</a></li>
                             <li><a href="/contacts">Kontakt</a></li>
