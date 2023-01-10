@@ -32,7 +32,7 @@ const courseGenerateCode = tryCatch(async (req, res) => {
   const hashedCode = await bcrypt.hash(generatedCode, 10);
 
   let numberOfCopiesSold = res.course.copiesSold + 1;
-  let authorAccountBalance = res.user.accountBalance + res.course.price;
+  let authorAccountBalance = res.user.accountBalance + res.course.price * 0.7;
 
   res.course.codes.push({code: hashedCode, uses: 3});
   res.course.set({copiesSold: numberOfCopiesSold});
