@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import axios from '../../config/axios';
 import { API } from '../../config/api'
 import VideoCourse from '../videoCourse/VideoCourse';
+import Loading from '../../components/loading/Loading'
 
 function Course(){
   const idParam = window.location.search;
@@ -17,6 +18,8 @@ function Course(){
   const username = localStorage.getItem('username')
   const roles = localStorage.getItem('roles')
 
+  const [isLoaded, setIsLoaded] = useState(false)
+
   
   const getCourse = async () => {
     const response = await axios.get(API.course + '/' + id,
@@ -28,6 +31,7 @@ function Course(){
     setValues(response?.data);
     localStorage.removeItem('title')
     localStorage.setItem('title', response?.data.title)
+    setIsLoaded(true)
 }
 
 const submitCodeHandler = async event =>{
@@ -68,7 +72,7 @@ const updateCodeHandler = event => {
 
   return (
     //checking if code is correct, if yes show video, if no show course page
-    !isCorrect ? (value.title ? (<div className='course-info'>
+    isLoaded ? !isCorrect ? (value.title ? (<div className='course-info'>
     <div className='course-container'>
       <div className='left-column'>
         <img className='course-image' src={value.thumbnail}></img>
@@ -118,6 +122,7 @@ const updateCodeHandler = event => {
     </div>
   </div>) : 
 <div></div>) : <div><a href={`/course/?title=${value.title}`}><svg className="w-6 h-6 lg:w-8 lg:h-8 m-4" width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_iconCarrier"> <g id="style=linear"> <g id="arrow-long-left"> <path id="vector" d="M21.2858 12L2.78577 12" stroke="#2F184B" stroke-width="1.5" stroke-linecap="round"></path> <path id="vector_2" d="M9.28577 19L2.99287 12.7071C2.60235 12.3166 2.60235 11.6834 2.99287 11.2929L9.28577 5" stroke="#2F184B" stroke-width="1.5" stroke-linecap="round"></path> </g> </g> </g></svg></a> <VideoCourse title={value?.title} subject={value?.subject} info={value?.description} link={value?.video} /></div>
+: <Loading />
   );
 }
 
