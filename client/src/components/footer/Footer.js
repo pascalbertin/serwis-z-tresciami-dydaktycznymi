@@ -4,27 +4,12 @@ import axios from "../../config/axios";
 import { useState } from "react";
 
 const Footer = () => {
-    const [href, setHref] = useState('')
-
-    const getUserCourses = async () => {
-        try {
-            const response = await axios.post('/api/payu/generateOrder')
-            console.log(response.data.link);
-            setHref(response.data.link)
-        }
-        catch (err) {
-                console.log(err);
-    }
-}
-
     return(
         <div className="main-footer">
             <div className="footer-container">
                 <div className="row" key={`row${4}`}>
                     <div className="col">
                         <h4>O FIRMIE</h4>
-                        {/* <button className="w-32 h-32 bg-second" onClick={() => getUserCourses()}>blblflfl</button>
-                        <a href={href}><button className="w-32 h-32 bg-second text-black">redirect</button></a> */}
                         <ul className="list-unstyled">
                             <li>Polityka prywatności</li>
                             <li>Regulamin</li>
