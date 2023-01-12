@@ -3,7 +3,7 @@ import axios from '../../config/axios';
 import { API } from '../../config/api';
 
 const PaymentFinal = () => {
-    const title = window.location.search.substring(7);
+    const title = localStorage.getItem('title')
     const error = window.location.href.indexOf("&error") > -1
     const email = localStorage.getItem('email')
 
