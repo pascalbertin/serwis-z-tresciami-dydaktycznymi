@@ -137,13 +137,6 @@ const FliterPage = () => {
         },
     ]
 
-    const madeObjects = (data) => {
-        data.forEach(course => {
-        // const objectCourse = JSON.parse(course);
-        console.log(course);
-        });
-    }
-
     const submitForm = async () => {
         if(CheckedClasses.length > 0){
             level = "&level=" + CheckedClasses.join()

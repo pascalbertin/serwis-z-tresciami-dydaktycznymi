@@ -1,9 +1,8 @@
-const EditUserDataResponse = () => {
+const EditUserDataResponse = ({msg}) => {
     return (
       <div className="form-container">
         <h1>
-      
-          TWOJE DANE ZOSTAŁY ZMIENIONE POMYŚLNIE
+          {msg}
         </h1>
       </div>
     )

@@ -13,13 +13,6 @@ const AllCourses = () => {
 
   const [values, setValues] = useState([])
 
-  const madeObjects = (data) => {
-    data.forEach(course => {
-      // const objectCourse = JSON.parse(course);
-      console.log(course);
-    });
-  }
-
   const submitForm = async () => {
     const response = await axios.get(API.course + '?subject=' + sub,
       {
@@ -27,14 +20,12 @@ const AllCourses = () => {
           'Accept': 'application',
           'Content-Type': 'application/json'},
       });
-      console.log('Success:', response?.data);
       setValues(response?.data);
       setIsLoaded(true)
   }
   
   useEffect(() => {
     submitForm()
-    madeObjects(values);
   }, [])
   
   return (

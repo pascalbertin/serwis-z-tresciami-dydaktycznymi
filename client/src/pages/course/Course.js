@@ -61,7 +61,6 @@ const submitCodeHandler = async event =>{
         headers: {'Content-Type': 'application/json',
                   'Accept': 'application/json'},
       })
-      console.log('.', response.message)
       if(response.status === 204){
           setError(process.env.REACT_APP_COURSE_OUT_OF_USES)
       }

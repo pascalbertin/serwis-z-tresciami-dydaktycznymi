@@ -1,10 +1,10 @@
 import React from 'react'
 
-const MoneyPayoutResponse = () => {
+const MoneyPayoutResponse = ({msg}) => {
 
   return (
     <div className="form-container">
-        <h1>Za chwilę zostaniesz przekierowany do odpowieniej podstrony</h1>
+        <h1>{msg}</h1>
     </div>
   )
 }

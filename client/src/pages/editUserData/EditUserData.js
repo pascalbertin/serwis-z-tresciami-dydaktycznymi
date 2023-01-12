@@ -10,8 +10,6 @@ const EditUserData = () => {
   const location = useLocation();
   const [error, setError] = useState('')
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [values, setValues] = useState({})
-  const [avatar, setAvatar] = useState(null)
   const username = localStorage.getItem('username')
   const token = localStorage.getItem('accessToken')
 
@@ -20,13 +18,10 @@ const EditUserData = () => {
     formData.append("file", avatar);
 
     const response = await axios.post('/api/avatarUpload', formData);
-    console.log('Success:', response?.data);
   }
 
   async function submitForm(isValid, values, avatar){
     if (isValid){
-      setValues(values);
-      setAvatar(avatar);
       try{
         const response = await axios.patch(API.user + '/' + username, JSON.stringify(values),
         {
@@ -43,21 +38,18 @@ const EditUserData = () => {
         {
             if(!err?.response) setError('Błąd połączenia')
             else if(err.response?.status === 400) setError('Hasło jest wymagane!')
-            else if(err.response?.status === 401) setError('Błąd autoryzacji')
-            else setError('Błąd logowania')
+            else if(err.response?.status === 401 || err.response?.status === 403) setError('Błąd autoryzacji')
+            else setError('Nieznany błąd')
         }
         setIsSubmitted(true);
-        setValues(values);
         uploadAvatar(avatar);
     }else{
       setIsSubmitted(false);
-      setValues({});
-      setAvatar(null);
     }  
   }
   return (
     <div>
-        {!isSubmitted ? <EditUserDataForm submitForm={submitForm} /> : <EditUserDataResponse values={values} />}
+        {!isSubmitted ? <EditUserDataForm submitForm={submitForm} /> : <EditUserDataResponse msg={error} />}
     </div>
   )
 }
