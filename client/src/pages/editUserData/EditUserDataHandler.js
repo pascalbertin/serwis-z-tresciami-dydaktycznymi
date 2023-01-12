@@ -37,7 +37,6 @@ const EditUserDataHandler = callback => {
     }
 
     const submitHandler = event => {
-        console.log(values);
         event.preventDefault();
 
         setErrors(EditUserDataValidator(values))

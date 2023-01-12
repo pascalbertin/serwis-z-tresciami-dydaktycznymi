@@ -1,12 +1,9 @@
 export default function EditUserDataValidator(values){
     let errors = {};
 
-    // if(values.bank_account.length != 26){
-    //     errors.bank_account = "Numer konta jest błędny"
-    // }
-    // else if(values.bankAccount.length > 26){
-    //     errors.bankAccount = "Numer konta jest za długi"
-    // }
+    if(values.bank_account.length !== 26){
+        errors.bank_account = "Numer konta musi mieć 26 znaków"
+    }
 
     if(!values.password){
         errors.password = "Pole nie może być puste"
@@ -21,10 +18,6 @@ export default function EditUserDataValidator(values){
     else if (values.passwordRepeat !== values.password) {
         errors.passwordRepeat = 'Hasła nie zgadzają się';
     }
-
-    // if(!values.avatar){
-    //     errors.thumbnail = "Awatar jest wymagana"
-    // }
 
     return errors;
 }

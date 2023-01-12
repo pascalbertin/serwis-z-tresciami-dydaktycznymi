@@ -151,7 +151,7 @@ const userWithdrawMoney = tryCatch(async (req, res) => {
   }
 
   if(foundUser.bank_account == "00 0000 0000 0000 0000 0000 0000") {
-    throw new AppError(USER_ERROR, USER_BANK_ACCOUNT_MISSING, 407);
+    throw new AppError(USER_ERROR, USER_BANK_ACCOUNT_MISSING, 409);
   }
 
   res.user = user;
