@@ -1,7 +1,7 @@
 export default function EditUserDataValidator(values){
     let errors = {};
 
-    if(values.bank_account.length !== 26){
+    if(values.bank_account.length !== 26 || values.bank_account.length !== 0){
         errors.bank_account = "Numer konta musi mieć 26 znaków"
     }
 
