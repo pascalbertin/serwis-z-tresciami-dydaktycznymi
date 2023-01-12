@@ -41,7 +41,7 @@ const RegisterForm = ({submitForm}) => {
               </div>
             <div className="form-checkbox">
                 <input id="rules" type="checkbox" name="rules" className="form-checkbox-input" value={isChecked} onChange={checkHandler} />
-                <label htmlFor="rules" className="form-checkbox-label"><span>Rejestrując się akceptujesz Regulamin oraz Warunki korzystania z serwisu</span></label>
+                <label htmlFor="rules" className="form-checkbox-label"><span>Rejestrując się akceptujesz <a className="underline" href="/shopRegulations">Regulamin oraz Warunki korzystania z serwisu</a></span></label>
                 {errors.rules && <p>{errors.rules}</p>}
             </div>
 

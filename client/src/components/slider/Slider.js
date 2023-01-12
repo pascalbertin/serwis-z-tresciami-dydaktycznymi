@@ -47,9 +47,9 @@ function Slider() {
                         <h2 className='pt-5 text-black text-sm md:text-lg xl:text-xl pb-12 xl:w-10/12 w-11/12 py-8'>
                             Na stronie znajdziesz kursy z przedmiotów ogólnokształcących dla szkół podstawowych i ponadpodstawowych.
                         </h2>
-                        <button className='py-4 px-8 left-start-button bg-first text-white text-center xl:text-xl rounded-3xl xl:w-9/12 text-sm md:text-md w-11/12'>
+                        <a href="/filter_courses"><button className='py-4 px-8 left-start-button bg-first text-white text-center xl:text-xl rounded-3xl xl:w-9/12 text-sm md:text-md w-11/12'>
                             Zacznij już dziś!
-                        </button>
+                        </button></a>
                     </div>
                     <div className='w-6/12'>
                         <img className="right-side-image xl:w-full xl:h-full xl:mt-0 h-4/6 mt-36" src={study}></img>
