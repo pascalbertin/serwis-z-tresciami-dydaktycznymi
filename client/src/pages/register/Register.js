@@ -11,7 +11,7 @@ const Register = () => {
   const [success, setIsSuccess] = useState(false);
   const [isAvatarLoaded, setIsAvatarLoaded] = useState(false)
   const accessToken = localStorage.getItem('accessToken')
-  const username = localStorage.getItem('accessToken')
+  const username = localStorage.getItem('username')
 
   const uploadAvatar = async (avatar) => {
     const formData = new FormData();
