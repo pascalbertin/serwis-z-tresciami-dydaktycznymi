@@ -161,7 +161,7 @@ const userWithdrawMoney = tryCatch(async (req, res) => {
 
   const moneyAmountToBeWithdrawed = req.body.moneyAmount
   const currentBalance = res.user.accountBalance
-  const balanceAfterWithdraw = currentBalance - moneyAmountToBeWithdrawed
+  const balanceAfterWithdraw = (currentBalance - moneyAmountToBeWithdrawed).toFixed(2);
   res.user.set({accountBalance: balanceAfterWithdraw})
   
   const mailOptions = {
