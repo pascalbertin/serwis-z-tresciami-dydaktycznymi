@@ -11,7 +11,7 @@ const EditCourse = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
   const [error, setError] = useState('')
   const accessToken = localStorage.getItem('accessToken')
-  const username = localStorage.getItem('accessToken')
+  const username = localStorage.getItem('username')
 
   const uploadThumbnail = async (thumbnail) => {
     const formData = new FormData();

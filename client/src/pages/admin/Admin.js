@@ -16,7 +16,7 @@ const Admin = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const accessToken = localStorage.getItem('accessToken')
-    const username = localStorage.getItem('accessToken')
+    const username = localStorage.getItem('username')
     const roles = localStorage.getItem('roles')
 
     const acceptCourse = async (courseName) => {

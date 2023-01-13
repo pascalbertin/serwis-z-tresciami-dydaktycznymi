@@ -4,15 +4,15 @@ import '../../styles/moneyPayout.css';
 import axios from '../../config/axios'
 import MoneyPayoutForm from './moneyPayoutForm'
 import MoneyPayoutResponse from './MoneyPayoutResponse';
-import {useNavigate, useLocation} from 'react-router-dom'
+import ErrorHandler from '../../components/errorhandler/ErrorHandler';
 
 
 const MoneyPayout = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
     const [error, setError] = useState('')
     const [isSubmitted, setIsSubmitted] = useState(false)
+    const [isLoaded, setIsLoaded] = useState(false)
     const username = localStorage.getItem('username')
+    const token = localStorage.getItem('accessToken')
 
 
     async function submitForm(isValid, values) {
@@ -27,11 +27,11 @@ const MoneyPayout = () => {
                     withCredentials: true,
                 });
                 if(response?.status === 200){
-                    setTimeout(navigate('/profile', {state: { from: location}, replace: true}), 100)
-                    navigate(0)
                     setError('Transakcję przeprowadzono poprawnie!')
                   }
+                setIsLoaded(true)
             }catch(err){
+                setIsLoaded(true)
                 if(!err?.response) setError('Błąd połączenia')
                 else if(err.response?.status === 400) setError('Hasło jest wymagane!')
                 else if(err.response?.status === 401 || err.response?.status === 403) setError('Błąd autoryzacji')
@@ -45,13 +45,9 @@ const MoneyPayout = () => {
             }
         }
 
-        // const handleInputPrice = (e)=>{
-        //     setPriceAmount( e.target.value );
-        //}  
-
         return(
             <div>
-                {!isSubmitted ? <MoneyPayoutForm submitForm={submitForm} /> : <MoneyPayoutResponse msg={error}/>}
+                {username !== null && token !== null ? !isSubmitted ? <MoneyPayoutForm submitForm={submitForm} /> : <MoneyPayoutResponse isLoaded={isLoaded} msg={error}/> : <ErrorHandler msg={process.env.REACT_APP_FORBIDDEN}/>}
             </div>        
             )
     }

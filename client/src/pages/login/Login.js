@@ -12,7 +12,7 @@ const Login = () => {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [error, setError] = useState('')
   const accessToken = localStorage.getItem('accessToken')
-  const username = localStorage.getItem('accessToken')
+  const username = localStorage.getItem('username')
 
   async function submitForm(isValid, values){
     if (isValid){

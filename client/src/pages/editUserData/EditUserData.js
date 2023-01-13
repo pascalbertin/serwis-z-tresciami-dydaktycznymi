@@ -3,13 +3,12 @@ import axios from '../../config/axios'
 import EditUserDataForm from './EditUserDataForm'
 import { API } from '../../config/api'
 import EditUserDataResponse from './EditUserDataResponse'
-import {useNavigate, useLocation} from 'react-router-dom'
+import ErrorHandler from '../../components/errorhandler/ErrorHandler'
 
 const EditUserData = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
   const [error, setError] = useState('')
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isAvatarLoaded, setIsAvatarLoaded] = useState(false)
   const username = localStorage.getItem('username')
   const token = localStorage.getItem('accessToken')
 
@@ -17,7 +16,15 @@ const EditUserData = () => {
     const formData = new FormData();
     formData.append("file", avatar);
 
-    const response = await axios.post('/api/avatarUpload', formData);
+    try{
+      await axios.post('/api/avatarUpload', formData);
+      setIsAvatarLoaded(true)
+    }
+    catch(err){
+      if(!err?.response) setError(process.env.REACT_APP_SERVER_CONN_ERROR)
+      else setError(process.env.REACT_APP_FILE_ERROR)
+      setIsAvatarLoaded(true)
+    }
   }
 
   async function submitForm(isValid, values, avatar){
@@ -30,8 +37,6 @@ const EditUserData = () => {
           withCredentials: true
         })
         if(response?.status === 200){
-          setTimeout(navigate('/profile', {state: { from: location}, replace: true}), 100)
-          navigate(0)
           setError('Dane zmieniono poprawnie!')
         }
       }catch (err)
@@ -49,7 +54,7 @@ const EditUserData = () => {
   }
   return (
     <div>
-        {!isSubmitted ? <EditUserDataForm submitForm={submitForm} /> : <EditUserDataResponse msg={error} />}
+        {username !== null && token !== null ? !isSubmitted ? <EditUserDataForm submitForm={submitForm} /> : <EditUserDataResponse isAvatarLoaded={isAvatarLoaded} msg={error} /> : <ErrorHandler msg={process.env.REACT_APP_FORBIDDEN}/>}
     </div>
   )
 }
