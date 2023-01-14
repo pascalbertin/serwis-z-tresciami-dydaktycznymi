@@ -47,7 +47,8 @@ const EditUserData = () => {
             else setError('Nieznany błąd')
         }
         setIsSubmitted(true);
-        uploadAvatar(avatar);
+        if(avatar !== null) uploadAvatar(avatar);
+        else setIsAvatarLoaded(true)
     }else{
       setIsSubmitted(false);
     }  
