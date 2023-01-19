@@ -1,3 +1,4 @@
+
 const ShopRegulation = () => {
     const onButtonClick = () => {
         window.location.replace('https://storage.googleapis.com/tutorsalpha-thumbnails/Regulamin_TutorsAlpha.pdf')
