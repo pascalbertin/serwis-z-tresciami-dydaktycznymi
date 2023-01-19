@@ -10,6 +10,26 @@ export default function MoneyPayoutValidator(values){
         errors.moneyAmount = "Za małą kwota! Wypłać więcej niż 10zł";
     }
 
+    function isDouble(price) {
+        let regex = /^\d+(.\d{2})?$/;
+        console.log(regex.test(price))
+        return regex.test(price);
+      }
+
+      function isDoubleComa(price) {
+        console.log(price);
+        let regex = /^.*[,].*$/;
+        console.log(regex.test(price))
+        return regex.test(price);
+      }
+
+    if( isDouble(parseFloat(values.moneyAmount)) == false ) {
+        errors.moneyAmount = "Błędna cena"
+    }
+    else if( isDoubleComa(values.moneyAmount) == true ) {
+        errors.moneyAmount = "Użyj kropki zmiast przecinka"
+    }    
+
 
     return errors;
 }

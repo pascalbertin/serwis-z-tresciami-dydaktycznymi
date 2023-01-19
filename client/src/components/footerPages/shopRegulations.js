@@ -1,7 +1,8 @@
+
 const ShopRegulation = () => {
     const onButtonClick = () => {
         // using Java Script method to get PDF file
-        fetch('SamplePDF.pdf').then(response => {
+        fetch('Regulamin_TutorsAlpha.pdf').then(response => {
             response.blob().then(blob => {
                 // Creating new object of PDF file
                 const fileURL = window.URL.createObjectURL(blob);
@@ -12,6 +13,7 @@ const ShopRegulation = () => {
                 alink.click();
             })
         })
+        
     }
     return (
       <div className="form-container">
@@ -19,9 +21,9 @@ const ShopRegulation = () => {
             <h1>
                 REGULAMIN SKLEPU
             </h1>
-            <button onClick={onButtonClick}>
-                Pobierz regulamin
-            </button>
+                <button onClick={onButtonClick}>
+                    Pobierz regulamin
+                </button>
         </div>
       </div>
     )
