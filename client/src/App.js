@@ -55,7 +55,7 @@ function App() {
                 <Route path="/editYourData" element={ <EditUserData/>} />
                 <Route path="/resetPassword" element={ <ResetPassword/>}/>
                 <Route path="/payment_final" element={<PaymentFinal />} />
-                <Route path="/privatePolicy" element={<PrivatePolicy/>}/>
+                <Route path="/privacy_policy" element={<PrivatePolicy/>}/>
                 <Route path="/shopRegulations" element={<ShopRegulation/>}/>
                 <Route path="/contacts" element={<Contacts/>}/>
                 <Route path="/addingInstruction" element={<AddingIns/>}/>

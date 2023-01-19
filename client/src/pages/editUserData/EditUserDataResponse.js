@@ -1,11 +1,10 @@
-const EditUserDataResponse = () => {
+import Loading from "../../components/loading/Loading";
+import ErrorHandler from "../../components/errorhandler/ErrorHandler";
+
+const EditUserDataResponse = ({msg, isAvatarLoaded}) => {
     return (
-      <div className="form-container">
-        <h1>
-      
-          TWOJE DANE ZOSTAŁY ZMIENIONE POMYŚLNIE
-        </h1>
-      </div>
+      isAvatarLoaded ?
+      <ErrorHandler hrefMsg={'Powrót do profilu'} hrefUrl={'/profile'} msg={msg} /> : <Loading msg="Ładowanie plików. Nie opuszczaj strony"/>
     )
   }
   

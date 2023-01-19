@@ -1,13 +1,10 @@
-const RegisterResponse = ({msg, success}) => {
-  const url = "/register"
-  const login = "/login"
+import Loading from '../loading/Loading'
+import ErrorHandler from '../errorhandler/ErrorHandler'
 
+const RegisterResponse = ({msg, success, isAvatarLoaded}) => {
   return (
-    <div className="form-container">
-    {msg ? <h1>{msg}</h1> : <h1>{process.env.REACT_APP_REGISTER_GENERAL_ERROR}</h1>}
-    {success ? <div><a href={login}>Zaloguj się</a></div> : <div><a href={url}>Powróć do rejestracji</a></div>}
-    </div>
+    isAvatarLoaded ? (success ? <div><ErrorHandler msg={msg} hrefUrl='/register' hrefMsg='Powrót do rejestracji' /></div> : <div><ErrorHandler msg={msg} hrefUrl='/login' hrefMsg='Zaloguj się' /></div>) : <Loading msg={"Ładowanie plików. Nie opuszczaj strony"}/>
   )
 }
 
-export default RegisterResponse
+export default RegisterResponse;

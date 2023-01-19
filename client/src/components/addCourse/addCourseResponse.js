@@ -1,11 +1,11 @@
-const addCourseResponse = () => {
+import Loading from "../loading/Loading";
+import ErrorHandler from '../../components/errorhandler/ErrorHandler';
+
+const AddCourseResponse = ({isThumbnailLoaded, isVideoLoaded, error}) => {
   return (
-    <div className="form-container">
-      <h1>
-        {process.env.REACT_APP_COURSE_ADD_SUCCESS}
-      </h1>
-    </div>
+    isThumbnailLoaded && isVideoLoaded ?
+      <ErrorHandler msg={error} /> : <Loading msg="Ładowanie plików. Nie opuszczaj strony"/>
   )
 }
 
-export default addCourseResponse;
+export default AddCourseResponse;

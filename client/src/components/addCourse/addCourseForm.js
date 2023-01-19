@@ -57,7 +57,7 @@ const AddCourseForm = ({submitForm}) => {
                     <option value="2">Szkoła podstawowa: klasy 4-6</option>
                     <option value="3">Szkoła podstawowa: klasy 7-8</option>
                     <option value="4">Szkoła średnia: klasy 1-2</option>
-                    <option value="5">Szkoła średnia: klasy 3-4</option>
+                    <option value="5">Szkoła średnia: klasy 3-5</option>
                   </select>
                   {errors.level && <p>{errors.level}</p>}
               </div>

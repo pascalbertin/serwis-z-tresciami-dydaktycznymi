@@ -8,7 +8,6 @@ const EditUserDataForm = ({submitForm}) => {
     const {updateHandler, values, submitHandler, errors, avatarHandler, avatar} = EditUserDataHandler(submitForm, EditUserDataValidator);
 
     const token = localStorage.getItem('accessToken');
-    console.log(token);
 
     return(
     <div className='form-container'>

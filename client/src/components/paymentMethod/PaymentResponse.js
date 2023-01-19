@@ -1,11 +1,11 @@
 import React from 'react'
+import Loading from '../loading/Loading'
+import ErrorHandler from '../errorhandler/ErrorHandler'
 
-const PaymentResponse = () => {
+const PaymentResponse = ({error}) => {
 
   return (
-    <div className="form-container">
-        <h1>Za chwilę zostaniesz przekierowany do strony z płatnościami.</h1>
-    </div>
+    error ? <ErrorHandler msg={error} /> : <Loading />
   )
 }
 

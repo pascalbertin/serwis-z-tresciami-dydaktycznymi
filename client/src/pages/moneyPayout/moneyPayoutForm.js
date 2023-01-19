@@ -14,6 +14,7 @@ const MoneyPayoutForm = ({submitForm}) => {
     // const handleInputPrice = (e)=>{
     //     setPriceAmount( e.target.value );
     // }
+    useEffect(() => {
     const getUser = async () => {
         try {
             const response = await axios.get(API.user + '/' + username , {
@@ -22,12 +23,10 @@ const MoneyPayoutForm = ({submitForm}) => {
                 });
                 setUser(response.data);
             } catch (err) {
-                console.log(err);
             }
         }
-    useEffect(() => {
         getUser();
-    })
+    }, [])
 
     return(
         <div className='payment-container'>

@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require("bcrypt");
 const AppError = require("../helpers/AppError");
 const { tryCatch } = require("../helpers/tryCatch");
-const { USER_MISSING_PARAMETERS, USER_UNAUTHORIZED, USER_NOT_FOUND, USER_NOT_VERIFIED } = require("../helpers/errorMessages");
+const { USER_MISSING_PARAMETERS, USER_UNAUTHORIZED, USER_NOT_FOUND } = require("../helpers/errorMessages");
 const { USER_ERROR } = require("../helpers/errorCodes");
 
 const handleLogin = tryCatch(async (req, res) => {
@@ -18,7 +18,7 @@ const handleLogin = tryCatch(async (req, res) => {
   }
 
   if (!foundUser.verification) {
-    throw new AppError(USER_ERROR, USER_NOT_VERIFIED, 204);
+    throw new AppError(USER_ERROR, USER_UNAUTHORIZED, 401);
   }
 
   if (req.body.email != foundUser.email) {

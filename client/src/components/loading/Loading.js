@@ -1,6 +1,6 @@
-const Loading = () => {
+const Loading = ({msg = "Ładowanie..."}) => {
     return (
-        <div className="text-xl text-first items-center text-center my-10">Ładowanie...</div>
+        <div className="form-container text-xl text-first items-center text-center my-10">{msg}</div>
     );
 }
 

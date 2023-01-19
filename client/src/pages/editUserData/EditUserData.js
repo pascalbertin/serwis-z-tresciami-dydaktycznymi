@@ -3,15 +3,12 @@ import axios from '../../config/axios'
 import EditUserDataForm from './EditUserDataForm'
 import { API } from '../../config/api'
 import EditUserDataResponse from './EditUserDataResponse'
-import {useNavigate, useLocation} from 'react-router-dom'
+import ErrorHandler from '../../components/errorhandler/ErrorHandler'
 
 const EditUserData = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
   const [error, setError] = useState('')
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [values, setValues] = useState({})
-  const [avatar, setAvatar] = useState(null)
+  const [isAvatarLoaded, setIsAvatarLoaded] = useState(false)
   const username = localStorage.getItem('username')
   const token = localStorage.getItem('accessToken')
 
@@ -19,14 +16,19 @@ const EditUserData = () => {
     const formData = new FormData();
     formData.append("file", avatar);
 
-    const response = await axios.post('/api/avatarUpload', formData);
-    console.log('Success:', response?.data);
+    try{
+      await axios.post('/api/avatarUpload', formData);
+      setIsAvatarLoaded(true)
+    }
+    catch(err){
+      if(!err?.response) setError(process.env.REACT_APP_SERVER_CONN_ERROR)
+      else setError(process.env.REACT_APP_FILE_ERROR)
+      setIsAvatarLoaded(true)
+    }
   }
 
   async function submitForm(isValid, values, avatar){
     if (isValid){
-      setValues(values);
-      setAvatar(avatar);
       try{
         const response = await axios.patch(API.user + '/' + username, JSON.stringify(values),
         {
@@ -35,29 +37,25 @@ const EditUserData = () => {
           withCredentials: true
         })
         if(response?.status === 200){
-          setTimeout(navigate('/profile', {state: { from: location}, replace: true}), 100)
-          navigate(0)
           setError('Dane zmieniono poprawnie!')
         }
       }catch (err)
         {
             if(!err?.response) setError('Błąd połączenia')
             else if(err.response?.status === 400) setError('Hasło jest wymagane!')
-            else if(err.response?.status === 401) setError('Błąd autoryzacji')
-            else setError('Błąd logowania')
+            else if(err.response?.status === 401 || err.response?.status === 403) setError('Błąd autoryzacji')
+            else setError('Nieznany błąd')
         }
         setIsSubmitted(true);
-        setValues(values);
-        uploadAvatar(avatar);
+        if(avatar !== null) uploadAvatar(avatar);
+        else setIsAvatarLoaded(true)
     }else{
       setIsSubmitted(false);
-      setValues({});
-      setAvatar(null);
     }  
   }
   return (
     <div>
-        {!isSubmitted ? <EditUserDataForm submitForm={submitForm} /> : <EditUserDataResponse values={values} />}
+        {username !== null && token !== null ? !isSubmitted ? <EditUserDataForm submitForm={submitForm} /> : <EditUserDataResponse isAvatarLoaded={isAvatarLoaded} msg={error} /> : <ErrorHandler msg={process.env.REACT_APP_FORBIDDEN}/>}
     </div>
   )
 }

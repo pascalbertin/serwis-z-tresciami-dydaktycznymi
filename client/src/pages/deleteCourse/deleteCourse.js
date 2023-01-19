@@ -1,16 +1,17 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from '../../config/axios';
 import {useNavigate, useLocation} from 'react-router-dom';
 import { API } from '../../config/api'
-
-// import useAxios from '../../hooks/useAxios'
-// import useAuth from '../../hooks/useAuth'
+import ErrorHandler from '../../components/errorhandler/ErrorHandler'
+import Loading from "../../components/loading/Loading";
 
 const DeleteCourse = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const idParam = window.location.search;
     const id = idParam.substring(7);
+
+    const [error, setError] = useState('')
 
     useEffect(() => {
        
@@ -24,17 +25,19 @@ const DeleteCourse = () => {
                    });
                 navigate('/profile', {state: { from: location}, replace: true})
                 navigate(0);
-           } catch (err) {
-               console.log(err);
+                if(response.status === 200 || response.status === 304) setError(process.env.REACT_APP_COURSE_DELETE_SUCCESS)
+           } 
+           catch(err){
+                if(!err?.response) setError(process.env.REACT_APP_SERVER_CONN_ERROR)
+                else if(err.response?.status === 401 || err.response?.status === 403) setError(process.env.REACT_APP_FORBIDDEN)
+                else if(err.response?.status === 404) setError(process.env.REACT_APP_COURSE_ALREADY_DELETED)
            }
        }
-
        deleteCourse();
     }, [])
 
     return (
-        <div>
-        </div>
+        error ? <ErrorHandler msg={error}/> : <Loading />
     )
 }   
 

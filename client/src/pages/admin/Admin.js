@@ -6,8 +6,7 @@ import { Link } from "react-router-dom";
 import Loading from "../../components/loading/Loading";
 import VideoCourse from '../../pages/videoCourse/VideoCourse'
 import { useNavigate, useLocation } from "react-router-dom";
-// import useAxios from '../../hooks/useAxios'
-// import useAuth from '../../hooks/useAuth'
+import ErrorHandler from "../../components/errorhandler/ErrorHandler";
 
 const Admin = () => {
     const [isLoaded, setIsLoaded] = useState(false)
@@ -16,6 +15,9 @@ const Admin = () => {
     const [showVideo, setShowVideo] = useState(false)
     const navigate = useNavigate();
     const location = useLocation();
+    const accessToken = localStorage.getItem('accessToken')
+    const username = localStorage.getItem('username')
+    const roles = localStorage.getItem('roles')
 
     const acceptCourse = async (courseName) => {
         try {
@@ -27,7 +29,6 @@ const Admin = () => {
                 setTimeout(navigate(0), 100)
                 setTimeout(navigate('/admin', {state: { from: location}, replace: true}), 100)
             } catch (err) {
-                console.log(err);
         }
     }
 
@@ -42,14 +43,13 @@ const Admin = () => {
                      setCourses(response.data);
                      setIsLoaded(true)
                 } catch (err) {
-                    console.log(err);
             }
         }
         getUserCourses();
     }, [])
 
     return ( 
-    !showVideo ? <div className="profile-container">
+    accessToken != null && username != null && roles === '5150' ? !showVideo ? <div className="profile-container">
       <div className="profile-top-container">
         <h2 className="xl:text-4xl lg:text-3xl text-2xl mb-10">Panel administratora</h2>
       </div>
@@ -87,6 +87,7 @@ const Admin = () => {
                 }
     </div>
     </div> : <div><a href="/admin"><svg className="w-6 h-6 lg:w-8 lg:h-8 m-2" width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_iconCarrier"> <g id="style=linear"> <g id="arrow-long-left"> <path id="vector" d="M21.2858 12L2.78577 12" stroke="#2F184B" stroke-width="1.5" stroke-linecap="round"></path> <path id="vector_2" d="M9.28577 19L2.99287 12.7071C2.60235 12.3166 2.60235 11.6834 2.99287 11.2929L9.28577 5" stroke="#2F184B" stroke-width="1.5" stroke-linecap="round"></path> </g> </g> </g></svg></a> <VideoCourse title={currentCourse?.title} info={currentCourse?.description} subject={currentCourse?.subject} link={currentCourse?.video} /></div>
+    : <ErrorHandler msg={process.env.REACT_APP_FORBIDDEN} />
     )
 }   
 

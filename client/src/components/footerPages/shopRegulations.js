@@ -1,30 +1,14 @@
 
 const ShopRegulation = () => {
     const onButtonClick = () => {
-        // using Java Script method to get PDF file
-        fetch('Regulamin_TutorsAlpha.pdf').then(response => {
-            response.blob().then(blob => {
-                // Creating new object of PDF file
-                const fileURL = window.URL.createObjectURL(blob);
-                // Setting various property values
-                let alink = document.createElement('a');
-                alink.href = fileURL;
-                alink.download = 'Regulamin_TutorsAlpha.pdf';
-                alink.click();
-            })
-        })
-        
+        window.location.replace('https://storage.googleapis.com/tutorsalpha-thumbnails/Regulamin_TutorsAlpha.pdf')
     }
+
     return (
       <div className="form-container">
-        <div className="column">
-            <h1>
-                REGULAMIN SKLEPU
-            </h1>
-                <button onClick={onButtonClick}>
-                    Pobierz regulamin
-                </button>
-        </div>
+            <button className="bg-third text-white w-1/5 h-8 rounded-xl hover:bg-first transition-all" onClick={onButtonClick}>
+                Pobierz regulamin
+            </button>
       </div>
     )
   }

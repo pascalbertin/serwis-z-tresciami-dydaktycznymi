@@ -1,11 +1,11 @@
 import React from 'react'
+import ErrorHandler from '../../components/errorhandler/ErrorHandler'
+import Loading from '../../components/loading/Loading'
 
-const MoneyPayoutResponse = () => {
+const MoneyPayoutResponse = ({msg, isLoaded}) => {
 
   return (
-    <div className="form-container">
-        <h1>Za chwilę zostaniesz przekierowany do odpowieniej podstrony</h1>
-    </div>
+    isLoaded ? <ErrorHandler msg={msg} hrefMsg={'Powrót do profilu'} hrefUrl={'/profile'}/> : <Loading />
   )
 }
 

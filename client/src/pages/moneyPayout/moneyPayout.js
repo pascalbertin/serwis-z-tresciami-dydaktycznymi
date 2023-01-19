@@ -4,24 +4,20 @@ import '../../styles/moneyPayout.css';
 import axios from '../../config/axios'
 import MoneyPayoutForm from './moneyPayoutForm'
 import MoneyPayoutResponse from './MoneyPayoutResponse';
-import {useNavigate, useLocation} from 'react-router-dom'
+import ErrorHandler from '../../components/errorhandler/ErrorHandler';
 
 
 const MoneyPayout = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
     const [error, setError] = useState('')
     const [isSubmitted, setIsSubmitted] = useState(false)
-    const [priceAmount, setPriceAmount] = useState()
-    const [values, setValues] = useState({})
+    const [isLoaded, setIsLoaded] = useState(false)
     const username = localStorage.getItem('username')
+    const token = localStorage.getItem('accessToken')
 
 
     async function submitForm(isValid, values) {
-        console.log(values);
         if(isValid) {
             setIsSubmitted(true);
-            setValues(values);
             try{
             const response = await axios.patch(API.user + '/' + username + '/withdrawMoney' , {...values},            
                 {
@@ -29,34 +25,29 @@ const MoneyPayout = () => {
                     'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
                     'Content-Type': 'application/json'},   
                     withCredentials: true,
-                 
                 });
                 if(response?.status === 200){
-                    setTimeout(navigate('/profile', {state: { from: location}, replace: true}), 100)
-                    navigate(0)
-                    setError('Tranzakcję przeprowadzono poprawnie!')
+                    setError('Transakcję przeprowadzono poprawnie!')
                   }
+                setIsLoaded(true)
             }catch(err){
+                setIsLoaded(true)
                 if(!err?.response) setError('Błąd połączenia')
                 else if(err.response?.status === 400) setError('Hasło jest wymagane!')
-                else if(err.response?.status === 401) setError('Błąd autoryzacji')
-                else setError('Błąd logowania')
+                else if(err.response?.status === 401 || err.response?.status === 403) setError('Błąd autoryzacji')
+                else if(err.response?.status === 406) setError('Nie możesz wypłacić kwoty większej niż Twoje obecne saldo!')
+                else if(err.response?.status === 409) setError('Przed wypłatą środków musisz podać numer konta bankowego! Możesz to zrobić w sekcji edycji profilu.')
+                else setError('Nieznany błąd')
             }
             setIsSubmitted(true);
-            setValues(values);
             } else {
                 setIsSubmitted(false);
-                setValues({});
             }
         }
 
-        // const handleInputPrice = (e)=>{
-        //     setPriceAmount( e.target.value );
-        //}  
-
         return(
             <div>
-                {!isSubmitted ? <MoneyPayoutForm submitForm={submitForm} /> : <MoneyPayoutResponse />}
+                {username !== null && token !== null ? !isSubmitted ? <MoneyPayoutForm submitForm={submitForm} /> : <MoneyPayoutResponse isLoaded={isLoaded} msg={error}/> : <ErrorHandler msg={process.env.REACT_APP_FORBIDDEN}/>}
             </div>        
             )
     }
